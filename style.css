@@ -1,0 +1,38 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: #1a1a1a; display: flex; justify-content: center; }
+.app-movil { width: 100%; max-width: 480px; background: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+
+/* Filtros */
+.contenedor-herramientas { background: #2c3e50; padding: 12px; position: sticky; top: 0; z-index: 100; }
+#input-busqueda { width: 100%; padding: 10px; border-radius: 20px; border: none; margin-bottom: 8px; }
+.filtros-desplegables { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+select { width: 100%; padding: 8px; border-radius: 8px; border: none; background: #ecf0f1; font-weight: bold; font-size: 11px; color: #2c3e50; }
+
+/* Imágenes */
+.contenedor-img { width: 100%; position: relative; background: #000; overflow: hidden; border-bottom: 2px solid #fff; display: flex; align-items: center; justify-content: center; }
+.mapa { height: 170px; } .foto { height: 250px; }
+img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s; cursor: zoom-in; }
+.img-zoom { transform: scale(2.5); z-index: 50; position: relative; }
+
+/* Etiquetas */
+.etiquetas-flotantes { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; gap: 4px; z-index: 10; pointer-events: none; }
+.etiqueta-mod { background: #e67e22; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: bold; width: fit-content; }
+.etiqueta-nombre { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 4px; border-left: 3px solid #3498db; }
+
+/* Datos */
+.cuerpo-datos { padding: 15px; flex-grow: 1; }
+#pieza-titulo { font-size: 1.3rem; color: #2c3e50; border-bottom: 3px solid #e67e22; display: inline-block; margin-bottom: 10px; }
+.seccion-montaje { background: #f0f7ff; padding: 12px; border-radius: 10px; border: 1px solid #d1e3f8; }
+#dato-acero-tuerca { color: #2980b9; font-weight: bold; }
+.dato-torque { color: #c0392b; font-weight: bold; font-size: 18px; margin-top: 5px; }
+
+.grid-cantidades { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #adcce9; }
+.item-cantidad { background: #fff; padding: 5px; border-radius: 4px; text-align: center; border: 1px solid #d1e3f8; font-size: 11px; }
+
+.seccion-medidas { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
+.caja-medida { background: #f8f9fa; padding: 8px; text-align: center; border-radius: 8px; border: 1px solid #eee; }
+.caja-medida small { display: block; font-size: 9px; color: #777; }
+
+/* Navegación */
+.controles { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #f4f4f4; }
+.btn-nav { background: #2c3e50; color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; }

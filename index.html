@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SISTEMA SERRA - VISOR V5.9</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+    </script>
+</head>
+<body>
+    <div class="app-movil">
+        <div class="contenedor-herramientas">
+            <div class="filtros-desplegables">
+                <select id="filtro-modulo">
+                    <option value="todos">📦 Módulo (Todos)</option>
+                </select>
+                <select id="filtro-pieza">
+                    <option value="todos">🔍 Seleccionar Pieza</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="visor-imagenes">
+            <div class="contenedor-img mapa">
+                <div class="etiquetas-flotantes">
+                    <span class="etiqueta-mod" id="etiqueta-mapa-mod">---</span>
+                    <span class="etiqueta-nombre" id="etiqueta-mapa-nombre">---</span>
+                </div>
+                <img id="img-mapa" src="" alt="Plano">
+            </div>
+            <div class="contenedor-img foto">
+                <div class="etiquetas-flotantes">
+                    <span class="etiqueta-mod" id="etiqueta-foto-mod">---</span>
+                    <span class="etiqueta-nombre" id="etiqueta-foto-nombre">---</span>
+                </div>
+                <img id="img-visor" src="" alt="Foto">
+            </div>
+        </div>
+
+        <div class="cuerpo-datos">
+            <h2 id="pieza-titulo">PIEZA: ---</h2>
+            <div class="seccion-montaje">
+                <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">---</span></div>
+                <div class="dato"><strong>⚙️ Acero Tuerca:</strong> <span id="dato-acero-tuerca">---</span></div>
+                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">---</span> <small>N.m</small></div>
+                <div class="grid-cantidades">
+                    <div class="item-cantidad">Pernos: <b id="cant-pernos">0</b></div>
+                    <div class="item-cantidad">Tuercas: <b id="cant-tuercas">0</b></div>
+                    <div class="item-cantidad">Golillas: <b id="cant-golillas">0</b></div>
+                </div>
+            </div>
+            <div class="seccion-medidas">
+                <div class="caja-medida"><small>LARGO (mm)</small><span id="dato-largo">0</span></div>
+                <div class="caja-medida"><small>ANCHO (mm)</small><span id="dato-ancho">0</span></div>
+                <div class="caja-medida"><small>ALTO (mm)</small><span id="dato-alto">0</span></div>
+            </div>
+        </div>
+
+        <div class="controles">
+            <button id="btn-atras" class="btn-nav">ANTERIOR</button>
+            <span id="indicador-indice">0 / 0</span>
+            <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
