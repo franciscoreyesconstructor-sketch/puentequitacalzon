@@ -6,10 +6,13 @@ async function cargarDatos() {
     try {
         const res = await fetch('datos_visor.json');
         const rawData = await res.json();
-        // Limpieza de nombres de columnas
+        // Limpieza profunda de los nombres de columnas y datos
         datosOriginales = rawData.map(item => {
             let nuevoItem = {};
-            for (let key in item) { nuevoItem[key.trim()] = item[key]; }
+            for (let key in item) { 
+                let claveLimpia = key.trim();
+                nuevoItem[claveLimpia] = item[key]; 
+            }
             return nuevoItem;
         });
         poblarSelectModulo();
@@ -32,7 +35,10 @@ function actualizarSelectPiezas() {
     const selectPieza = document.getElementById("filtro-pieza");
     selectPieza.innerHTML = '<option value="todos">🔍 Seleccionar Pieza</option>';
     const piezas = (modSeleccionado === "todos") ? datosOriginales : datosOriginales.filter(p => String(p["Modulo"] || "").trim() === modSeleccionado);
-    piezas.forEach(p => { if(p["Pieza individual"]) selectPieza.innerHTML += `<option value="${p["Pieza individual"]}">${p["Pieza individual"]}</option>`; });
+    piezas.forEach(p => { 
+        let cod = String(p["Pieza individual"] || "").trim();
+        if(cod) selectPieza.innerHTML += `<option value="${cod}">${cod}</option>`; 
+    });
     selectPieza.onchange = aplicarFiltros;
 }
 
@@ -48,35 +54,39 @@ function aplicarFiltros() {
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
+    // Limpiamos el ID de cualquier espacio o caracter invisible
     const id = String(p["Pieza individual"] || "").trim();
     const mod = String(p["Modulo"] || "").trim();
 
-    // Actualizar Textos
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + id;
     document.getElementById("dato-perno").innerText = p["perno"] || "---";
     document.getElementById("dato-torque").innerText = (p["Par apriete (N.m) (Torque)"] || "0") + " N.m";
 
-    // --- LÓGICA DE IMÁGENES "INTELIGENTE" ---
     const imgMapa = document.getElementById("img-mapa");
     const imgVisor = document.getElementById("img-visor");
 
+    // Lógica de prefijo para planos
     let prefijo = (mod === "11") ? "mod11" : "mod01";
     
-    // Intentamos cargar (por defecto busca .jpg minúscula)
+    // 1. Intentamos cargar normal (.jpg minúscula)
     imgMapa.src = `fotos/${prefijo}${id}.jpg`;
     imgVisor.src = `fotos/${id}.jpg`;
 
-    // Si falla el mapa, intentamos con el ID en mayúsculas y extensión .JPG
+    // 2. Si falla el mapa, probamos con .JPG (mayúscula)
     imgMapa.onerror = function() {
-        if (!this.src.includes(".JPG")) {
-            this.src = `fotos/${prefijo}${id.toUpperCase()}.JPG`;
+        if (this.src.endsWith(".jpg")) {
+            this.src = this.src.replace(".jpg", ".JPG");
+        } else if (this.src.endsWith(".JPG")) {
+            // Si también falla, probamos con prefijo en mayúsculas MOD11...
+            let prefijoMayus = prefijo.toUpperCase();
+            this.src = `fotos/${prefijoMayus}${id}.JPG`;
         }
     };
 
-    // Si falla la foto de la pieza, lo mismo
+    // 3. Si falla la foto, probamos con .JPG (mayúscula)
     imgVisor.onerror = function() {
-        if (!this.src.includes(".JPG")) {
-            this.src = `fotos/${id.toUpperCase()}.JPG`;
+        if (this.src.endsWith(".jpg")) {
+            this.src = this.src.replace(".jpg", ".JPG");
         }
     };
 
