@@ -82,6 +82,43 @@ function actualizarInterfaz() {
         this.src = "https://via.placeholder.com/400x300?text=Plano+No+Disponible";
     };
 
+    // --- SECCIÓN DE IMÁGENES CORREGIDA ---
+function actualizarInterfaz() {
+    if (datosFiltrados.length === 0) return;
+    const p = datosFiltrados[posicionActual];
+
+    // Limpiamos los IDs de cualquier espacio accidental en el Excel
+    const piezaID = String(p["Pieza individual"]).trim();
+    const modID = String(p.Modulo).trim();
+
+    const imgMapa = document.getElementById("img-mapa");
+    const imgVisor = document.getElementById("img-visor");
+
+    // 1. Foto de la pieza (Normal)
+    imgVisor.src = `fotos/${piezaID}.jpg`;
+
+    // 2. Plano de Ubicación (Lógica de búsqueda)
+    // Intentamos el formato: mod01 + NombrePieza (ej: mod0160IC15W.jpg)
+    const nombrePlanoPrincipal = `mod0${modID}${piezaID}.jpg`;
+    imgMapa.src = `fotos/${nombrePlanoPrincipal}`;
+
+    // Si el nombre con "mod0" falla, intentamos buscarlo solo por el nombre de la pieza
+    // pero con un prefijo "P_" o similar si es que los renombraste así.
+    imgMapa.onerror = function() {
+        console.warn("No se encontró el plano: " + nombrePlanoPrincipal);
+        
+        // SEGUNDO INTENTO: Quizás el archivo se llama "mod1..." sin el cero
+        if (!this.src.includes(`mod${modID}`)) {
+             this.src = `fotos/mod${modID}${piezaID}.jpg`;
+        } else {
+             // Si falla todo, mostramos el aviso visual
+             this.src = "https://via.placeholder.com/400x300?text=Error:+Falta+Archivo+Plano";
+        }
+    };
+    
+    // ... resto del código (Torque, Medidas, etc.) ...
+}
+
     // Contador
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
 }
@@ -102,3 +139,4 @@ document.getElementById("btn-atras").onclick = () => {
 };
 
 cargarDatos();
+
