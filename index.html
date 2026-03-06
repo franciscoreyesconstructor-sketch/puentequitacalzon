@@ -3,56 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SISTEMA SERRA - VISOR DE MONTAJE</title>
+    <title>SISTEMA SERRA - VISOR V10</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Ajustes rápidos para asegurar que el "Paso" se vea destacado */
-        .contenedor-paso {
-            background-color: #ffcc00;
-            color: #000;
-            text-align: center;
-            padding: 8px;
-            font-weight: bold;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            font-size: 0.9em;
-        }
-        #pieza-titulo {
-            margin-top: 0;
-            color: #ffffff;
-            font-size: 1.5em;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
     <div class="app-movil">
         <div class="contenedor-herramientas">
             <div class="filtros-desplegables">
-                <select id="filtro-modulo">
-                    <option value="todos">📦 Módulo (Todos)</option>
-                </select>
-                <select id="filtro-pieza">
-                    <option value="todos">🔍 Seleccionar Pieza</option>
-                </select>
+                <select id="filtro-modulo"><option value="todos">📦 Módulo (Todos)</option></select>
+                <select id="filtro-pieza"><option value="todos">🔍 Seleccionar Pieza</option></select>
             </div>
         </div>
 
         <div class="visor-imagenes">
             <div class="contenedor-img mapa">
-                <div class="etiqueta-flotante">PLANO</div>
-                <img id="img-mapa" src="fotos/placeholder_plano.jpg" alt="Plano de ubicación">
+                <div class="etiqueta-flotante">PLANO UBICACIÓN</div>
+                <img id="img-mapa" src="" alt="Plano">
             </div>
             <div class="contenedor-img foto">
                 <div class="etiqueta-flotante">FOTO PIEZA</div>
-                <img id="img-visor" src="fotos/placeholder_pieza.jpg" alt="Foto de la pieza">
+                <img id="img-visor" src="" alt="Foto">
             </div>
         </div>
 
         <div class="cuerpo-datos">
-            <div class="contenedor-paso">
-                <span id="dato-secuencia">SECUENCIA: ESPERANDO...</span>
+            <div class="cinta-paso">
+                <span id="dato-secuencia">PASO: --</span>
             </div>
 
             <h2 id="pieza-titulo">PIEZA: --</h2>
@@ -60,7 +36,7 @@
             <div class="seccion-montaje">
                 <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">--</span></div>
                 <div class="dato"><strong>⚙️ Estándar:</strong> <span id="dato-acero-tuerca">--</span></div>
-                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">0</span> <small>N.m</small></div>
+                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">--</span> <small>N.m</small></div>
                 
                 <div class="grid-cantidades">
                     <div class="item-cantidad">Pernos: <b id="cant-pernos">0</b></div>
@@ -82,7 +58,6 @@
             <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
