@@ -1,42 +1,195 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background: #1a1a1a; color: white; display: flex; justify-content: center; }
-.app-movil { width: 100%; max-width: 500px; background: #000; min-height: 100vh; display: flex; flex-direction: column; }
+/* 1. RESET Y BASE */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
 
-/* CABECERA */
-.contenedor-herramientas { padding: 10px; background: #2d2d2d; display: flex; flex-direction: column; gap: 8px; }
-#filtro-modulo { padding: 12px; border-radius: 5px; background: #444; color: white; border: none; font-size: 16px; }
-.btn-abrir-secuencia { background: #ffcc00; color: black; font-weight: bold; padding: 15px; border: none; border-radius: 5px; cursor: pointer; }
+body {
+    background-color: #121212; /* Fondo oscuro para ahorrar batería */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+}
 
-/* VISOR */
-.visor-imagenes { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #333; }
-.contenedor-img { position: relative; background: #000; height: 180px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.contenedor-img img { width: 100%; height: 100%; object-fit: contain; }
-.etiqueta-flotante { position: absolute; top: 5px; left: 5px; background: rgba(0,0,0,0.8); color: #ffcc00; font-size: 10px; padding: 2px 5px; font-weight: bold; }
+.app-movil {
+    width: 100%;
+    max-width: 480px; /* Ancho típico de celular */
+    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-/* CUERPO DE DATOS */
-.cuerpo-datos { padding: 15px; flex-grow: 1; }
-#pieza-titulo { color: #ffcc00; font-size: 20px; margin-bottom: 10px; border-bottom: 1px solid #333; }
+/* 2. SELECTOR DE MÓDULO */
+.contenedor-herramientas {
+    padding: 15px;
+    background-color: #222;
+}
 
-/* LÍNEA DE SECUENCIA INTEGRADA */
-.dato-secuencia-linea { background: #333; padding: 10px; margin-bottom: 12px; border-left: 5px solid #ffcc00; border-radius: 0 5px 5px 0; font-size: 18px; }
-#dato-paso-linea { color: #ffcc00; font-weight: bold; margin-left: 5px; }
+#filtro-modulo {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #ffcc00;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
 
-.dato, .dato-torque { margin-bottom: 8px; font-size: 15px; }
-.grid-cantidades { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 10px; }
-.item-cantidad { background: #222; padding: 8px; font-size: 11px; text-align: center; border-radius: 4px; border: 1px solid #333; }
-.item-cantidad b { display: block; color: #ffcc00; font-size: 16px; }
+/* 3. VISORES DE IMAGEN */
+.visor-imagenes {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 4px;
+    padding: 4px;
+    background-color: #333;
+}
 
-.seccion-medidas { display: flex; justify-content: space-between; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px; }
-.caja-medida { text-align: center; flex: 1; }
-.caja-medida small { display: block; font-size: 10px; color: #888; }
-.caja-medida span { font-size: 18px; font-weight: bold; }
+.contenedor-img {
+    position: relative;
+    height: 180px;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid #444;
+}
 
-/* PANTALLA MODAL */
-.pantalla-secuencia { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; align-items: center; justify-content: center; }
-.numero-paso { font-size: 120px; font-weight: bold; color: #ffcc00; text-shadow: 0 0 15px rgba(255,204,0,0.5); }
-.cerrar-secuencia { background: #cc0000; color: white; padding: 15px 40px; border: none; border-radius: 50px; font-weight: bold; margin-top: 30px; }
+.contenedor-img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Evita que la foto se estire */
+}
 
-/* CONTROLES */
-.controles { background: #111; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-.btn-nav { background: #444; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 4px; }
-#indicador-indice { color: #ffcc00; font-weight: bold; }
+.etiqueta-flotante {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: rgba(255, 204, 0, 0.9);
+    color: #000;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+/* 4. DATOS TÉCNICOS */
+.cuerpo-datos {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+#pieza-titulo {
+    color: #ffcc00;
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 10px;
+}
+
+.seccion-montaje {
+    background-color: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.dato {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.dato-torque {
+    font-size: 20px;
+    color: #ffcc00;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border: 1px dashed #ffcc00;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.grid-cantidades {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.item-cantidad {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.item-cantidad b {
+    display: block;
+    font-size: 18px;
+    color: #ffcc00;
+}
+
+/* 5. MEDIDAS */
+.seccion-medidas {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.caja-medida {
+    flex: 1;
+    background-color: #222;
+    padding: 10px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.caja-medida small {
+    display: block;
+    color: #888;
+    font-size: 10px;
+}
+
+.caja-medida span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 6. NAVEGACIÓN */
+.controles {
+    padding: 20px;
+    background-color: #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+}
+
+.btn-nav {
+    background-color: #ffcc00;
+    color: #000;
+    border: none;
+    padding: 15px 25px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-nav:active {
+    background-color: #e6b800;
+}
+
+#indicador-indice {
+    font-weight: bold;
+    color: #ffcc00;
+}
