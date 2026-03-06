@@ -5,7 +5,8 @@ let posicionActual = 0;
 // 1. CARGA DE DATOS
 async function cargarDatos() {
     try {
-        const respuesta = await fetch('datos_visor.json');
+        // Usamos timestamp para evitar archivos viejos en memoria
+        const respuesta = await fetch('datos_visor.json?v=' + Date.now());
         datosOriginales = await respuesta.json();
         
         poblarSelectModulo();
@@ -15,15 +16,14 @@ async function cargarDatos() {
     }
 }
 
-// 2. POBLAR EL SELECTOR
+// 2. SELECTOR DE MÓDULOS
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
-    // Obtenemos módulos únicos y los ordenamos alfabéticamente
-    const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo).trim()))].sort();
+    const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo).trim()))].sort((a,b) => a - b);
     
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
     modulos.forEach(m => {
-        if(m) {
+        if(m && m !== "undefined") {
             selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
         }
     });
@@ -31,53 +31,51 @@ function poblarSelectModulo() {
     selectMod.onchange = aplicarFiltros;
 }
 
-// 3. FILTRAR LOS DATOS
+// 3. FILTRADO
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     
     datosFiltrados = (modVal === "todos") 
         ? [...datosOriginales] 
-        : datosOriginales.filter(p => String(p.Modulo).trim() === modVal);
+        : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
     
     posicionActual = 0;
     actualizarInterfaz();
 }
 
-// 4. ACTUALIZAR LA PANTALLA
+// 4. ACTUALIZAR PANTALLA (Aquí corregimos el error del Perno)
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
 
-    // --- LOGICA DE BUSQUEDA FLEXIBLE PARA DATOS ---
-    // Esto evita errores si en el Excel la columna se llama "Perno" o "perno"
-    const valorPerno = p.Perno || p.perno || p.PERNO || "--";
-    const valorTorque = p["Par apriete (N.m) (Torque)"] || p.Torque || p.torque || "0";
-    const valorEstandar = p.stdtuerca || p.Estandar || p.estandar || "--";
+    // --- CORRECCIÓN DE NOMBRES DE COLUMNA ---
+    // Buscamos el perno de varias formas para no fallar
+    const textoPerno = p.perno || p.Perno || p.PERNO || "--";
+    const textoEstandar = p.stdtuerca || p["Acero Tuerca"] || p.estandar || "--";
+    const textoTorque = p["Par apriete (N.m) (Torque)"] || p.torque || p.Torque || "0";
 
-    // Actualizar Textos en el HTML
-    document.getElementById("pieza-titulo").innerText = "PIEZA: " + (p["Pieza individual"] || p.pieza || "--");
-    document.getElementById("dato-perno").innerText = valorPerno;
-    document.getElementById("dato-acero-tuerca").innerText = valorEstandar;
-    document.getElementById("dato-torque").innerText = valorTorque;
+    // Textos en HTML
+    document.getElementById("pieza-titulo").innerText = "PIEZA: " + (p["Pieza individual"] || "--");
+    document.getElementById("dato-perno").innerText = textoPerno;
+    document.getElementById("dato-acero-tuerca").innerText = textoEstandar;
+    document.getElementById("dato-torque").innerText = textoTorque;
     
     // Cantidades
-    document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || p.cant_pernos || "0";
-    document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || p.cant_tuercas || "0";
-    document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || p.cant_golillas || "0";
+    document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || 0;
+    document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || 0;
+    document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || 0;
     
     // Medidas
-    document.getElementById("dato-largo").innerText = p["Largo (mm)"] || p.largo || "0";
-    document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || p.ancho || "0";
-    document.getElementById("dato-alto").innerText = p["Alto (mm)"] || p.alto || "0";
+    document.getElementById("dato-largo").innerText = p["Largo (mm)"] || 0;
+    document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || 0;
+    document.getElementById("dato-alto").innerText = p["Alto (mm)"] || 0;
 
-    // Actualizar Imágenes
-    const idPieza = String(p["Pieza individual"] || p.pieza || "").trim();
-    const idMod = String(p.Modulo || p.modulo || "").trim();
+    // Imágenes (Lógica V5)
+    const idPieza = String(p["Pieza individual"]).trim();
+    const idMod = String(p.Modulo || p.modulo).trim();
 
-    if (idPieza) {
-        document.getElementById("img-mapa").src = `fotos/mod0${idMod}${idPieza}.jpg`;
-        document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
-    }
+    document.getElementById("img-mapa").src = `fotos/mod0${idMod}${idPieza}.jpg`;
+    document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
 
     // Contador
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
@@ -98,6 +96,4 @@ document.getElementById("btn-atras").onclick = () => {
     }
 };
 
-// Iniciar aplicación
 cargarDatos();
-
