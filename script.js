@@ -48,27 +48,36 @@ function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
 
-    // Actualizar Textos
-    document.getElementById("pieza-titulo").innerText = "PIEZA: " + p["Pieza individual"];
-    document.getElementById("dato-perno").innerText = p.perno || "--";
-    document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || "--";
-    document.getElementById("dato-torque").innerText = p["Par apriete (N.m) (Torque)"] || "0";
-    
-    document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || "0";
-    document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || "0";
-    document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || "0";
-    
-    document.getElementById("dato-largo").innerText = p["Largo (mm)"] || "0";
-    document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "0";
-    document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "0";
+    // --- LOGICA DE BUSQUEDA FLEXIBLE PARA DATOS ---
+    // Esto evita errores si en el Excel la columna se llama "Perno" o "perno"
+    const valorPerno = p.Perno || p.perno || p.PERNO || "--";
+    const valorTorque = p["Par apriete (N.m) (Torque)"] || p.Torque || p.torque || "0";
+    const valorEstandar = p.stdtuerca || p.Estandar || p.estandar || "--";
 
-    // Actualizar Imágenes (Ruta V5)
-    const idPieza = String(p["Pieza individual"]).trim();
-    const idMod = String(p.Modulo).trim();
+    // Actualizar Textos en el HTML
+    document.getElementById("pieza-titulo").innerText = "PIEZA: " + (p["Pieza individual"] || p.pieza || "--");
+    document.getElementById("dato-perno").innerText = valorPerno;
+    document.getElementById("dato-acero-tuerca").innerText = valorEstandar;
+    document.getElementById("dato-torque").innerText = valorTorque;
+    
+    // Cantidades
+    document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || p.cant_pernos || "0";
+    document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || p.cant_tuercas || "0";
+    document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || p.cant_golillas || "0";
+    
+    // Medidas
+    document.getElementById("dato-largo").innerText = p["Largo (mm)"] || p.largo || "0";
+    document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || p.ancho || "0";
+    document.getElementById("dato-alto").innerText = p["Alto (mm)"] || p.alto || "0";
 
-    // El plano usa el formato: mod0 + numero + pieza
-    document.getElementById("img-mapa").src = `fotos/mod0${idMod}${idPieza}.jpg`;
-    document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
+    // Actualizar Imágenes
+    const idPieza = String(p["Pieza individual"] || p.pieza || "").trim();
+    const idMod = String(p.Modulo || p.modulo || "").trim();
+
+    if (idPieza) {
+        document.getElementById("img-mapa").src = `fotos/mod0${idMod}${idPieza}.jpg`;
+        document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
+    }
 
     // Contador
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
@@ -91,3 +100,4 @@ document.getElementById("btn-atras").onclick = () => {
 
 // Iniciar aplicación
 cargarDatos();
+
