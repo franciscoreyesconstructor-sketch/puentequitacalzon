@@ -1,31 +1,43 @@
 // ==========================================
-// VARIABLES GLOBALES DE LA APLICACIÓN
+// CONFIGURACIÓN GLOBAL
 // ==========================================
 let datosOriginales = [];
 let datosFiltrados = [];
 let posicionActual = 0;
 
-// 1. CARGA INICIAL: Lee el JSON y prepara la App
+// 1. FUNCIÓN DE CARGA (Con protección de caché y errores)
 async function cargarDatos() {
     try {
-        // Usamos ?v=1.2 para que el navegador no guarde versiones viejas en caché
-        const res = await fetch('datos_visor.json?v=1.2');
-        datosOriginales = await res.json();
+        console.log("Intentando cargar datos_visor.json...");
         
-        console.log("Base de datos cargada. Filas detectadas: " + datosOriginales.length);
+        // El "?v=" + Date.now() fuerza al navegador a leer el archivo real, no el guardado
+        const respuesta = await fetch('datos_visor.json?v=' + Date.now());
+        
+        if (!respuesta.ok) {
+            throw new Error("No se encontró el archivo datos_visor.json. Revisa el nombre en GitHub.");
+        }
+
+        datosOriginales = await respuesta.json();
+        console.log("Carga exitosa. Total de piezas: " + datosOriginales.length);
         
         poblarSelectModulo();
         aplicarFiltros();
+
     } catch (error) {
-        console.error("Error al cargar el archivo JSON: ", error);
-        alert("Atención: No se pudo cargar el archivo datos_visor.json");
+        console.error("Error detallado:", error);
+        
+        // Mensaje de auxilio visible en el celular si falla la carga
+        const aviso = document.createElement("div");
+        aviso.style = "position:fixed; top:0; background:red; color:white; padding:20px; z-index:9999; width:100%;";
+        aviso.innerHTML = `<b>⚠️ ERROR DE CARGA:</b> ${error.message}<br><small>Revisa comas de más o el nombre del archivo.</small>`;
+        document.body.appendChild(aviso);
     }
 }
 
-// 2. SELECTOR DE MÓDULOS: Crea las opciones según el JSON
+// 2. POBLAR SELECTOR DE MÓDULOS
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
-    // Extraemos los números de módulo, quitamos espacios y ordenamos de menor a mayor
+    // Extraemos módulos únicos, limpiamos espacios y ordenamos
     const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo).trim()))].sort((a, b) => a - b);
     
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
@@ -38,16 +50,16 @@ function poblarSelectModulo() {
     selectMod.onchange = aplicarFiltros;
 }
 
-// 3. FILTRADO Y ORDENAMIENTO: Organiza por la columna "Paso"
+// 3. FILTRADO Y ORDENAMIENTO CRECIENTE
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     
-    // Filtramos los datos por el módulo seleccionado
+    // Filtrar
     let temporal = (modVal === "todos") 
         ? [...datosOriginales] 
         : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
     
-    // ORDEN CRECIENTE: Comparamos los pasos numéricamente (0.9 < 1.0 < 21.0)
+    // Ordenar por "Paso" numéricamente (Ej: 0.9 antes que 1.0)
     temporal.sort((a, b) => {
         let pasoA = parseFloat(a.Paso || a.paso || a.PASO) || 0;
         let pasoB = parseFloat(b.Paso || b.paso || b.PASO) || 0;
@@ -59,16 +71,17 @@ function aplicarFiltros() {
     actualizarInterfaz();
 }
 
-// 4. ACTUALIZAR INTERFAZ: Dibuja los datos y fotos en pantalla
+// 4. ACTUALIZAR PANTALLA
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
 
     const p = datosFiltrados[posicionActual];
     
-    // --- DATOS DE TEXTO ---
+    // Texto de Secuencia (El que se muestra/oculta con el botón)
     const numPaso = p.Paso || p.paso || p.PASO || "--";
-    document.getElementById("id-secuencia").innerText = "SECUENCIA DE MONTAJE: PASO " + numPaso;
+    document.getElementById("dato-secuencia").innerText = "SECUENCIA DE MONTAJE: PASO " + numPaso;
     
+    // Datos técnicos
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + (p["Pieza individual"] || "--");
     document.getElementById("dato-perno").innerText = p.perno || "VER PLANO";
     document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || "--";
@@ -82,48 +95,45 @@ function actualizarInterfaz() {
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "0";
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "0";
 
-    // --- LÓGICA DE IMÁGENES (ESTRICTA) ---
+    // Manejo de Imágenes
     const piezaID = String(p["Pieza individual"]).trim();
     const modID = String(p.Modulo || p.modulo).trim();
     
     const imgMapa = document.getElementById("img-mapa");
     const imgVisor = document.getElementById("img-visor");
 
-    // Foto Principal: Siempre busca el nombre de la pieza
+    // Foto de la pieza
     imgVisor.src = `fotos/${piezaID}.jpg`;
 
-    // Plano de Ubicación: Busca el prefijo "mod" seguido del número y la pieza
-    // Ejemplo: fotos/mod160IC15W.jpg
+    // Plano de ubicación (Prefijo mod + modulo + pieza)
     const rutaPlano = `fotos/mod${modID}${piezaID}.jpg`;
     imgMapa.src = rutaPlano;
 
-    // Si el PLANO no existe, mostramos error en lugar de repetir la foto de la pieza
+    // Si el PLANO falla, ponemos aviso (No repetimos la foto de la pieza)
     imgMapa.onerror = () => {
-        console.warn("Falta archivo de plano para: " + piezaID);
         imgMapa.src = "https://via.placeholder.com/400x300?text=Plano+No+Encontrado";
     };
     
-    // Si la FOTO no existe, mostramos aviso
     imgVisor.onerror = () => {
-        imgVisor.src = "https://via.placeholder.com/400x300?text=Foto+No+Disponible";
+        imgVisor.src = "https://via.placeholder.com/400x300?text=Foto+No+Encontrada";
     };
 
-    // Actualizamos el contador inferior
+    // Contador
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
 }
 
-// 5. FUNCIÓN DEL BOTÓN "VER SECUENCIA" (Muestra/Oculta la cinta amarilla)
+// 5. FUNCIÓN DEL BOTÓN "VER SECUENCIA"
 function togglePaso() {
-    const capaPaso = document.getElementById("contenedor-paso");
-    
-    if (capaPaso.style.display === "none" || capaPaso.style.display === "") {
-        capaPaso.style.display = "block";
+    const contenedor = document.getElementById("contenedor-paso");
+    // Intercambia entre ocultar y mostrar
+    if (contenedor.style.display === "none" || contenedor.style.display === "") {
+        contenedor.style.display = "block";
     } else {
-        capaPaso.style.display = "none";
+        contenedor.style.display = "none";
     }
 }
 
-// 6. NAVEGACIÓN ENTRE PIEZAS
+// 6. NAVEGACIÓN
 document.getElementById("btn-siguiente").onclick = () => {
     if (posicionActual < datosFiltrados.length - 1) {
         posicionActual++;
@@ -138,5 +148,5 @@ document.getElementById("btn-atras").onclick = () => {
     }
 };
 
-// EJECUCIÓN AL CARGAR LA PÁGINA
+// Arrancar
 cargarDatos();
