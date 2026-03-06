@@ -6,22 +6,17 @@ async function cargarDatos() {
     try {
         const res = await fetch('datos_visor.json');
         datosOriginales = await res.json();
-        
         poblarSelectModulo();
         aplicarFiltros();
-    } catch (e) {
-        console.error("Error cargando JSON:", e);
-    }
+    } catch (e) { console.error("Error al cargar JSON:", e); }
 }
 
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
     const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo).trim()))].sort((a,b) => a - b);
-    selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
+    selectMod.innerHTML = '<option value="todos">📦 Todos los Módulos</option>';
     modulos.forEach(m => {
-        if(m !== "" && m !== "undefined") {
-            selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
-        }
+        if(m) selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
     });
     selectMod.onchange = aplicarFiltros;
 }
@@ -29,14 +24,20 @@ function poblarSelectModulo() {
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     
-    // Filtramos y ordenamos automáticamente por el número de PASO
-    datosFiltrados = (modVal === "todos") 
+    // 1. Filtramos por módulo
+    let temporal = (modVal === "todos") 
         ? [...datosOriginales] 
         : datosOriginales.filter(p => String(p.Modulo).trim() === modVal);
     
-    // Ordenar por paso (numérico)
-    datosFiltrados.sort((a, b) => parseFloat(a.Paso) - parseFloat(b.Paso));
-    
+    // 2. ORDENAR POR PASO (CRECIENTE)
+    // Usamos parseFloat para que 0.10 venga después de 0.9 correctamente
+    temporal.sort((a, b) => {
+        let pasoA = parseFloat(a.Paso) || 0;
+        let pasoB = parseFloat(b.Paso) || 0;
+        return pasoA - pasoB;
+    });
+
+    datosFiltrados = temporal;
     posicionActual = 0;
     actualizarInterfaz();
 }
@@ -44,13 +45,11 @@ function aplicarFiltros() {
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
-    const piezaID = String(p["Pieza individual"]).trim();
-    const moduloID = String(p["Modulo"]).trim();
-
-    // Llenado de textos
-    document.getElementById("dato-secuencia").innerText = "PASO DE MONTAJE: " + (p.Paso || "--");
-    document.getElementById("pieza-titulo").innerText = "PIEZA: " + piezaID;
-    document.getElementById("dato-perno").innerText = p.perno || "VER PLANO";
+    
+    // Vinculación de datos a los IDs del HTML
+    document.getElementById("dato-secuencia").innerText = "SECUENCIA DE MONTAJE: PASO " + (p.Paso || "--");
+    document.getElementById("pieza-titulo").innerText = "PIEZA: " + p["Pieza individual"];
+    document.getElementById("dato-perno").innerText = p.perno || "N/A";
     document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || "--";
     document.getElementById("dato-torque").innerText = p["Par apriete (N.m) (Torque)"] || "0";
     document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || "0";
@@ -60,25 +59,30 @@ function actualizarInterfaz() {
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "0";
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "0";
 
-    // Manejo de Imágenes (Buscador Inteligente)
-    const imgMapa = document.getElementById("img-mapa");
-    const imgVisor = document.getElementById("img-visor");
+    // Carga de imágenes
+    const piezaID = String(p["Pieza individual"]).trim();
+    const modID = String(p["Modulo"]).trim();
     
-    // Prefijo para planos: mod01, mod02...
-    const prefijoPlano = "mod0" + moduloID;
-    
-    imgMapa.src = `fotos/${prefijoPlano}${piezaID}.jpg`;
-    imgVisor.src = `fotos/${piezaID}.jpg`;
+    document.getElementById("img-visor").src = `fotos/${piezaID}.jpg`;
+    document.getElementById("img-mapa").src = `fotos/mod0${modID}${piezaID}.jpg`;
 
-    // Si la imagen falla, ponemos un aviso
-    imgMapa.onerror = () => { imgMapa.src = "https://via.placeholder.com/400x300?text=Plano+No+Encontrado"; };
-    imgVisor.onerror = () => { imgVisor.src = "https://via.placeholder.com/400x300?text=Foto+No+Encontrada"; };
-
+    // Indicador de posición
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
 }
 
-// Botones
-document.getElementById("btn-siguiente").onclick = () => { if(posicionActual < datosFiltrados.length-1) { posicionActual++; actualizarInterfaz(); } };
-document.getElementById("btn-atras").onclick = () => { if(posicionActual > 0) { posicionActual--; actualizarInterfaz(); } };
+// Navegación
+document.getElementById("btn-siguiente").onclick = () => {
+    if(posicionActual < datosFiltrados.length - 1) {
+        posicionActual++;
+        actualizarInterfaz();
+    }
+};
+
+document.getElementById("btn-atras").onclick = () => {
+    if(posicionActual > 0) {
+        posicionActual--;
+        actualizarInterfaz();
+    }
+};
 
 cargarDatos();
