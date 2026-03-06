@@ -3,49 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SISTEMA SERRA - VISOR DE MONTAJE</title>
+    <title>VISOR SERRA - MONTAJE</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-movil">
         <div class="contenedor-herramientas">
             <div class="filtros-desplegables">
-                <select id="filtro-modulo">
-                    <option value="todos">📦 Módulo (Todos)</option>
-                </select>
-                <select id="filtro-pieza">
-                    <option value="todos">🔍 Seleccionar Pieza</option>
-                </select>
+                <select id="filtro-modulo"></select>
+                <select id="filtro-pieza"></select>
             </div>
         </div>
 
         <div class="visor-imagenes">
             <div class="contenedor-img mapa">
-                <div class="etiquetas-flotantes">
-                    <span class="etiqueta-mod">---</span>
-                    <span class="etiqueta-nombre">---</span>
-                </div>
                 <img id="img-mapa" src="" alt="Plano">
             </div>
             <div class="contenedor-img foto">
-                <div class="etiquetas-flotantes">
-                    <span class="etiqueta-mod">---</span>
-                    <span class="etiqueta-nombre">---</span>
-                </div>
                 <img id="img-visor" src="" alt="Foto">
             </div>
         </div>
 
         <div class="cuerpo-datos">
-            <div id="contenedor-titulo">
-                <small id="dato-secuencia">SECUENCIA: ---</small>
-                <h2 id="pieza-titulo">PIEZA: ---</h2>
+            <div class="encabezado-paso">
+                <span id="dato-secuencia">PASO: --</span>
             </div>
+            
+            <h2 id="pieza-titulo">PIEZA: --</h2>
 
             <div class="seccion-montaje">
-                <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">---</span></div>
-                <div class="dato"><strong>⚙️ Acero Tuerca:</strong> <span id="dato-acero-tuerca">---</span></div>
-                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">---</span> <small>N.m</small></div>
+                <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">--</span></div>
+                <div class="dato"><strong>⚙️ Estándar:</strong> <span id="dato-acero-tuerca">--</span></div>
+                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">0</span> <small>N.m</small></div>
                 
                 <div class="grid-cantidades">
                     <div class="item-cantidad">Pernos: <b id="cant-pernos">0</b></div>
@@ -62,9 +51,9 @@
         </div>
 
         <div class="controles">
-            <button id="btn-atras" class="btn-nav">ANTERIOR</button>
+            <button id="btn-atras" class="btn-nav">⬅️</button>
             <span id="indicador-indice">0 / 0</span>
-            <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
+            <button id="btn-siguiente" class="btn-nav">➡️</button>
         </div>
     </div>
     <script src="script.js"></script>
