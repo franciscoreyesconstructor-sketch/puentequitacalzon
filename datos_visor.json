@@ -205,9 +205,9 @@
         "Cantidad Golillas por pieza": "16",
         "stdtuerca": "HV-10.9",
         "Par apriete (N.m) (Torque)": "400",
-        "Largo (mm)": "#N/A",
-        "Ancho (mm)": "#N/A",
-        "Alto (mm)": "#N/A"
+        "Largo (mm)": "6300",
+        "Ancho (mm)": "110",
+        "Alto (mm)": "150"
     },
     {
         "Modulo": "1",
@@ -3524,4 +3524,5 @@
         "Ancho (mm)": "300",
         "Alto (mm)": "140"
     }
+
 ]
