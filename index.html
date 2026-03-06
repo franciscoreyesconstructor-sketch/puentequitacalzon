@@ -3,32 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VISOR SERRA - MONTAJE</title>
+    <title>SISTEMA SERRA - VISOR DE MONTAJE</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ajustes rápidos para asegurar que el "Paso" se vea destacado */
+        .contenedor-paso {
+            background-color: #ffcc00;
+            color: #000;
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        #pieza-titulo {
+            margin-top: 0;
+            color: #ffffff;
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="app-movil">
         <div class="contenedor-herramientas">
             <div class="filtros-desplegables">
-                <select id="filtro-modulo"></select>
-                <select id="filtro-pieza"></select>
+                <select id="filtro-modulo">
+                    <option value="todos">📦 Módulo (Todos)</option>
+                </select>
+                <select id="filtro-pieza">
+                    <option value="todos">🔍 Seleccionar Pieza</option>
+                </select>
             </div>
         </div>
 
         <div class="visor-imagenes">
             <div class="contenedor-img mapa">
-                <img id="img-mapa" src="" alt="Plano">
+                <div class="etiqueta-flotante">PLANO</div>
+                <img id="img-mapa" src="fotos/placeholder_plano.jpg" alt="Plano de ubicación">
             </div>
             <div class="contenedor-img foto">
-                <img id="img-visor" src="" alt="Foto">
+                <div class="etiqueta-flotante">FOTO PIEZA</div>
+                <img id="img-visor" src="fotos/placeholder_pieza.jpg" alt="Foto de la pieza">
             </div>
         </div>
 
         <div class="cuerpo-datos">
-            <div class="encabezado-paso">
-                <span id="dato-secuencia">PASO: --</span>
+            <div class="contenedor-paso">
+                <span id="dato-secuencia">SECUENCIA: ESPERANDO...</span>
             </div>
-            
+
             <h2 id="pieza-titulo">PIEZA: --</h2>
 
             <div class="seccion-montaje">
@@ -51,11 +77,12 @@
         </div>
 
         <div class="controles">
-            <button id="btn-atras" class="btn-nav">⬅️</button>
+            <button id="btn-atras" class="btn-nav">ANTERIOR</button>
             <span id="indicador-indice">0 / 0</span>
-            <button id="btn-siguiente" class="btn-nav">➡️</button>
+            <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
