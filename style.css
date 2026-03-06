@@ -1,176 +1,42 @@
-/* 1. CONFIGURACIÓN BASE */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: #1a1a1a; color: white; display: flex; justify-content: center; }
+.app-movil { width: 100%; max-width: 500px; background: #000; min-height: 100vh; display: flex; flex-direction: column; }
 
-body {
-    background-color: #1a1a1a; /* Fondo oscuro industrial */
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    overflow-x: hidden;
-}
+/* CABECERA */
+.contenedor-herramientas { padding: 10px; background: #2d2d2d; display: flex; flex-direction: column; gap: 8px; }
+#filtro-modulo { padding: 12px; border-radius: 5px; background: #444; color: white; border: none; font-size: 16px; }
+.btn-abrir-secuencia { background: #ffcc00; color: black; font-weight: bold; padding: 15px; border: none; border-radius: 5px; cursor: pointer; }
 
-.app-movil {
-    width: 100%;
-    max-width: 500px;
-    background-color: #000000;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+/* VISOR */
+.visor-imagenes { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #333; }
+.contenedor-img { position: relative; background: #000; height: 180px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.contenedor-img img { width: 100%; height: 100%; object-fit: contain; }
+.etiqueta-flotante { position: absolute; top: 5px; left: 5px; background: rgba(0,0,0,0.8); color: #ffcc00; font-size: 10px; padding: 2px 5px; font-weight: bold; }
 
-/* 2. BOTÓN DE SECUENCIA Y FILTROS */
-.contenedor-herramientas {
-    padding: 10px;
-    background: #2d2d2d;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
+/* CUERPO DE DATOS */
+.cuerpo-datos { padding: 15px; flex-grow: 1; }
+#pieza-titulo { color: #ffcc00; font-size: 20px; margin-bottom: 10px; border-bottom: 1px solid #333; }
 
-#filtro-modulo {
-    padding: 12px;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    background: #444;
-    color: white;
-}
+/* LÍNEA DE SECUENCIA INTEGRADA */
+.dato-secuencia-linea { background: #333; padding: 10px; margin-bottom: 12px; border-left: 5px solid #ffcc00; border-radius: 0 5px 5px 0; font-size: 18px; }
+#dato-paso-linea { color: #ffcc00; font-weight: bold; margin-left: 5px; }
 
-.btn-abrir-secuencia {
-    background: #ffcc00; /* Amarillo SERRA */
-    color: #000;
-    font-weight: 800;
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 0 #b38f00;
-    cursor: pointer;
-}
+.dato, .dato-torque { margin-bottom: 8px; font-size: 15px; }
+.grid-cantidades { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 10px; }
+.item-cantidad { background: #222; padding: 8px; font-size: 11px; text-align: center; border-radius: 4px; border: 1px solid #333; }
+.item-cantidad b { display: block; color: #ffcc00; font-size: 16px; }
 
-.btn-abrir-secuencia:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #b38f00;
-}
+.seccion-medidas { display: flex; justify-content: space-between; margin-top: 15px; border-top: 1px solid #333; padding-top: 10px; }
+.caja-medida { text-align: center; flex: 1; }
+.caja-medida small { display: block; font-size: 10px; color: #888; }
+.caja-medida span { font-size: 18px; font-weight: bold; }
 
-/* 3. VISOR DE IMÁGENES (ESTILO V5.9) */
-.visor-imagenes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: #333;
-}
+/* PANTALLA MODAL */
+.pantalla-secuencia { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; align-items: center; justify-content: center; }
+.numero-paso { font-size: 120px; font-weight: bold; color: #ffcc00; text-shadow: 0 0 15px rgba(255,204,0,0.5); }
+.cerrar-secuencia { background: #cc0000; color: white; padding: 15px 40px; border: none; border-radius: 50px; font-weight: bold; margin-top: 30px; }
 
-.contenedor-img {
-    position: relative;
-    background: #000;
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.contenedor-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.etiqueta-flotante {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background: rgba(0,0,0,0.7);
-    color: #ffcc00;
-    font-size: 10px;
-    padding: 2px 5px;
-    font-weight: bold;
-    border-radius: 3px;
-}
-
-/* 4. CUERPO DE DATOS */
-.cuerpo-datos {
-    padding: 15px;
-    flex-grow: 1;
-}
-
-#pieza-titulo {
-    color: #ffcc00;
-    font-size: 22px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #333;
-    padding-bottom: 5px;
-}
-
-/* 5. SEGUNDA PANTALLA (MODAL) */
-.pantalla-secuencia {
-    display: none; 
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #000000; /* Fondo negro total */
-    color: white;
-    z-index: 1000;
-    padding: 40px 20px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.pantalla-secuencia h3 {
-    color: #ffcc00;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.numero-paso {
-    font-size: 120px; /* Tamaño gigante para el operario */
-    font-weight: 900;
-    color: #ffffff;
-    text-shadow: 0 0 20px #ffcc00;
-    margin: 20px 0;
-}
-
-.cerrar-secuencia {
-    background: #cc0000;
-    color: white;
-    padding: 15px 40px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 50px;
-    margin-top: 50px;
-    cursor: pointer;
-}
-
-/* 6. NAVEGACIÓN INFERIOR */
-.controles {
-    background: #111;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    bottom: 0;
-}
-
-.btn-nav {
-    background: #444;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-#indicador-indice {
-    font-weight: bold;
-    color: #ffcc00;
-}
+/* CONTROLES */
+.controles { background: #111; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+.btn-nav { background: #444; color: white; border: none; padding: 12px 20px; font-weight: bold; border-radius: 4px; }
+#indicador-indice { color: #ffcc00; font-weight: bold; }
