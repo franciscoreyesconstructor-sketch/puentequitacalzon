@@ -12,7 +12,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "1259",
         "Ancho (mm)": "480",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "21"
     },
     {
         "Modulo": "1",
@@ -27,7 +28,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "21.7"
     },
     {
         "Modulo": "1",
@@ -42,7 +44,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "21.2"
     },
     {
         "Modulo": "1",
@@ -57,7 +60,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "21.1"
     },
     {
         "Modulo": "1",
@@ -72,7 +76,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "21.8"
     },
     {
         "Modulo": "1",
@@ -87,7 +92,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.6"
     },
     {
         "Modulo": "1",
@@ -102,7 +108,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.7"
     },
     {
         "Modulo": "1",
@@ -117,7 +124,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.8"
     },
     {
         "Modulo": "1",
@@ -132,7 +140,8 @@
         "Par apriete (N.m) (Torque)": "",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.9"
     },
     {
         "Modulo": "1",
@@ -147,7 +156,8 @@
         "Par apriete (N.m) (Torque)": "",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.10"
     },
     {
         "Modulo": "1",
@@ -162,7 +172,8 @@
         "Par apriete (N.m) (Torque)": "",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.11"
     },
     {
         "Modulo": "1",
@@ -177,7 +188,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "21.6"
     },
     {
         "Modulo": "1",
@@ -192,7 +204,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "21.3"
     },
     {
         "Modulo": "1",
@@ -207,7 +220,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "21.4"
     },
     {
         "Modulo": "1",
@@ -222,7 +236,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "21.6"
     },
     {
         "Modulo": "1",
@@ -237,7 +252,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "21.5"
     },
     {
         "Modulo": "1",
@@ -252,7 +268,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "22"
     },
     {
         "Modulo": "1",
@@ -267,7 +284,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "3230",
         "Ancho (mm)": "300",
-        "Alto (mm)": "140"
+        "Alto (mm)": "140",
+        "Paso": "23"
     },
     {
         "Modulo": "2",
@@ -282,7 +300,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "20"
     },
     {
         "Modulo": "2",
@@ -297,7 +316,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "20.8"
     },
     {
         "Modulo": "2",
@@ -312,7 +332,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "20.2"
     },
     {
         "Modulo": "2",
@@ -327,7 +348,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "20.1"
     },
     {
         "Modulo": "2",
@@ -342,7 +364,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "20.9"
     },
     {
         "Modulo": "2",
@@ -357,7 +380,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "20.7"
     },
     {
         "Modulo": "2",
@@ -372,7 +396,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "20.3"
     },
     {
         "Modulo": "2",
@@ -387,7 +412,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "20.4"
     },
     {
         "Modulo": "2",
@@ -402,7 +428,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "20.6"
     },
     {
         "Modulo": "2",
@@ -417,7 +444,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "20.5"
     },
     {
         "Modulo": "2",
@@ -432,7 +460,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "24"
     },
     {
         "Modulo": "3",
@@ -447,7 +476,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "19"
     },
     {
         "Modulo": "3",
@@ -462,7 +492,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "19.7"
     },
     {
         "Modulo": "3",
@@ -477,7 +508,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "19.2"
     },
     {
         "Modulo": "3",
@@ -492,7 +524,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "19.1"
     },
     {
         "Modulo": "3",
@@ -507,7 +540,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "19.8"
     },
     {
         "Modulo": "3",
@@ -522,7 +556,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "19.6"
     },
     {
         "Modulo": "3",
@@ -537,7 +572,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "19.3"
     },
     {
         "Modulo": "3",
@@ -552,7 +588,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "19.4"
     },
     {
         "Modulo": "3",
@@ -567,7 +604,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "19.5"
     },
     {
         "Modulo": "3",
@@ -582,7 +620,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "24"
     },
     {
         "Modulo": "4",
@@ -597,7 +636,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "18"
     },
     {
         "Modulo": "4",
@@ -612,7 +652,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "18.8"
     },
     {
         "Modulo": "4",
@@ -627,7 +668,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "18.2"
     },
     {
         "Modulo": "4",
@@ -642,7 +684,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "18.1"
     },
     {
         "Modulo": "4",
@@ -657,7 +700,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "18.9"
     },
     {
         "Modulo": "4",
@@ -672,7 +716,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "18.7"
     },
     {
         "Modulo": "4",
@@ -687,7 +732,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "18.3"
     },
     {
         "Modulo": "4",
@@ -702,7 +748,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "18.4"
     },
     {
         "Modulo": "4",
@@ -717,7 +764,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "18.6"
     },
     {
         "Modulo": "4",
@@ -732,7 +780,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "18.5"
     },
     {
         "Modulo": "4",
@@ -747,7 +796,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "26"
     },
     {
         "Modulo": "5",
@@ -762,7 +812,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "17"
     },
     {
         "Modulo": "5",
@@ -777,7 +828,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "17.7"
     },
     {
         "Modulo": "5",
@@ -792,7 +844,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "17.2"
     },
     {
         "Modulo": "5",
@@ -807,7 +860,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "17.1"
     },
     {
         "Modulo": "5",
@@ -822,7 +876,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "17.8"
     },
     {
         "Modulo": "5",
@@ -837,7 +892,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "17.6"
     },
     {
         "Modulo": "5",
@@ -852,7 +908,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "17.3"
     },
     {
         "Modulo": "5",
@@ -867,7 +924,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "17.4"
     },
     {
         "Modulo": "5",
@@ -882,7 +940,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "17.5"
     },
     {
         "Modulo": "5",
@@ -897,7 +956,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "27"
     },
     {
         "Modulo": "6",
@@ -912,7 +972,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "16"
     },
     {
         "Modulo": "6",
@@ -927,7 +988,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "16.8"
     },
     {
         "Modulo": "6",
@@ -942,7 +1004,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "16.2"
     },
     {
         "Modulo": "6",
@@ -957,7 +1020,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "16.1"
     },
     {
         "Modulo": "6",
@@ -972,7 +1036,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "16.9"
     },
     {
         "Modulo": "6",
@@ -987,7 +1052,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "16.7"
     },
     {
         "Modulo": "6",
@@ -1002,7 +1068,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "16.3"
     },
     {
         "Modulo": "6",
@@ -1017,7 +1084,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "16.4"
     },
     {
         "Modulo": "6",
@@ -1032,7 +1100,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "16.6"
     },
     {
         "Modulo": "6",
@@ -1047,7 +1116,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "16.5"
     },
     {
         "Modulo": "6",
@@ -1062,7 +1132,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "28"
     },
     {
         "Modulo": "7",
@@ -1077,7 +1148,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "15"
     },
     {
         "Modulo": "7",
@@ -1092,7 +1164,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "15.7"
     },
     {
         "Modulo": "7",
@@ -1107,7 +1180,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "15.2"
     },
     {
         "Modulo": "7",
@@ -1122,7 +1196,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "15.1"
     },
     {
         "Modulo": "7",
@@ -1137,7 +1212,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "15.8"
     },
     {
         "Modulo": "7",
@@ -1152,7 +1228,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "15.6"
     },
     {
         "Modulo": "7",
@@ -1167,7 +1244,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "15.3"
     },
     {
         "Modulo": "7",
@@ -1182,7 +1260,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "15.4"
     },
     {
         "Modulo": "7",
@@ -1197,7 +1276,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "15.5"
     },
     {
         "Modulo": "7",
@@ -1212,7 +1292,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "29"
     },
     {
         "Modulo": "8",
@@ -1227,7 +1308,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "14"
     },
     {
         "Modulo": "8",
@@ -1242,7 +1324,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "14.8"
     },
     {
         "Modulo": "8",
@@ -1257,7 +1340,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "14.2"
     },
     {
         "Modulo": "8",
@@ -1272,7 +1356,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "14.1"
     },
     {
         "Modulo": "8",
@@ -1287,7 +1372,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "14.9"
     },
     {
         "Modulo": "8",
@@ -1302,7 +1388,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "14.7"
     },
     {
         "Modulo": "8",
@@ -1317,7 +1404,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "14.3"
     },
     {
         "Modulo": "8",
@@ -1332,7 +1420,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "14.4"
     },
     {
         "Modulo": "8",
@@ -1347,7 +1436,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "14.6"
     },
     {
         "Modulo": "8",
@@ -1362,7 +1452,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "14.5"
     },
     {
         "Modulo": "8",
@@ -1377,7 +1468,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "30"
     },
     {
         "Modulo": "9",
@@ -1392,7 +1484,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "13"
     },
     {
         "Modulo": "9",
@@ -1407,7 +1500,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "13.7"
     },
     {
         "Modulo": "9",
@@ -1422,7 +1516,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "13.2"
     },
     {
         "Modulo": "9",
@@ -1437,7 +1532,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "13.1"
     },
     {
         "Modulo": "9",
@@ -1452,7 +1548,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "13.8"
     },
     {
         "Modulo": "9",
@@ -1467,7 +1564,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "13.6"
     },
     {
         "Modulo": "9",
@@ -1482,7 +1580,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "13.3"
     },
     {
         "Modulo": "9",
@@ -1497,7 +1596,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "13.4"
     },
     {
         "Modulo": "9",
@@ -1512,7 +1612,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "13.5"
     },
     {
         "Modulo": "9",
@@ -1527,7 +1628,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "31"
     },
     {
         "Modulo": "10",
@@ -1542,7 +1644,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "12"
     },
     {
         "Modulo": "10",
@@ -1557,7 +1660,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "12.8"
     },
     {
         "Modulo": "10",
@@ -1572,7 +1676,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "12.2"
     },
     {
         "Modulo": "10",
@@ -1587,7 +1692,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "12.1"
     },
     {
         "Modulo": "10",
@@ -1602,7 +1708,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "12.9"
     },
     {
         "Modulo": "10",
@@ -1617,7 +1724,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "12.7"
     },
     {
         "Modulo": "10",
@@ -1632,7 +1740,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "12.3"
     },
     {
         "Modulo": "10",
@@ -1647,7 +1756,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "12.4"
     },
     {
         "Modulo": "10",
@@ -1662,7 +1772,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "12.6"
     },
     {
         "Modulo": "10",
@@ -1677,7 +1788,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "12.5"
     },
     {
         "Modulo": "10",
@@ -1692,7 +1804,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "32"
     },
     {
         "Modulo": "11",
@@ -1707,7 +1820,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "11"
     },
     {
         "Modulo": "11",
@@ -1722,7 +1836,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "11.7"
     },
     {
         "Modulo": "11",
@@ -1737,7 +1852,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "3878",
         "Ancho (mm)": "165",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "11.2"
     },
     {
         "Modulo": "11",
@@ -1752,7 +1868,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "11.1"
     },
     {
         "Modulo": "11",
@@ -1767,7 +1884,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "11.8"
     },
     {
         "Modulo": "11",
@@ -1782,7 +1900,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "11.6"
     },
     {
         "Modulo": "11",
@@ -1797,7 +1916,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "11.3"
     },
     {
         "Modulo": "11",
@@ -1812,7 +1932,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "11.4"
     },
     {
         "Modulo": "11",
@@ -1827,7 +1948,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "11.5"
     },
     {
         "Modulo": "11",
@@ -1842,7 +1964,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "33"
     },
     {
         "Modulo": "12",
@@ -1857,7 +1980,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "10"
     },
     {
         "Modulo": "12",
@@ -1872,7 +1996,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "10.8"
     },
     {
         "Modulo": "12",
@@ -1887,7 +2012,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "10.2"
     },
     {
         "Modulo": "12",
@@ -1902,7 +2028,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "10.1"
     },
     {
         "Modulo": "12",
@@ -1917,7 +2044,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "10.9"
     },
     {
         "Modulo": "12",
@@ -1932,7 +2060,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "10.7"
     },
     {
         "Modulo": "12",
@@ -1947,7 +2076,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "10.3"
     },
     {
         "Modulo": "12",
@@ -1962,7 +2092,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "10.4"
     },
     {
         "Modulo": "12",
@@ -1977,7 +2108,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "10.6"
     },
     {
         "Modulo": "12",
@@ -1992,7 +2124,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "10.5"
     },
     {
         "Modulo": "12",
@@ -2007,7 +2140,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "34"
     },
     {
         "Modulo": "13",
@@ -2022,7 +2156,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "9"
     },
     {
         "Modulo": "13",
@@ -2037,7 +2172,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "9.7"
     },
     {
         "Modulo": "13",
@@ -2052,7 +2188,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "9.2"
     },
     {
         "Modulo": "13",
@@ -2067,7 +2204,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "9.1"
     },
     {
         "Modulo": "13",
@@ -2082,7 +2220,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "9.8"
     },
     {
         "Modulo": "13",
@@ -2097,7 +2236,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "9.6"
     },
     {
         "Modulo": "13",
@@ -2112,7 +2252,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "9.3"
     },
     {
         "Modulo": "13",
@@ -2127,7 +2268,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "9.4"
     },
     {
         "Modulo": "13",
@@ -2142,7 +2284,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "9.5"
     },
     {
         "Modulo": "13",
@@ -2157,7 +2300,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "35"
     },
     {
         "Modulo": "14",
@@ -2172,7 +2316,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "8"
     },
     {
         "Modulo": "14",
@@ -2187,7 +2332,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "8.8"
     },
     {
         "Modulo": "14",
@@ -2202,7 +2348,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "8.2"
     },
     {
         "Modulo": "14",
@@ -2217,7 +2364,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "8.1"
     },
     {
         "Modulo": "14",
@@ -2232,7 +2380,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "8.9"
     },
     {
         "Modulo": "14",
@@ -2247,7 +2396,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "8.7"
     },
     {
         "Modulo": "14",
@@ -2262,7 +2412,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "8.3"
     },
     {
         "Modulo": "14",
@@ -2277,7 +2428,24 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "8.4"
+    },
+    {
+        "Modulo": "14",
+        "Pieza individual": "LB04W",
+        "Cantidad": "2",
+        "Ubicación pieza": "Debajo de piso",
+        "perno": "M24 24x60",
+        "Cantidad Pernos por pieza": "2,5",
+        "Cantidad Tuercas por pieza": "2,5",
+        "Cantidad Golillas por pieza": "2,5",
+        "stdtuerca": "ISO 8.8",
+        "Par apriete (N.m) (Torque)": "400",
+        "Largo (mm)": "2761",
+        "Ancho (mm)": "82",
+        "Alto (mm)": "55",
+        "Paso": "8.6"
     },
     {
         "Modulo": "14",
@@ -2292,7 +2460,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "8.5"
     },
     {
         "Modulo": "14",
@@ -2307,7 +2476,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "36"
     },
     {
         "Modulo": "15",
@@ -2322,7 +2492,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "7"
     },
     {
         "Modulo": "15",
@@ -2337,7 +2508,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "7.7"
     },
     {
         "Modulo": "15",
@@ -2352,7 +2524,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "7.2"
     },
     {
         "Modulo": "15",
@@ -2367,7 +2540,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "7.1"
     },
     {
         "Modulo": "15",
@@ -2382,7 +2556,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "7.8"
     },
     {
         "Modulo": "15",
@@ -2397,7 +2572,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "7.6"
     },
     {
         "Modulo": "15",
@@ -2412,7 +2588,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "7.3"
     },
     {
         "Modulo": "15",
@@ -2427,7 +2604,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "7.4"
     },
     {
         "Modulo": "15",
@@ -2442,7 +2620,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "7.5"
     },
     {
         "Modulo": "15",
@@ -2457,7 +2636,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "37"
     },
     {
         "Modulo": "16",
@@ -2472,7 +2652,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "6"
     },
     {
         "Modulo": "16",
@@ -2487,7 +2668,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "6.8"
     },
     {
         "Modulo": "16",
@@ -2502,7 +2684,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "6.2"
     },
     {
         "Modulo": "16",
@@ -2517,7 +2700,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "6.1"
     },
     {
         "Modulo": "16",
@@ -2532,7 +2716,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "6.9"
     },
     {
         "Modulo": "16",
@@ -2547,7 +2732,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "6.7"
     },
     {
         "Modulo": "16",
@@ -2562,7 +2748,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "6.3"
     },
     {
         "Modulo": "16",
@@ -2577,7 +2764,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "6.4"
     },
     {
         "Modulo": "16",
@@ -2592,7 +2780,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "6.6"
     },
     {
         "Modulo": "16",
@@ -2607,7 +2796,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "6.5"
     },
     {
         "Modulo": "16",
@@ -2622,7 +2812,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "38"
     },
     {
         "Modulo": "17",
@@ -2637,7 +2828,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "5"
     },
     {
         "Modulo": "17",
@@ -2652,7 +2844,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "5.7"
     },
     {
         "Modulo": "17",
@@ -2667,7 +2860,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "5.2"
     },
     {
         "Modulo": "17",
@@ -2682,7 +2876,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "5.1"
     },
     {
         "Modulo": "17",
@@ -2697,7 +2892,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "5.8"
     },
     {
         "Modulo": "17",
@@ -2712,7 +2908,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "5.6"
     },
     {
         "Modulo": "17",
@@ -2727,7 +2924,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "5.3"
     },
     {
         "Modulo": "17",
@@ -2742,7 +2940,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "5.4"
     },
     {
         "Modulo": "17",
@@ -2757,7 +2956,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "5.5"
     },
     {
         "Modulo": "17",
@@ -2772,7 +2972,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "39"
     },
     {
         "Modulo": "18",
@@ -2787,7 +2988,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "4"
     },
     {
         "Modulo": "18",
@@ -2802,7 +3004,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "4.8"
     },
     {
         "Modulo": "18",
@@ -2817,7 +3020,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "4.2"
     },
     {
         "Modulo": "18",
@@ -2832,7 +3036,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "4.1"
     },
     {
         "Modulo": "18",
@@ -2847,7 +3052,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "4.9"
     },
     {
         "Modulo": "18",
@@ -2862,7 +3068,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "4.7"
     },
     {
         "Modulo": "18",
@@ -2877,7 +3084,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "4.3"
     },
     {
         "Modulo": "18",
@@ -2892,7 +3100,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "4.4"
     },
     {
         "Modulo": "18",
@@ -2907,7 +3116,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "4.6"
     },
     {
         "Modulo": "18",
@@ -2922,7 +3132,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "4.5"
     },
     {
         "Modulo": "18",
@@ -2937,7 +3148,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "40"
     },
     {
         "Modulo": "19",
@@ -2952,7 +3164,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "3"
     },
     {
         "Modulo": "19",
@@ -2967,7 +3180,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "3.7"
     },
     {
         "Modulo": "19",
@@ -2982,7 +3196,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "3.2"
     },
     {
         "Modulo": "19",
@@ -2997,7 +3212,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "3.8"
     },
     {
         "Modulo": "19",
@@ -3012,7 +3228,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "3.1"
     },
     {
         "Modulo": "19",
@@ -3027,7 +3244,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "3.6"
     },
     {
         "Modulo": "19",
@@ -3042,7 +3260,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "3.3"
     },
     {
         "Modulo": "19",
@@ -3057,7 +3276,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "3.4"
     },
     {
         "Modulo": "19",
@@ -3072,7 +3292,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "3.5"
     },
     {
         "Modulo": "19",
@@ -3087,7 +3308,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "41"
     },
     {
         "Modulo": "20",
@@ -3102,7 +3324,8 @@
         "Par apriete (N.m) (Torque)": "1500",
         "Largo (mm)": "2790",
         "Ancho (mm)": "180",
-        "Alto (mm)": "260"
+        "Alto (mm)": "260",
+        "Paso": "2"
     },
     {
         "Modulo": "20",
@@ -3117,7 +3340,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2800",
         "Ancho (mm)": "1180",
-        "Alto (mm)": "180"
+        "Alto (mm)": "180",
+        "Paso": "2.8"
     },
     {
         "Modulo": "20",
@@ -3132,7 +3356,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "2.2"
     },
     {
         "Modulo": "20",
@@ -3147,7 +3372,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "2.1"
     },
     {
         "Modulo": "20",
@@ -3162,7 +3388,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "2.9"
     },
     {
         "Modulo": "20",
@@ -3177,7 +3404,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "2.7"
     },
     {
         "Modulo": "20",
@@ -3192,7 +3420,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "2.3"
     },
     {
         "Modulo": "20",
@@ -3207,7 +3436,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "2.4"
     },
     {
         "Modulo": "20",
@@ -3222,7 +3452,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "2.6"
     },
     {
         "Modulo": "20",
@@ -3237,7 +3468,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "2.5"
     },
     {
         "Modulo": "20",
@@ -3252,7 +3484,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "42"
     },
     {
         "Modulo": "21",
@@ -3267,7 +3500,8 @@
         "Par apriete (N.m) (Torque)": "",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "1"
     },
     {
         "Modulo": "21",
@@ -3282,7 +3516,8 @@
         "Par apriete (N.m) (Torque)": "",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "1.8"
     },
     {
         "Modulo": "21",
@@ -3297,7 +3532,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "4505",
         "Ancho (mm)": "165",
-        "Alto (mm)": "121"
+        "Alto (mm)": "121",
+        "Paso": "1.2"
     },
     {
         "Modulo": "21",
@@ -3312,7 +3548,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3319",
         "Ancho (mm)": "140",
-        "Alto (mm)": "133"
+        "Alto (mm)": "133",
+        "Paso": "1.1"
     },
     {
         "Modulo": "21",
@@ -3327,7 +3564,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "1.9"
     },
     {
         "Modulo": "21",
@@ -3342,7 +3580,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.1"
     },
     {
         "Modulo": "21",
@@ -3357,7 +3596,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "0.2"
     },
     {
         "Modulo": "21",
@@ -3372,7 +3612,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "1021",
         "Ancho (mm)": "71",
-        "Alto (mm)": "71"
+        "Alto (mm)": "71",
+        "Paso": "0.3"
     },
     {
         "Modulo": "21",
@@ -3387,7 +3628,8 @@
         "Par apriete (N.m) (Torque)": "",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.4"
     },
     {
         "Modulo": "21",
@@ -3402,7 +3644,8 @@
         "Par apriete (N.m) (Torque)": "",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.5"
     },
     {
         "Modulo": "21",
@@ -3417,7 +3660,8 @@
         "Par apriete (N.m) (Torque)": "",
         "Largo (mm)": "",
         "Ancho (mm)": "",
-        "Alto (mm)": ""
+        "Alto (mm)": "",
+        "Paso": "0.6"
     },
     {
         "Modulo": "21",
@@ -3432,7 +3676,8 @@
         "Par apriete (N.m) (Torque)": "850",
         "Largo (mm)": "370",
         "Ancho (mm)": "90",
-        "Alto (mm)": "16"
+        "Alto (mm)": "16",
+        "Paso": "1.7"
     },
     {
         "Modulo": "21",
@@ -3447,7 +3692,8 @@
         "Par apriete (N.m) (Torque)": "100",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "1.3"
     },
     {
         "Modulo": "21",
@@ -3462,7 +3708,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "6300",
         "Ancho (mm)": "110",
-        "Alto (mm)": "150"
+        "Alto (mm)": "150",
+        "Paso": "1.4"
     },
     {
         "Modulo": "21",
@@ -3477,7 +3724,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "2761",
         "Ancho (mm)": "82",
-        "Alto (mm)": "55"
+        "Alto (mm)": "55",
+        "Paso": "1.6"
     },
     {
         "Modulo": "21",
@@ -3492,7 +3740,8 @@
         "Par apriete (N.m) (Torque)": "400",
         "Largo (mm)": "3273",
         "Ancho (mm)": "100",
-        "Alto (mm)": "100"
+        "Alto (mm)": "100",
+        "Paso": "1.5"
     },
     {
         "Modulo": "21",
@@ -3507,7 +3756,8 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "2797",
         "Ancho (mm)": "1665",
-        "Alto (mm)": "203"
+        "Alto (mm)": "203",
+        "Paso": "43"
     },
     {
         "Modulo": "21",
@@ -3522,6 +3772,7 @@
         "Par apriete (N.m) (Torque)": "150",
         "Largo (mm)": "3230",
         "Ancho (mm)": "300",
-        "Alto (mm)": "140"
+        "Alto (mm)": "140",
+        "Paso": "44"
     }
 ]
