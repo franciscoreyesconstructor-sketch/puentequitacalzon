@@ -7,13 +7,13 @@ async function cargarDatos() {
         const res = await fetch('datos_visor.json');
         const rawData = await res.json();
         
+        // Limpieza de datos: quita espacios y corrige los #N/A de Excel
         datosOriginales = rawData.map(item => {
             let nuevoItem = {};
             for (let key in item) { 
                 let claveLimpia = key.trim();
                 let valor = item[key];
-                // Limpiamos errores de Excel #N/A que aparecen en tu captura
-                if (valor === "#N/A" || valor === "#VALUE!" || valor === null) valor = "---";
+                if (valor === "#N/A" || valor === "#VALUE!" || valor === null || valor === "") valor = "0";
                 nuevoItem[claveLimpia] = valor; 
             }
             return nuevoItem;
@@ -22,13 +22,13 @@ async function cargarDatos() {
         poblarSelectModulo();
         actualizarSelectPiezas(); 
         actualizarInterfaz();
-    } catch (e) { console.error("Error cargando JSON", e); }
+    } catch (e) { console.error("Error cargando el JSON", e); }
 }
 
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
     const modulos = [...new Set(datosOriginales.map(p => String(p["Modulo"] || "").trim()))]
-                    .filter(m => m !== "" && m !== "---").sort((a,b) => a - b);
+                    .filter(m => m !== "" && m !== "0").sort((a,b) => a - b);
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
     modulos.forEach(m => { selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`; });
     selectMod.onchange = () => { actualizarSelectPiezas(); aplicarFiltros(); };
@@ -46,9 +46,10 @@ function actualizarSelectPiezas() {
     piezasModulo.forEach(p => { 
         let cod = String(p["Pieza individual"] || "").trim();
         let perno = String(p["perno"] || "").trim();
-        if(cod && cod !== "---") {
-            // Esto separa las dos entradas de la 60TS01W que tienes en tu JSON
-            selectPieza.innerHTML += `<option value="${cod}|${perno}">${cod} (${perno})</option>`; 
+        let paso = String(p["Paso"] || "").trim();
+        if(cod && cod !== "0") {
+            // Se muestra Paso + Pieza + Perno para que sea fácil elegir en terreno
+            selectPieza.innerHTML += `<option value="${cod}|${perno}|${paso}">Paso ${paso}: ${cod} (${perno})</option>`; 
         }
     });
     selectPieza.onchange = aplicarFiltros;
@@ -57,12 +58,15 @@ function actualizarSelectPiezas() {
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     const piezaCombo = document.getElementById("filtro-pieza").value;
+    
     datosFiltrados = datosOriginales.filter(p => (modVal === "todos" || String(p["Modulo"] || "").trim() === modVal));
+    
     if (piezaCombo !== "todos") {
-        const [piezaVal, pernoVal] = piezaCombo.split('|');
+        const [piezaVal, pernoVal, pasoVal] = piezaCombo.split('|');
         const index = datosFiltrados.findIndex(p => 
             String(p["Pieza individual"] || "").trim() === piezaVal && 
-            String(p["perno"] || "").trim() === pernoVal
+            String(p["perno"] || "").trim() === pernoVal &&
+            String(p["Paso"] || "").trim() === pasoVal
         );
         posicionActual = (index !== -1) ? index : 0;
     } else {
@@ -76,8 +80,10 @@ function actualizarInterfaz() {
     const p = datosFiltrados[posicionActual];
     const id = String(p["Pieza individual"] || "").trim();
     const mod = String(p["Modulo"] || "").trim();
+    const paso = String(p["Paso"] || "---").trim();
 
-    // Actualizar Textos y ocultar #N/A
+    // Actualizar Textos
+    document.getElementById("dato-secuencia").innerText = "SECUENCIA DE MONTAJE: PASO " + paso;
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + id;
     document.getElementById("dato-perno").innerText = p["perno"] || "---";
     document.getElementById("dato-acero-tuerca").innerText = p["stdtuerca"] || "---";
@@ -89,13 +95,13 @@ function actualizarInterfaz() {
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "---";
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "---";
 
+    // Carga de Fotos con reintentos (Mayúsculas/Minúsculas)
     const imgMapa = document.getElementById("img-mapa");
     const imgVisor = document.getElementById("img-visor");
     let prefijo = (mod === "11") ? "mod11" : "mod01";
     
-    // RASTREADOR DE FOTOS: Prueba todas las combinaciones posibles para evitar el error 404
     const intentarCargar = (elemento, nombreBase) => {
-        const extensiones = ['.jpg', '.JPG', '.jpeg', '.JPEG'];
+        const extensiones = ['.jpg', '.JPG', '.png', '.jpeg'];
         const variantes = [nombreBase, nombreBase.toLowerCase(), nombreBase.toUpperCase()];
         let rutas = [];
         variantes.forEach(v => { extensiones.forEach(ext => rutas.push(`fotos/${v}${ext}`)); });
@@ -106,7 +112,7 @@ function actualizarInterfaz() {
                 elemento.src = rutas[i];
                 i++;
             } else {
-                elemento.src = "https://via.placeholder.com/400x300?text=Foto+no+encontrada";
+                elemento.src = "https://via.placeholder.com/400x300?text=Sin+Foto";
                 elemento.onerror = null;
             }
         };
