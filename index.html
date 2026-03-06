@@ -3,25 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SISTEMA SERRA - VISOR V10</title>
-    <link rel="stylesheet" href="style.css?v=1.1">
-    <style>
-        /* Estilo para el nuevo botón y la cinta oculta */
-        .btn-secuencia {
-            background-color: #ffcc00;
-            color: black;
-            border: none;
-            padding: 10px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 5px;
-        }
-        #contenedor-paso {
-            display: none; /* Empieza oculto */
-        }
-    </style>
+    <title>SISTEMA SERRA - VISOR V8</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-movil">
@@ -30,7 +13,6 @@
                 <select id="filtro-modulo">
                     <option value="todos">📦 Módulo (Todos)</option>
                 </select>
-                <button class="btn-secuencia" onclick="togglePaso()">📌 VER SECUENCIA DE MONTAJE</button>
             </div>
         </div>
 
@@ -46,16 +28,12 @@
         </div>
 
         <div class="cuerpo-datos">
-            <div id="contenedor-paso" class="cinta-paso">
-                <span id="dato-secuencia">PASO: --</span>
-            </div>
-
             <h2 id="pieza-titulo">PIEZA: --</h2>
 
             <div class="seccion-montaje">
                 <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">--</span></div>
                 <div class="dato"><strong>⚙️ Estándar:</strong> <span id="dato-acero-tuerca">--</span></div>
-                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">--</span> <small>N.m</small></div>
+                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">0</span> <small>N.m</small></div>
                 
                 <div class="grid-cantidades">
                     <div class="item-cantidad">Pernos: <b id="cant-pernos">0</b></div>
@@ -77,6 +55,6 @@
             <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
         </div>
     </div>
-    <script src="script.js?v=1.1"></script>
+    <script src="script.js"></script>
 </body>
 </html>
