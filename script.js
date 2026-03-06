@@ -50,7 +50,7 @@ function actualizarInterfaz() {
 
     // --- CORRECCIÓN DE NOMBRES DE COLUMNA ---
     // Buscamos el perno de varias formas para no fallar
-    const textoPerno = p.perno || p.Perno || p.PERNO || "--";
+    const textoPerno = p["Tipo Perno"] || p.perno || p.Perno || p.PERNO || "--";
     const textoEstandar = p.stdtuerca || p["Acero Tuerca"] || p.estandar || "--";
     const textoTorque = p["Par apriete (N.m) (Torque)"] || p.torque || p.Torque || "0";
 
@@ -97,3 +97,4 @@ document.getElementById("btn-atras").onclick = () => {
 };
 
 cargarDatos();
+
