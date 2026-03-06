@@ -7,6 +7,7 @@ async function cargarDatos() {
         const res = await fetch('datos_visor.json');
         const rawData = await res.json();
         
+        // Limpiamos los nombres de las columnas y datos
         datosOriginales = rawData.map(item => {
             let nuevoItem = {};
             for (let key in item) { 
@@ -43,17 +44,16 @@ function actualizarSelectPiezas() {
     
     selectPieza.innerHTML = '<option value="todos">🔍 Seleccionar Pieza</option>';
 
-    // Filtramos por módulo
     const piezasModulo = (modSeleccionado === "todos") 
         ? datosOriginales 
         : datosOriginales.filter(p => String(p["Modulo"] || "").trim() === modSeleccionado);
 
-    // Aquí está el cambio: Si hay piezas con mismo nombre pero distinto perno, las mostramos ambas
+    // Mostramos Pieza + Perno para diferenciar si hay duplicados como la 60ts01w
     piezasModulo.forEach(p => { 
         let cod = String(p["Pieza individual"] || "").trim();
         let perno = String(p["perno"] || "").trim();
         if(cod) {
-            // Mostramos el nombre de la pieza y el perno en el selector para diferenciar
+            // Se guarda el valor como "Pieza|Perno" para identificar la fila exacta
             selectPieza.innerHTML += `<option value="${cod}|${perno}">${cod} (${perno})</option>`; 
         }
     });
@@ -63,9 +63,8 @@ function actualizarSelectPiezas() {
 
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
-    const piezaCombo = document.getElementById("filtro-pieza").value; // Ahora trae "Pieza|Perno"
+    const piezaCombo = document.getElementById("filtro-pieza").value;
 
-    // Filtramos la lista base por módulo
     datosFiltrados = datosOriginales.filter(p => (modVal === "todos" || String(p["Modulo"] || "").trim() === modVal));
 
     if (piezaCombo !== "todos") {
@@ -92,10 +91,13 @@ function actualizarInterfaz() {
     document.getElementById("dato-perno").innerText = p["perno"] || "---";
     document.getElementById("dato-torque").innerText = (p["Par apriete (N.m) (Torque)"] || "0") + " N.m";
     
-    // Actualizar cantidades
+    // Actualizar cantidades y medidas
     document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || "0";
     document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || "0";
     document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || "0";
+    document.getElementById("dato-largo").innerText = p["Largo (mm)"] || "0";
+    document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "0";
+    document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "0";
 
     const imgMapa = document.getElementById("img-mapa");
     const imgVisor = document.getElementById("img-visor");
