@@ -5,7 +5,8 @@ let posicionActual = 0;
 // Cargar el archivo JSON
 async function cargarDatos() {
     try {
-        const respuesta = await fetch('datos_visor.json');
+        // El v=9 evita que el navegador use datos viejos
+        const respuesta = await fetch('datos_visor.json?v=9');
         datosOriginales = await respuesta.json();
         
         poblarSelectModulo();
@@ -18,7 +19,7 @@ async function cargarDatos() {
 // Llenar el selector de módulos
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
-    const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo).trim()))].sort();
+    const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo).trim()))].sort((a,b) => a - b);
     
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
     modulos.forEach(m => {
@@ -28,14 +29,23 @@ function poblarSelectModulo() {
     selectMod.onchange = aplicarFiltros;
 }
 
-// Filtrar datos
+// Filtrar y Ordenar por Secuencia de Montaje
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     
-    datosFiltrados = (modVal === "todos") 
+    // 1. Filtrar por módulo
+    let temporal = (modVal === "todos") 
         ? [...datosOriginales] 
         : datosOriginales.filter(p => String(p.Modulo).trim() === modVal);
     
+    // 2. ORDENAR POR PASO (Numéricamente)
+    temporal.sort((a, b) => {
+        let pasoA = parseFloat(a.Paso) || 0;
+        let pasoB = parseFloat(b.Paso) || 0;
+        return pasoA - pasoB;
+    });
+
+    datosFiltrados = temporal;
     posicionActual = 0;
     actualizarInterfaz();
 }
@@ -45,7 +55,10 @@ function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
 
-    // Textos
+    // Nuevo: Mostrar el número del Paso
+    document.getElementById("dato-paso").innerText = "PASO DE MONTAJE: " + (p.Paso || "--");
+    
+    // Textos de la pieza
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + p["Pieza individual"];
     document.getElementById("dato-perno").innerText = p.perno || "--";
     document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || "--";
@@ -57,13 +70,17 @@ function actualizarInterfaz() {
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "0";
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "0";
 
-    // Imágenes
+    // Imágenes (Buscador inteligente de planos)
     const piezaID = String(p["Pieza individual"]).trim();
     const modID = String(p.Modulo).trim();
 
-    // El plano busca con prefijo mod01, mod02...
     document.getElementById("img-mapa").src = `fotos/mod0${modID}${piezaID}.jpg`;
     document.getElementById("img-visor").src = `fotos/${piezaID}.jpg`;
+
+    // Si el plano no existe, mostramos un aviso limpio
+    document.getElementById("img-mapa").onerror = function() {
+        this.src = "https://via.placeholder.com/400x300?text=Plano+No+Disponible";
+    };
 
     // Contador
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
@@ -84,5 +101,4 @@ document.getElementById("btn-atras").onclick = () => {
     }
 };
 
-// Iniciar carga
 cargarDatos();
