@@ -6,12 +6,20 @@ async function cargarDatos() {
     try {
         const res = await fetch('datos_visor.json');
         const rawData = await res.json();
-        // Limpiamos los nombres de las columnas por si traen espacios del Excel
+        
+        // LIMPIEZA AUTOMÁTICA DE #N/A Y ESPACIOS
         datosOriginales = rawData.map(item => {
             let nuevoItem = {};
-            for (let key in item) { nuevoItem[key.trim()] = item[key]; }
+            for (let key in item) { 
+                let claveLimpia = key.trim();
+                let valor = item[key];
+                // Si el dato es un error de Excel, lo convertimos en "0" o texto vacío
+                if (valor === "#N/A" || valor === "#VALUE!" || valor === null) valor = "0";
+                nuevoItem[claveLimpia] = valor; 
+            }
             return nuevoItem;
         });
+
         poblarSelectModulo();
         actualizarSelectPiezas(); 
         actualizarInterfaz();
@@ -21,7 +29,7 @@ async function cargarDatos() {
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
     const modulos = [...new Set(datosOriginales.map(p => String(p["Modulo"] || "").trim()))]
-                    .filter(m => m !== "" && m !== "undefined").sort((a,b) => a - b);
+                    .filter(m => m !== "" && m !== "0").sort((a,b) => a - b);
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
     modulos.forEach(m => { selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`; });
     selectMod.onchange = () => { actualizarSelectPiezas(); aplicarFiltros(); };
@@ -36,11 +44,11 @@ function actualizarSelectPiezas() {
         ? datosOriginales 
         : datosOriginales.filter(p => String(p["Modulo"] || "").trim() === modSeleccionado);
     
-    // Mostramos Pieza + Perno para que 60ts01w aparezca dos veces si tiene pernos distintos
     piezasModulo.forEach(p => { 
         let cod = String(p["Pieza individual"] || "").trim();
         let perno = String(p["perno"] || "").trim();
-        if(cod) {
+        if(cod && cod !== "0") {
+            // Permite ver la pieza 60ts01w dos veces si tiene pernos distintos
             selectPieza.innerHTML += `<option value="${cod}|${perno}">${cod} (${perno})</option>`; 
         }
     });
@@ -50,9 +58,7 @@ function actualizarSelectPiezas() {
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     const piezaCombo = document.getElementById("filtro-pieza").value;
-    
     datosFiltrados = datosOriginales.filter(p => (modVal === "todos" || String(p["Modulo"] || "").trim() === modVal));
-    
     if (piezaCombo !== "todos") {
         const [piezaVal, pernoVal] = piezaCombo.split('|');
         const index = datosFiltrados.findIndex(p => 
@@ -72,6 +78,7 @@ function actualizarInterfaz() {
     const id = String(p["Pieza individual"] || "").trim();
     const mod = String(p["Modulo"] || "").trim();
 
+    // Actualizar Textos
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + id;
     document.getElementById("dato-perno").innerText = p["perno"] || "---";
     document.getElementById("dato-acero-tuerca").innerText = p["stdtuerca"] || "---";
@@ -85,10 +92,9 @@ function actualizarInterfaz() {
 
     const imgMapa = document.getElementById("img-mapa");
     const imgVisor = document.getElementById("img-visor");
-
     let prefijo = (mod === "11") ? "mod11" : "mod01";
     
-    // Sistema cazador de imágenes (reintenta con varias extensiones)
+    // SISTEMA DE CARGA ANTI-ERROR (Busca .jpg y .JPG)
     const intentarCargar = (elemento, nombreBase) => {
         const extensiones = ['.jpg', '.JPG', '.jpeg', '.JPEG'];
         let i = 0;
@@ -97,7 +103,7 @@ function actualizarInterfaz() {
                 elemento.src = `fotos/${nombreBase}${extensiones[i]}`;
                 i++;
             } else {
-                elemento.src = "https://via.placeholder.com/400x300?text=No+Encontrada";
+                elemento.src = "https://via.placeholder.com/400x300?text=Foto+no+encontrada";
                 elemento.onerror = null;
             }
         };
