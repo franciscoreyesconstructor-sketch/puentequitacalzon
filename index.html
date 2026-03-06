@@ -1,72 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ANTONIO SERRA - VISOR V6</title>
-    <link rel="stylesheet" href="style.css?v=1.5">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SISTEMA SERRA - VISOR V5</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-movil">
-        <div class="contenedor-herramientas">
-            <select id="filtro-modulo">
-                <option value="todos">📦 Módulo (Todos)</option>
-            </select>
-            <button class="btn-abrir-secuencia" onclick="abrirSecuencia()">📌 VER PASO EN GRANDE</button>
-        </div>
+    <div class="app-movil">
+        <div class="contenedor-herramientas">
+            <select id="filtro-modulo">
+                <option value="todos">📦 Módulo (Todos)</option>
+            </select>
+        </div>
 
-        <div class="visor-imagenes">
-            <div class="contenedor-img mapa">
-                <div class="etiqueta-flotante">PLANO UBICACIÓN</div>
-                <img id="img-mapa" src="" alt="Plano">
-            </div>
-            <div class="contenedor-img foto">
-                <div class="etiqueta-flotante">FOTO PIEZA</div>
-                <img id="img-visor" src="" alt="Foto">
-            </div>
-        </div>
+        <div class="visor-imagenes">
+            <div class="contenedor-img mapa">
+                <div class="etiqueta-flotante">PLANO UBICACIÓN</div>
+                <img id="img-mapa" src="" alt="Cargando Plano...">
+            </div>
+            <div class="contenedor-img foto">
+                <div class="etiqueta-flotante">FOTO PIEZA</div>
+                <img id="img-visor" src="" alt="Cargando Foto...">
+            </div>
+        </div>
 
-        <div class="cuerpo-datos">
-            <h2 id="pieza-titulo">PIEZA: --</h2>
-            <h2 id="pieza-ubicación">UBICACIÓN: --</h2>
-            
-            <div class="seccion-montaje">
-                <div class="dato-secuencia-linea">
-                    <strong>📋 SECUENCIA:</strong> <span id="dato-paso-linea">PASO --</span>
-                </div>
-                
-                <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">--</span></div>
-                <div class="dato"><strong>⚙️ Estándar:</strong> <span id="dato-acero-tuerca">--</span></div>
-                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">0</span> <small>N.m</small></div>
-                
-                <div class="grid-cantidades">
-                    <div class="item-cantidad">Pernos: <b id="cant-pernos">0</b></div>
-                    <div class="item-cantidad">Tuercas: <b id="cant-tuercas">0</b></div>
-                    <div class="item-cantidad">Golillas: <b id="cant-golillas">0</b></div>
-                </div>
-            </div>
+        <div class="cuerpo-datos">
+            <h2 id="pieza-titulo">PIEZA: --</h2>
 
-            <div class="seccion-medidas">
-                <div class="caja-medida"><small>LARGO</small><span id="dato-largo">0</span></div>
-                <div class="caja-medida"><small>ANCHO</small><span id="dato-ancho">0</span></div>
-                <div class="caja-medida"><small>ALTO</small><span id="alto">0</span></div>
-            </div>
-        </div>
+            <div class="seccion-montaje">
+                <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">--</span></div>
+                <div class="dato"><strong>⚙️ Estándar:</strong> <span id="dato-acero-tuerca">--</span></div>
+                <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">0</span> <small>N.m</small></div>
+                
+                <div class="grid-cantidades">
+                    <div class="item-cantidad">Pernos: <b id="cant-pernos">0</b></div>
+                    <div class="item-cantidad">Tuercas: <b id="cant-tuercas">0</b></div>
+                    <div class="item-cantidad">Golillas: <b id="cant-golillas">0</b></div>
+                </div>
+            </div>
 
-        <div class="controles">
-            <button id="btn-atras" class="btn-nav">ANTERIOR</button>
-            <span id="indicador-indice">0 / 0</span>
-            <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
-        </div>
-    </div>
+            <div class="seccion-medidas">
+                <div class="caja-medida"><small>LARGO</small><span id="dato-largo">0</span></div>
+                <div class="caja-medida"><small>ANCHO</small><span id="dato-ancho">0</span></div>
+                <div class="caja-medida"><small>ALTO</small><span id="dato-alto">0</span></div>
+            </div>
+        </div>
 
-    <div id="pantalla-paso" class="pantalla-secuencia" style="display: none;">
-        <h3>SECUENCIA DE MONTAJE</h3>
-        <p id="pieza-nombre-grande">PIEZA: --</p>
-        <span id="valor-paso-grande" class="numero-paso">--</span>
-        <button class="cerrar-secuencia" onclick="cerrarSecuencia()">VOLVER AL VISOR</button>
-    </div>
-
-    <script src="script.js?v=1.5"></script>
+        <div class="controles">
+            <button id="btn-atras" class="btn-nav">ANTERIOR</button>
+            <span id="indicador-indice">0 / 0</span>
+            <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
