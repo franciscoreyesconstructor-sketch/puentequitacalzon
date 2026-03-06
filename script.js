@@ -1,47 +1,60 @@
+// ==========================================
+// VARIABLES GLOBALES
+// ==========================================
 let datosOriginales = [];
 let datosFiltrados = [];
 let posicionActual = 0;
 
-// Cargar el archivo JSON
+// 1. CARGA DE DATOS (JSON)
 async function cargarDatos() {
     try {
-        // El v=9 evita que el navegador use datos viejos
+        // El parámetro ?v=9 fuerza al navegador a no usar versiones viejas guardadas
         const respuesta = await fetch('datos_visor.json?v=9');
+        
+        if (!respuesta.ok) {
+            throw new Error("No se pudo encontrar el archivo datos_visor.json");
+        }
+
         datosOriginales = await respuesta.json();
+        console.log("Datos cargados con éxito. Total filas: " + datosOriginales.length);
         
         poblarSelectModulo();
         aplicarFiltros();
     } catch (error) {
-        console.error("Error cargando el JSON:", error);
+        console.error("Error crítico en cargarDatos:", error);
     }
 }
 
-// Llenar el selector de módulos
+// 2. LLENAR SELECTOR DE MÓDULOS
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
-    const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo).trim()))].sort((a,b) => a - b);
+    
+    // Obtenemos los módulos, quitamos espacios y ordenamos
+    const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo).trim()))].sort((a, b) => a - b);
     
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
     modulos.forEach(m => {
-        if(m) selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
+        if (m && m !== "undefined") {
+            selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
+        }
     });
     
     selectMod.onchange = aplicarFiltros;
 }
 
-// Filtrar y Ordenar por Secuencia de Montaje
+// 3. FILTRADO Y ORDENAMIENTO POR PASO
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     
-    // 1. Filtrar por módulo
+    // Filtrar por módulo seleccionado
     let temporal = (modVal === "todos") 
         ? [...datosOriginales] 
-        : datosOriginales.filter(p => String(p.Modulo).trim() === modVal);
+        : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
     
-    // 2. ORDENAR POR PASO (Numéricamente)
+    // ORDENAR POR PASO (Numéricamente: 0.9, 1.0, 1.1...)
     temporal.sort((a, b) => {
-        let pasoA = parseFloat(a.Paso) || 0;
-        let pasoB = parseFloat(b.Paso) || 0;
+        let pasoA = parseFloat(a.Paso || a.paso) || 0;
+        let pasoB = parseFloat(b.Paso || b.paso) || 0;
         return pasoA - pasoB;
     });
 
@@ -50,93 +63,73 @@ function aplicarFiltros() {
     actualizarInterfaz();
 }
 
-// Mostrar los datos en pantalla
+// 4. ACTUALIZAR LA INTERFAZ (TEXTOS E IMÁGENES)
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
-    const p = datosFiltrados[posicionActual];
 
-    // Nuevo: Mostrar el número del Paso
-    document.getElementById("dato-paso").innerText = "PASO DE MONTAJE: " + (p.Paso || "--");
+    const p = datosFiltrados[posicionActual];
     
-    // Textos de la pieza
-    document.getElementById("pieza-titulo").innerText = "PIEZA: " + p["Pieza individual"];
-    document.getElementById("dato-perno").innerText = p.perno || "--";
+    // --- LLENADO DE TEXTOS ---
+    const valorPaso = p.Paso || p.paso || "--";
+    document.getElementById("dato-paso").innerText = "PASO DE MONTAJE: " + valorPaso;
+    
+    document.getElementById("pieza-titulo").innerText = "PIEZA: " + (p["Pieza individual"] || "--");
+    document.getElementById("dato-perno").innerText = p.perno || "VER PLANO";
     document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || "--";
     document.getElementById("dato-torque").innerText = p["Par apriete (N.m) (Torque)"] || "0";
+    
     document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || "0";
     document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || "0";
     document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || "0";
+    
     document.getElementById("dato-largo").innerText = p["Largo (mm)"] || "0";
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "0";
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "0";
 
-    // Imágenes (Buscador inteligente de planos)
+    // --- LÓGICA DE IMÁGENES (FOTO Y PLANO) ---
     const piezaID = String(p["Pieza individual"]).trim();
-    const modID = String(p.Modulo).trim();
-
-    document.getElementById("img-mapa").src = `fotos/mod0${modID}${piezaID}.jpg`;
-    document.getElementById("img-visor").src = `fotos/${piezaID}.jpg`;
-
-    // Si el plano no existe, mostramos un aviso limpio
-    document.getElementById("img-mapa").onerror = function() {
-        this.src = "https://via.placeholder.com/400x300?text=Plano+No+Disponible";
-    };
-
-    // --- SECCIÓN DE IMÁGENES CORREGIDA ---
-function actualizarInterfaz() {
-    if (datosFiltrados.length === 0) return;
-    const p = datosFiltrados[posicionActual];
-
-    // Limpiamos los IDs de cualquier espacio accidental en el Excel
-    const piezaID = String(p["Pieza individual"]).trim();
-    const modID = String(p.Modulo).trim();
-
+    const modID = String(p.Modulo || p.modulo).trim();
+    
     const imgMapa = document.getElementById("img-mapa");
     const imgVisor = document.getElementById("img-visor");
 
-    // 1. Foto de la pieza (Normal)
+    // Foto de la pieza (Normal)
     imgVisor.src = `fotos/${piezaID}.jpg`;
 
-    // 2. Plano de Ubicación (Lógica de búsqueda)
-    // Intentamos el formato: mod01 + NombrePieza (ej: mod0160IC15W.jpg)
-    const nombrePlanoPrincipal = `mod0${modID}${piezaID}.jpg`;
-    imgMapa.src = `fotos/${nombrePlanoPrincipal}`;
+    // Plano de Ubicación (Lógica de búsqueda mejorada)
+    // Intento 1: mod01 + NombrePieza (ej: mod0160IC15W.jpg)
+    const nombrePlano = `mod0${modID}${piezaID}.jpg`;
+    imgMapa.src = `fotos/${nombrePlano}`;
 
-    // Si el nombre con "mod0" falla, intentamos buscarlo solo por el nombre de la pieza
-    // pero con un prefijo "P_" o similar si es que los renombraste así.
+    // Si el plano no carga, intentamos un plan B o mostramos error claro
     imgMapa.onerror = function() {
-        console.warn("No se encontró el plano: " + nombrePlanoPrincipal);
-        
-        // SEGUNDO INTENTO: Quizás el archivo se llama "mod1..." sin el cero
-        if (!this.src.includes(`mod${modID}`)) {
-             this.src = `fotos/mod${modID}${piezaID}.jpg`;
-        } else {
-             // Si falla todo, mostramos el aviso visual
-             this.src = "https://via.placeholder.com/400x300?text=Error:+Falta+Archivo+Plano";
-        }
+        console.warn("No se encontró el archivo: " + nombrePlano);
+        // Si falla, podrías intentar buscarlo solo por piezaID o dejar el aviso:
+        this.src = "https://via.placeholder.com/400x300?text=Plano+No+Encontrado";
     };
     
-    // ... resto del código (Torque, Medidas, etc.) ...
-}
+    imgVisor.onerror = function() {
+        this.src = "https://via.placeholder.com/400x300?text=Foto+No+Disponible";
+    };
 
-    // Contador
+    // Actualizar el contador (1 / 224)
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
 }
 
-// Botones de navegación
+// 5. BOTONES DE NAVEGACIÓN
 document.getElementById("btn-siguiente").onclick = () => {
-    if(posicionActual < datosFiltrados.length - 1) {
+    if (posicionActual < datosFiltrados.length - 1) {
         posicionActual++;
         actualizarInterfaz();
     }
 };
 
 document.getElementById("btn-atras").onclick = () => {
-    if(posicionActual > 0) {
+    if (posicionActual > 0) {
         posicionActual--;
         actualizarInterfaz();
     }
 };
 
+// INICIAR CARGA AL ABRIR LA PÁGINA
 cargarDatos();
-
