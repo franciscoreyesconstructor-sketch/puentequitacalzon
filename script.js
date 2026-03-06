@@ -7,14 +7,13 @@ async function cargarDatos() {
         const res = await fetch('datos_visor.json');
         const rawData = await res.json();
         
-        // LIMPIEZA AUTOMÁTICA DE #N/A Y ESPACIOS
         datosOriginales = rawData.map(item => {
             let nuevoItem = {};
             for (let key in item) { 
                 let claveLimpia = key.trim();
                 let valor = item[key];
-                // Si el dato es un error de Excel, lo convertimos en "0" o texto vacío
-                if (valor === "#N/A" || valor === "#VALUE!" || valor === null) valor = "0";
+                // Limpiamos errores de Excel #N/A que aparecen en tu captura
+                if (valor === "#N/A" || valor === "#VALUE!" || valor === null) valor = "---";
                 nuevoItem[claveLimpia] = valor; 
             }
             return nuevoItem;
@@ -29,7 +28,7 @@ async function cargarDatos() {
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
     const modulos = [...new Set(datosOriginales.map(p => String(p["Modulo"] || "").trim()))]
-                    .filter(m => m !== "" && m !== "0").sort((a,b) => a - b);
+                    .filter(m => m !== "" && m !== "---").sort((a,b) => a - b);
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
     modulos.forEach(m => { selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`; });
     selectMod.onchange = () => { actualizarSelectPiezas(); aplicarFiltros(); };
@@ -47,8 +46,8 @@ function actualizarSelectPiezas() {
     piezasModulo.forEach(p => { 
         let cod = String(p["Pieza individual"] || "").trim();
         let perno = String(p["perno"] || "").trim();
-        if(cod && cod !== "0") {
-            // Permite ver la pieza 60ts01w dos veces si tiene pernos distintos
+        if(cod && cod !== "---") {
+            // Esto separa las dos entradas de la 60TS01W que tienes en tu JSON
             selectPieza.innerHTML += `<option value="${cod}|${perno}">${cod} (${perno})</option>`; 
         }
     });
@@ -78,7 +77,7 @@ function actualizarInterfaz() {
     const id = String(p["Pieza individual"] || "").trim();
     const mod = String(p["Modulo"] || "").trim();
 
-    // Actualizar Textos
+    // Actualizar Textos y ocultar #N/A
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + id;
     document.getElementById("dato-perno").innerText = p["perno"] || "---";
     document.getElementById("dato-acero-tuerca").innerText = p["stdtuerca"] || "---";
@@ -86,21 +85,25 @@ function actualizarInterfaz() {
     document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || "0";
     document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || "0";
     document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || "0";
-    document.getElementById("dato-largo").innerText = p["Largo (mm)"] || "0";
-    document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "0";
-    document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "0";
+    document.getElementById("dato-largo").innerText = p["Largo (mm)"] || "---";
+    document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "---";
+    document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "---";
 
     const imgMapa = document.getElementById("img-mapa");
     const imgVisor = document.getElementById("img-visor");
     let prefijo = (mod === "11") ? "mod11" : "mod01";
     
-    // SISTEMA DE CARGA ANTI-ERROR (Busca .jpg y .JPG)
+    // RASTREADOR DE FOTOS: Prueba todas las combinaciones posibles para evitar el error 404
     const intentarCargar = (elemento, nombreBase) => {
         const extensiones = ['.jpg', '.JPG', '.jpeg', '.JPEG'];
+        const variantes = [nombreBase, nombreBase.toLowerCase(), nombreBase.toUpperCase()];
+        let rutas = [];
+        variantes.forEach(v => { extensiones.forEach(ext => rutas.push(`fotos/${v}${ext}`)); });
+
         let i = 0;
         const probar = () => {
-            if (i < extensiones.length) {
-                elemento.src = `fotos/${nombreBase}${extensiones[i]}`;
+            if (i < rutas.length) {
+                elemento.src = rutas[i];
                 i++;
             } else {
                 elemento.src = "https://via.placeholder.com/400x300?text=Foto+no+encontrada";
