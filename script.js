@@ -6,13 +6,10 @@ async function cargarDatos() {
     try {
         const res = await fetch('datos_visor.json');
         const rawData = await res.json();
-        // Limpieza profunda de los nombres de columnas y datos
+        // Limpiamos los nombres de las columnas por si traen espacios del Excel
         datosOriginales = rawData.map(item => {
             let nuevoItem = {};
-            for (let key in item) { 
-                let claveLimpia = key.trim();
-                nuevoItem[claveLimpia] = item[key]; 
-            }
+            for (let key in item) { nuevoItem[key.trim()] = item[key]; }
             return nuevoItem;
         });
         poblarSelectModulo();
@@ -54,10 +51,10 @@ function aplicarFiltros() {
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
-    // Limpiamos el ID de cualquier espacio o caracter invisible
     const id = String(p["Pieza individual"] || "").trim();
     const mod = String(p["Modulo"] || "").trim();
 
+    // Actualizar Textos
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + id;
     document.getElementById("dato-perno").innerText = p["perno"] || "---";
     document.getElementById("dato-torque").innerText = (p["Par apriete (N.m) (Torque)"] || "0") + " N.m";
@@ -68,27 +65,27 @@ function actualizarInterfaz() {
     // Lógica de prefijo para planos
     let prefijo = (mod === "11") ? "mod11" : "mod01";
     
-    // 1. Intentamos cargar normal (.jpg minúscula)
-    imgMapa.src = `fotos/${prefijo}${id}.jpg`;
-    imgVisor.src = `fotos/${id}.jpg`;
-
-    // 2. Si falla el mapa, probamos con .JPG (mayúscula)
-    imgMapa.onerror = function() {
-        if (this.src.endsWith(".jpg")) {
-            this.src = this.src.replace(".jpg", ".JPG");
-        } else if (this.src.endsWith(".JPG")) {
-            // Si también falla, probamos con prefijo en mayúsculas MOD11...
-            let prefijoMayus = prefijo.toUpperCase();
-            this.src = `fotos/${prefijoMayus}${id}.JPG`;
-        }
+    // Función para intentar cargar imagen con varias extensiones
+    const intentarCargar = (elemento, nombreBase) => {
+        const extensiones = ['.jpg', '.JPG', '.jpeg', '.JPEG'];
+        let i = 0;
+        
+        elemento.src = `fotos/${nombreBase}${extensiones[i]}`;
+        
+        elemento.onerror = () => {
+            i++;
+            if (i < extensiones.length) {
+                elemento.src = `fotos/${nombreBase}${extensiones[i]}`;
+            } else {
+                // Si nada funciona, poner imagen de error amigable
+                elemento.src = "https://via.placeholder.com/400x300?text=No+Encontrada";
+                elemento.onerror = null; 
+            }
+        };
     };
 
-    // 3. Si falla la foto, probamos con .JPG (mayúscula)
-    imgVisor.onerror = function() {
-        if (this.src.endsWith(".jpg")) {
-            this.src = this.src.replace(".jpg", ".JPG");
-        }
-    };
+    intentarCargar(imgMapa, prefijo + id);
+    intentarCargar(imgVisor, id);
 
     document.querySelectorAll(".etiqueta-mod").forEach(el => el.innerText = "MOD: " + mod);
     document.querySelectorAll(".etiqueta-nombre").forEach(el => el.innerText = id);
