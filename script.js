@@ -6,16 +6,11 @@ async function cargarDatos() {
     try {
         const res = await fetch('datos_visor.json');
         const rawData = await res.json();
-        
-        // Limpiamos los nombres de las columnas y datos
         datosOriginales = rawData.map(item => {
             let nuevoItem = {};
-            for (let key in item) { 
-                nuevoItem[key.trim()] = item[key]; 
-            }
+            for (let key in item) { nuevoItem[key.trim()] = item[key]; }
             return nuevoItem;
         });
-
         poblarSelectModulo();
         actualizarSelectPiezas(); 
         actualizarInterfaz();
@@ -26,47 +21,32 @@ function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
     const modulos = [...new Set(datosOriginales.map(p => String(p["Modulo"] || "").trim()))]
                     .filter(m => m !== "" && m !== "undefined").sort((a,b) => a - b);
-    
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
-    modulos.forEach(m => { 
-        selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`; 
-    });
-    
-    selectMod.onchange = () => {
-        actualizarSelectPiezas(); 
-        aplicarFiltros();
-    };
+    modulos.forEach(m => { selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`; });
+    selectMod.onchange = () => { actualizarSelectPiezas(); aplicarFiltros(); };
 }
 
 function actualizarSelectPiezas() {
     const modSeleccionado = document.getElementById("filtro-modulo").value;
     const selectPieza = document.getElementById("filtro-pieza");
-    
     selectPieza.innerHTML = '<option value="todos">🔍 Seleccionar Pieza</option>';
-
-    const piezasModulo = (modSeleccionado === "todos") 
-        ? datosOriginales 
-        : datosOriginales.filter(p => String(p["Modulo"] || "").trim() === modSeleccionado);
-
-    // Mostramos Pieza + Perno para diferenciar si hay duplicados como la 60ts01w
+    const piezasModulo = (modSeleccionado === "todos") ? datosOriginales : datosOriginales.filter(p => String(p["Modulo"] || "").trim() === modSeleccionado);
+    
     piezasModulo.forEach(p => { 
         let cod = String(p["Pieza individual"] || "").trim();
         let perno = String(p["perno"] || "").trim();
         if(cod) {
-            // Se guarda el valor como "Pieza|Perno" para identificar la fila exacta
+            // Guardamos la combinación Pieza|Perno
             selectPieza.innerHTML += `<option value="${cod}|${perno}">${cod} (${perno})</option>`; 
         }
     });
-
     selectPieza.onchange = aplicarFiltros;
 }
 
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     const piezaCombo = document.getElementById("filtro-pieza").value;
-
     datosFiltrados = datosOriginales.filter(p => (modVal === "todos" || String(p["Modulo"] || "").trim() === modVal));
-
     if (piezaCombo !== "todos") {
         const [piezaVal, pernoVal] = piezaCombo.split('|');
         const index = datosFiltrados.findIndex(p => 
@@ -77,53 +57,54 @@ function aplicarFiltros() {
     } else {
         posicionActual = 0;
     }
-
     actualizarInterfaz();
 }
 
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
-    const id = String(p["Pieza individual"] || "").trim();
+    const idOriginal = String(p["Pieza individual"] || "").trim();
+    const idLimpio = idOriginal.toLowerCase(); // Para búsqueda más flexible
     const mod = String(p["Modulo"] || "").trim();
 
-    document.getElementById("pieza-titulo").innerText = "PIEZA: " + id;
+    document.getElementById("pieza-titulo").innerText = "PIEZA: " + idOriginal;
     document.getElementById("dato-perno").innerText = p["perno"] || "---";
     document.getElementById("dato-torque").innerText = (p["Par apriete (N.m) (Torque)"] || "0") + " N.m";
     
-    // Actualizar cantidades y medidas
-    document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || "0";
-    document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || "0";
-    document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || "0";
-    document.getElementById("dato-largo").innerText = p["Largo (mm)"] || "0";
-    document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || "0";
-    document.getElementById("dato-alto").innerText = p["Alto (mm)"] || "0";
-
     const imgMapa = document.getElementById("img-mapa");
     const imgVisor = document.getElementById("img-visor");
 
     let prefijo = (mod === "11") ? "mod11" : "mod01";
     
-    const intentarCargar = (elemento, nombreBase) => {
-        const extensiones = ['.jpg', '.JPG', '.jpeg', '.JPEG'];
-        let i = 0;
-        elemento.src = `fotos/${nombreBase}${extensiones[i]}`;
-        elemento.onerror = () => {
-            i++;
-            if (i < extensiones.length) {
-                elemento.src = `fotos/${nombreBase}${extensiones[i]}`;
+    // Función de carga con reintentos para mayúsculas/minúsculas
+    const cargarImagen = (elemento, nombre) => {
+        const intentos = [
+            `fotos/${nombre}.jpg`,
+            `fotos/${nombre}.JPG`,
+            `fotos/${nombre.toLowerCase()}.jpg`,
+            `fotos/${nombre.toUpperCase()}.JPG`
+        ];
+        let actual = 0;
+        
+        const probarSiguiente = () => {
+            if (actual < intentos.length) {
+                elemento.src = intentos[actual];
+                actual++;
             } else {
-                elemento.src = "https://via.placeholder.com/400x300?text=No+Encontrada";
-                elemento.onerror = null; 
+                elemento.src = "https://via.placeholder.com/400x300?text=Foto+No+Encontrada";
+                elemento.onerror = null;
             }
         };
+        
+        elemento.onerror = probarSiguiente;
+        probarSiguiente();
     };
 
-    intentarCargar(imgMapa, prefijo + id);
-    intentarCargar(imgVisor, id);
+    cargarImagen(imgMapa, prefijo + idOriginal);
+    cargarImagen(imgVisor, idOriginal);
 
     document.querySelectorAll(".etiqueta-mod").forEach(el => el.innerText = "MOD: " + mod);
-    document.querySelectorAll(".etiqueta-nombre").forEach(el => el.innerText = id);
+    document.querySelectorAll(".etiqueta-nombre").forEach(el => el.innerText = idOriginal);
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
 }
 
