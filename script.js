@@ -60,7 +60,7 @@ function actualizarInterfaz() {
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || 0;
 
     // Rutas de Imágenes V5
-    document.getElementById("img-mapa").src = `fotos/mod0${idMod}${idPieza}.jpg`;
+    document.getElementById("img-mapa").src = `fotos/mod${idMod}${idPieza}.jpg`;
     document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
 
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
