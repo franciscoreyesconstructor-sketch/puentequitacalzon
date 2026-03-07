@@ -1,23 +1,36 @@
-/* ... (tus estilos anteriores) ... */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background-color: #121212; color: white; display: flex; justify-content: center; }
+.app-movil { width: 100%; max-width: 480px; background-color: #000; min-height: 100vh; display: flex; flex-direction: column; }
 
-.dato-modulo-info {
-    background-color: #222;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid #444;
-}
+/* CABECERA */
+.contenedor-herramientas { padding: 15px; background: #222; }
+#filtro-modulo { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #ffcc00; background: #333; color: white; font-size: 16px; }
 
-#dato-modulo-linea {
-    color: #ffcc00;
-    font-weight: bold;
-    font-size: 18px;
-}
+/* IMÁGENES */
+.visor-imagenes { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: #333; }
+.contenedor-img { position: relative; height: 180px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.contenedor-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.etiqueta-flotante { position: absolute; top: 5px; left: 5px; background: rgba(255, 204, 0, 0.9); color: #000; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
 
-.grid-cantidades {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 15px;
-}
+/* DATOS */
+.cuerpo-datos { padding: 20px; flex-grow: 1; }
+#pieza-titulo { color: #ffcc00; font-size: 22px; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #ffcc00; padding-bottom: 10px; }
+.seccion-montaje { background: #1a1a1a; padding: 15px; border-radius: 10px; }
+.dato { margin-bottom: 8px; font-size: 16px; }
+
+.dato-torque { font-size: 22px; color: #ffcc00; font-weight: bold; text-align: center; padding: 10px; border: 2px dashed #ffcc00; border-radius: 8px; margin: 10px 0; }
+.dato-modulo-info { background: #333; padding: 10px; text-align: center; border-radius: 8px; border: 1px solid #444; margin-bottom: 15px; }
+#dato-modulo-linea { color: #ffcc00; font-weight: bold; font-size: 18px; }
+
+.grid-cantidades { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.item-cantidad { background: #222; padding: 10px; text-align: center; border-radius: 6px; font-size: 11px; }
+.item-cantidad b { display: block; font-size: 18px; color: #ffcc00; }
+
+.seccion-medidas { display: flex; justify-content: space-between; margin-top: 15px; }
+.caja-medida { flex: 1; background: #222; padding: 10px; text-align: center; border-radius: 6px; margin: 0 2px; }
+.caja-medida small { display: block; color: #888; font-size: 10px; }
+
+/* NAVEGACIÓN */
+.controles { padding: 15px; background: #222; display: flex; justify-content: space-between; align-items: center; position: sticky; bottom: 0; }
+.btn-nav { background: #ffcc00; color: #000; border: none; padding: 15px 20px; font-weight: bold; border-radius: 8px; }
+#indicador-indice { font-weight: bold; color: #ffcc00; }
