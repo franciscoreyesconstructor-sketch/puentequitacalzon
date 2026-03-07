@@ -305,9 +305,9 @@
     },
     {
         "Modulo": "2",
-        "Pieza individual": "",
-        "Cantidad": "",
-        "Ubicación pieza": "",
+        "Pieza individual": "60TS01W",
+        "Cantidad": "1",
+        "Ubicación pieza": "Debajo de piso",
         "Tipo Perno": "M24 24x70",
         "Cantidad Pernos por pieza": "8",
         "Cantidad Tuercas por pieza": "8",
@@ -3583,4 +3583,5 @@
         "Alto (mm)": "140",
         "Paso": "44"
     }
+
 ]
