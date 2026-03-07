@@ -1,247 +1,36 @@
-/* 1. CONFIGURACIÓN BASE INDUSTRIAL */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    -webkit-tap-highlight-color: transparent; /* Evita el recuadro azul al tocar en móviles */
-}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; -webkit-tap-highlight-color: transparent; }
+body { background-color: #121212; color: white; display: flex; justify-content: center; }
+.app-movil { width: 100%; max-width: 480px; background-color: #000; min-height: 100vh; display: flex; flex-direction: column; }
 
-body {
-    background-color: #121212;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    overflow-x: hidden;
-}
+.contenedor-herramientas { padding: 15px; background: #222; position: sticky; top: 0; z-index: 100; }
+#filtro-modulo { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #ffcc00; background: #333; color: white; font-size: 16px; font-weight: bold; }
 
-.app-movil {
-    width: 100%;
-    max-width: 480px;
-    background-color: #000000;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
+.visor-imagenes { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: #333; }
+.contenedor-img { position: relative; height: 180px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #444; }
+.contenedor-img img { max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-in; }
+.etiqueta-flotante { position: absolute; top: 5px; left: 5px; background: rgba(255, 204, 0, 0.9); color: #000; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; z-index: 10; }
 
-/* 2. CABECERA Y FILTROS */
-.contenedor-herramientas {
-    padding: 15px;
-    background-color: #222;
-    border-bottom: 1px solid #333;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+.cuerpo-datos { padding: 20px; flex-grow: 1; }
+#pieza-titulo { color: #ffcc00; font-size: 20px; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #ffcc00; padding-bottom: 10px; }
+.seccion-montaje { background: #1a1a1a; padding: 15px; border-radius: 10px; }
+.dato { margin-bottom: 8px; font-size: 15px; border-bottom: 1px solid #222; padding-bottom: 4px; }
 
-#filtro-modulo {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #ffcc00;
-    background-color: #333;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    appearance: none; /* Quita el estilo por defecto del sistema */
-}
+.dato-torque { font-size: 24px; color: #ffcc00; font-weight: bold; text-align: center; padding: 12px; border: 2px dashed #ffcc00; border-radius: 8px; margin: 15px 0; background: rgba(255, 204, 0, 0.05); }
+.dato-modulo-info { background: #333; padding: 10px; text-align: center; border-radius: 8px; border: 1px solid #444; margin-bottom: 15px; line-height: 1.5; }
+#dato-modulo-linea, #dato-posicion-pieza { color: #ffcc00; font-weight: bold; }
 
-/* 3. VISORES DE IMAGEN CON SOPORTE PARA ZOOM */
-.visor-imagenes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    padding: 4px;
-    background-color: #333;
-}
+.grid-cantidades { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.item-cantidad { background: #222; padding: 10px; text-align: center; border-radius: 6px; font-size: 11px; border: 1px solid #333; }
+.item-cantidad b { display: block; font-size: 18px; color: #ffcc00; margin-top: 4px; }
 
-.contenedor-img {
-    position: relative;
-    height: 180px;
-    background-color: #1a1a1a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border: 1px solid #444;
-}
+.seccion-medidas { display: flex; justify-content: space-between; gap: 5px; margin-top: 15px; }
+.caja-medida { flex: 1; background: #222; padding: 10px; text-align: center; border-radius: 6px; }
+.caja-medida small { display: block; color: #888; font-size: 10px; }
 
-.contenedor-img img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    cursor: zoom-in; /* Indica al operario que puede ampliar */
-    transition: opacity 0.3s;
-}
+.controles { padding: 15px; background: #222; display: flex; justify-content: space-between; align-items: center; position: sticky; bottom: 0; border-top: 1px solid #333; }
+.btn-nav { background: #ffcc00; color: #000; border: none; padding: 15px 25px; font-weight: bold; border-radius: 8px; box-shadow: 0 4px 0 #b38f00; }
+.btn-nav:active { transform: translateY(2px); box-shadow: 0 2px 0 #b38f00; }
+#indicador-indice { font-weight: bold; color: #ffcc00; font-size: 16px; }
 
-.etiqueta-flotante {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background-color: rgba(255, 204, 0, 0.9);
-    color: #000;
-    font-size: 10px;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 4px;
-    z-index: 10;
-    pointer-events: none; /* No estorba al hacer clic en la foto */
-}
-
-/* 4. CUERPO DE DATOS TÉCNICOS */
-.cuerpo-datos {
-    padding: 20px;
-    flex-grow: 1;
-}
-
-#pieza-titulo {
-    color: #ffcc00;
-    font-size: 20px;
-    margin-bottom: 15px;
-    text-align: center;
-    border-bottom: 2px solid #ffcc00;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.seccion-montaje {
-    background-color: #1a1a1a;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-.dato {
-    margin-bottom: 8px;
-    font-size: 15px;
-    border-bottom: 1px solid #222;
-    padding-bottom: 4px;
-}
-
-.dato strong {
-    color: #bbb;
-}
-
-/* RESALTE DE TORQUE */
-.dato-torque {
-    font-size: 22px;
-    color: #ffcc00;
-    font-weight: bold;
-    text-align: center;
-    padding: 12px;
-    border: 2px dashed #ffcc00;
-    border-radius: 8px;
-    margin: 15px 0;
-    background-color: rgba(255, 204, 0, 0.05);
-}
-
-/* INFO DE UBICACIÓN/MÓDULO */
-.dato-modulo-info {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
-    border-radius: 8px;
-    border: 1px solid #444;
-    margin-bottom: 15px;
-}
-
-#dato-modulo-linea {
-    color: #ffcc00;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-/* CUADRÍCULA DE CANTIDADES */
-.grid-cantidades {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-}
-
-.item-cantidad {
-    background-color: #222;
-    padding: 10px;
-    text-align: center;
-    border-radius: 6px;
-    font-size: 11px;
-    border: 1px solid #333;
-}
-
-.item-cantidad b {
-    display: block;
-    font-size: 18px;
-    color: #ffcc00;
-    margin-top: 4px;
-}
-
-/* 5. MEDIDAS DIMENSIONALES */
-.seccion-medidas {
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
-}
-
-.caja-medida {
-    flex: 1;
-    background-color: #222;
-    padding: 10px;
-    text-align: center;
-    border-radius: 6px;
-}
-
-.caja-medida small {
-    display: block;
-    color: #888;
-    font-size: 10px;
-    margin-bottom: 2px;
-}
-
-.caja-medida span {
-    font-size: 15px;
-    font-weight: bold;
-}
-
-/* 6. NAVEGACIÓN INFERIOR */
-.controles {
-    padding: 15px;
-    background-color: #222;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    bottom: 0;
-    border-top: 1px solid #333;
-}
-
-.btn-nav {
-    background-color: #ffcc00;
-    color: #000;
-    border: none;
-    padding: 15px 25px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 8px;
-    box-shadow: 0 4px 0 #b38f00;
-}
-
-.btn-nav:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #b38f00;
-}
-
-#indicador-indice {
-    font-weight: bold;
-    color: #ffcc00;
-    font-size: 16px;
-}
-
-/* 7. AJUSTES PARA EL ZOOM (LIBRERÍA) */
-.medium-zoom-overlay {
-    z-index: 5000;
-    background-color: #000 !important;
-}
-
-.medium-zoom-image--opened {
-    z-index: 5001;
-}
+.medium-zoom-overlay { z-index: 5000; background: #000 !important; }
+.medium-zoom-image--opened { z-index: 5001; }
