@@ -2,13 +2,10 @@ let datosOriginales = [];
 let datosFiltrados = [];
 let posicionActual = 0;
 
-// 1. CARGA DE DATOS
 async function cargarDatos() {
     try {
-        // El timestamp (?v=) evita que el celular cargue datos viejos de la memoria
         const respuesta = await fetch('datos_visor.json?v=' + Date.now());
         datosOriginales = await respuesta.json();
-        
         poblarSelectModulo();
         aplicarFiltros();
     } catch (error) {
@@ -16,105 +13,70 @@ async function cargarDatos() {
     }
 }
 
-// 2. POBLAR EL SELECTOR DE MÓDULOS
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
-    const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo).trim()))]
-                    .sort((a, b) => a - b);
-    
+    const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo).trim()))].sort((a, b) => a - b);
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
     modulos.forEach(m => {
-        if(m && m !== "undefined") {
-            selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
-        }
+        if(m && m !== "undefined") selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
     });
-    
     selectMod.onchange = aplicarFiltros;
 }
 
-// 3. FILTRAR POR SELECCIÓN
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
-    
-    datosFiltrados = (modVal === "todos") 
-        ? [...datosOriginales] 
-        : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
-    
+    datosFiltrados = (modVal === "todos") ? [...datosOriginales] : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
     posicionActual = 0;
     actualizarInterfaz();
 }
 
-// 4. ACTUALIZAR INTERFAZ (DATOS E IMÁGENES)
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
 
-    // --- PROCESAMIENTO DE VARIABLES ---
     const idPieza = String(p["Pieza individual"] || "").trim();
     const numModRaw = String(p.Modulo || p.modulo || "").trim();
-    
-    // LÓGICA DE MÓDULO: Agrega el "0" si es de un solo dígito (1 -> 01, 11 -> 11)
     const modFormateado = numModRaw.padStart(2, '0');
 
-    // Nombres de columna exactos según tu archivo Excel/JSON
-    const valorPerno = p["Tipo Perno"] || p.perno || "--";
-    const valorTorque = p["Par apriete (N.m) (Torque)"] || p.torque || "0";
-    const ubicaciónpieza = p["Ubicación pieza"] || p.ubicacion_pieza || "--";
-
-    // --- ACTUALIZAR TEXTOS EN HTML ---
+    // 1. Textos e Identificación
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + idPieza;
     document.getElementById("dato-modulo-linea").innerText = "MÓDULO " + modFormateado;
     
-    document.getElementById("dato-perno").innerText = valorPerno;
-    document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || p["Acero Tuerca"] || "--";
-    document.getElementById("dato-torque").innerText = valorTorque;
+    // Mapeo solicitado: Ubicación pieza (Excel) -> Posición pieza (Visor)
+    const valorUbicacion = p["Ubicación pieza"] || p.posicion || "--";
+    document.getElementById("dato-posicion-pieza").innerText = valorUbicacion;
+
+    // 2. Datos Técnicos
+    document.getElementById("dato-perno").innerText = p["Tipo Perno"] || p.perno || "--";
+    document.getElementById("dato-torque").innerText = p["Par apriete (N.m) (Torque)"] || p.torque || "0";
+    document.getElementById("dato-acero-tuerca").innerText = p["Acero Tuerca"] || p.stdtuerca || "--";
     
-    // Cantidades
+    // 3. Cantidades y Medidas
     document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || 0;
     document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || 0;
     document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || 0;
-    
-    // Medidas
     document.getElementById("dato-largo").innerText = p["Largo (mm)"] || 0;
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || 0;
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || 0;
 
-    // --- ACTUALIZAR IMÁGENES ---
+    // 4. Imágenes (Lógica mod01... mod21)
     if (idPieza) {
-        // Plano Ubicación: fotos/mod + (01..21) + pieza.jpg
         document.getElementById("img-mapa").src = `fotos/mod${modFormateado}${idPieza}.jpg`;
-        
-        // Foto de la Pieza: fotos/pieza.jpg
         document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
     }
 
-    // --- NAVEGACIÓN Y ZOOM ---
+    // 5. Navegación y Zoom
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
-    
-    // Reiniciar Medium Zoom para que las nuevas imágenes sean "clickeables"
     if (typeof mediumZoom !== 'undefined') {
-        mediumZoom('.zoom', {
-            margin: 20,
-            background: '#000',
-            scrollOffset: 0
-        });
+        mediumZoom('.zoom', { margin: 20, background: '#000', scrollOffset: 0 });
     }
 }
 
-// 5. EVENTOS DE BOTONES
 document.getElementById("btn-siguiente").onclick = () => {
-    if(posicionActual < datosFiltrados.length - 1) {
-        posicionActual++;
-        actualizarInterfaz();
-    }
+    if(posicionActual < datosFiltrados.length - 1) { posicionActual++; actualizarInterfaz(); }
 };
-
 document.getElementById("btn-atras").onclick = () => {
-    if(posicionActual > 0) {
-        posicionActual--;
-        actualizarInterfaz();
-    }
+    if(posicionActual > 0) { posicionActual--; actualizarInterfaz(); }
 };
 
-// INICIAR APLICACIÓN
 cargarDatos();
