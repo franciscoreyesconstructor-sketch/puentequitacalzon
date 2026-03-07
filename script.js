@@ -5,7 +5,7 @@ let posicionActual = 0;
 // 1. CARGA DE DATOS
 async function cargarDatos() {
     try {
-        // Usamos el timestamp (?v=) para forzar al navegador a descargar la versión más reciente
+        // El timestamp (?v=) evita que el celular cargue datos viejos de la memoria
         const respuesta = await fetch('datos_visor.json?v=' + Date.now());
         datosOriginales = await respuesta.json();
         
@@ -19,7 +19,6 @@ async function cargarDatos() {
 // 2. POBLAR EL SELECTOR DE MÓDULOS
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
-    // Extraer módulos únicos y ordenarlos numéricamente
     const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo).trim()))]
                     .sort((a, b) => a - b);
     
@@ -57,11 +56,12 @@ function actualizarInterfaz() {
     // LÓGICA DE MÓDULO: Agrega el "0" si es de un solo dígito (1 -> 01, 11 -> 11)
     const modFormateado = numModRaw.padStart(2, '0');
 
-    // Nombres de columna exactos según tu archivo
+    // Nombres de columna exactos según tu archivo Excel/JSON
     const valorPerno = p["Tipo Perno"] || p.perno || "--";
     const valorTorque = p["Par apriete (N.m) (Torque)"] || p.torque || "0";
+    const ubicaciónpieza = p["Ubicación pieza"] || p.ubicacion_pieza || "--";
 
-    // --- ACTUALIZAR TEXTOS ---
+    // --- ACTUALIZAR TEXTOS EN HTML ---
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + idPieza;
     document.getElementById("dato-modulo-linea").innerText = "MÓDULO " + modFormateado;
     
@@ -81,17 +81,17 @@ function actualizarInterfaz() {
 
     // --- ACTUALIZAR IMÁGENES ---
     if (idPieza) {
-        // Plano: fotos/mod + (01..21) + pieza.jpg
+        // Plano Ubicación: fotos/mod + (01..21) + pieza.jpg
         document.getElementById("img-mapa").src = `fotos/mod${modFormateado}${idPieza}.jpg`;
         
-        // Foto: fotos/pieza.jpg
+        // Foto de la Pieza: fotos/pieza.jpg
         document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
     }
 
     // --- NAVEGACIÓN Y ZOOM ---
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
     
-    // Reiniciar Medium Zoom para las nuevas imágenes cargadas
+    // Reiniciar Medium Zoom para que las nuevas imágenes sean "clickeables"
     if (typeof mediumZoom !== 'undefined') {
         mediumZoom('.zoom', {
             margin: 20,
@@ -116,5 +116,5 @@ document.getElementById("btn-atras").onclick = () => {
     }
 };
 
-// INICIAR APP
+// INICIAR APLICACIÓN
 cargarDatos();
