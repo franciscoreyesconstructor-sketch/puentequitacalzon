@@ -2,24 +2,24 @@ let datosOriginales = [];
 let datosFiltrados = [];
 let posicionActual = 0;
 
-// 1. CARGA DE DATOS DESDE EL JSON
+// 1. CARGA DE DATOS
 async function cargarDatos() {
     try {
-        // Agregamos un timestamp (?v=) para que el celular no guarde versiones viejas
+        // Usamos el timestamp (?v=) para forzar al navegador a descargar la versión más reciente
         const respuesta = await fetch('datos_visor.json?v=' + Date.now());
         datosOriginales = await respuesta.json();
         
         poblarSelectModulo();
         aplicarFiltros();
     } catch (error) {
-        console.error("Error al cargar la base de datos:", error);
+        console.error("Error al cargar el JSON:", error);
     }
 }
 
-// 2. LLENAR EL SELECTOR DE MÓDULOS
+// 2. POBLAR EL SELECTOR DE MÓDULOS
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
-    // Obtenemos módulos únicos y los ordenamos numéricamente
+    // Extraer módulos únicos y ordenarlos numéricamente
     const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo).trim()))]
                     .sort((a, b) => a - b);
     
@@ -33,7 +33,7 @@ function poblarSelectModulo() {
     selectMod.onchange = aplicarFiltros;
 }
 
-// 3. FILTRAR LOS DATOS SEGÚN EL MÓDULO SELECCIONADO
+// 3. FILTRAR POR SELECCIÓN
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     
@@ -45,23 +45,23 @@ function aplicarFiltros() {
     actualizarInterfaz();
 }
 
-// 4. ACTUALIZAR TODA LA INFORMACIÓN EN PANTALLA
+// 4. ACTUALIZAR INTERFAZ (DATOS E IMÁGENES)
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
 
-    // --- PROCESAMIENTO DE DATOS ---
+    // --- PROCESAMIENTO DE VARIABLES ---
     const idPieza = String(p["Pieza individual"] || "").trim();
     const numModRaw = String(p.Modulo || p.modulo || "").trim();
     
-    // LÓGICA INTELIGENTE: Convierte "1" en "01", pero deja "11" como "11"
+    // LÓGICA DE MÓDULO: Agrega el "0" si es de un solo dígito (1 -> 01, 11 -> 11)
     const modFormateado = numModRaw.padStart(2, '0');
 
-    // Mapeo de columnas con nombres exactos de tu Excel
+    // Nombres de columna exactos según tu archivo
     const valorPerno = p["Tipo Perno"] || p.perno || "--";
     const valorTorque = p["Par apriete (N.m) (Torque)"] || p.torque || "0";
 
-    // --- INYECCIÓN EN EL HTML ---
+    // --- ACTUALIZAR TEXTOS ---
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + idPieza;
     document.getElementById("dato-modulo-linea").innerText = "MÓDULO " + modFormateado;
     
@@ -79,19 +79,19 @@ function actualizarInterfaz() {
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || 0;
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || 0;
 
-    // --- CARGA DE IMÁGENES ---
+    // --- ACTUALIZAR IMÁGENES ---
     if (idPieza) {
-        // Plano Ubicación: fotos/mod + (01 a 21) + pieza.jpg
+        // Plano: fotos/mod + (01..21) + pieza.jpg
         document.getElementById("img-mapa").src = `fotos/mod${modFormateado}${idPieza}.jpg`;
         
-        // Foto Real: fotos/pieza.jpg
+        // Foto: fotos/pieza.jpg
         document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
     }
 
     // --- NAVEGACIÓN Y ZOOM ---
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
     
-    // Reiniciar el Zoom cada vez que cambiamos de pieza
+    // Reiniciar Medium Zoom para las nuevas imágenes cargadas
     if (typeof mediumZoom !== 'undefined') {
         mediumZoom('.zoom', {
             margin: 20,
@@ -101,7 +101,7 @@ function actualizarInterfaz() {
     }
 }
 
-// 5. CONTROL DE BOTONES ANTERIOR / SIGUIENTE
+// 5. EVENTOS DE BOTONES
 document.getElementById("btn-siguiente").onclick = () => {
     if(posicionActual < datosFiltrados.length - 1) {
         posicionActual++;
@@ -116,5 +116,5 @@ document.getElementById("btn-atras").onclick = () => {
     }
 };
 
-// INICIO AUTOMÁTICO
+// INICIAR APP
 cargarDatos();
