@@ -56,6 +56,8 @@ function actualizarInterfaz() {
     document.getElementById("dato-modulo-linea").innerText = "MÓDULO " + modFormateado;
     document.getElementById("dato-perno").innerText = p["Tipo Perno"] || p.perno || "--";
     document.getElementById("dato-torque").innerText = p["Par apriete (N.m) (Torque)"] || p.torque || "0";
+
+document.getElementById('dato-ubicacion-pieza').textContent = piezaActual['ubicación pieza'];
     
     // 3. CANTIDADES Y MEDIDAS
     document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || p["Acero Tuerca"] || "--";
