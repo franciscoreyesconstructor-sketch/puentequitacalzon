@@ -2,7 +2,6 @@ let datosOriginales = [];
 let datosFiltrados = [];
 let posicionActual = 0;
 
-// 1. CARGA DE DATOS
 async function cargarDatos() {
     try {
         const respuesta = await fetch('datos_visor.json?v=' + Date.now());
@@ -14,43 +13,36 @@ async function cargarDatos() {
     }
 }
 
-// 2. LLENAR EL SELECTOR DE MÓDULOS
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
     const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo).trim()))].sort((a,b) => a - b);
-    
     selectMod.innerHTML = '<option value="todos">📦 Módulo (Todos)</option>';
     modulos.forEach(m => {
-        if(m && m !== "undefined") {
-            selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
-        }
+        if(m && m !== "undefined") selectMod.innerHTML += `<option value="${m}">Módulo ${m}</option>`;
     });
     selectMod.onchange = aplicarFiltros;
 }
 
-// 3. FILTRADO
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
-    datosFiltrados = (modVal === "todos") 
-        ? [...datosOriginales] 
-        : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
-    
+    datosFiltrados = (modVal === "todos") ? [...datosOriginales] : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
     posicionActual = 0;
     actualizarInterfaz();
 }
 
-// 4. ACTUALIZAR PANTALLA
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
 
-    // Mapeo de columnas (usando los nombres exactos de tu Excel)
+    // Mapeo de columnas corregido
     const idPieza = String(p["Pieza individual"] || "").trim();
     const idMod = String(p.Modulo || p.modulo || "").trim();
+    
+    // Aquí usamos el nombre de columna que nos indicaste
     const valorPerno = p["Tipo Perno"] || p.perno || "--";
     const valorTorque = p["Par apriete (N.m) (Torque)"] || p.torque || "0";
 
-    // Actualizar Textos en el HTML que me pasaste
+    // Inyectar datos en HTML
     document.getElementById("pieza-titulo").innerText = "PIEZA: " + idPieza;
     document.getElementById("dato-modulo-linea").innerText = "MÓDULO " + idMod;
     document.getElementById("dato-perno").innerText = valorPerno;
@@ -67,27 +59,18 @@ function actualizarInterfaz() {
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || 0;
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || 0;
 
-    // Imágenes
+    // Rutas de Imágenes V5
     document.getElementById("img-mapa").src = `fotos/mod0${idMod}${idPieza}.jpg`;
     document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
 
-    // Contador
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
 }
 
-// 5. NAVEGACIÓN
 document.getElementById("btn-siguiente").onclick = () => {
-    if(posicionActual < datosFiltrados.length - 1) {
-        posicionActual++;
-        actualizarInterfaz();
-    }
+    if(posicionActual < datosFiltrados.length - 1) { posicionActual++; actualizarInterfaz(); }
 };
-
 document.getElementById("btn-atras").onclick = () => {
-    if(posicionActual > 0) {
-        posicionActual--;
-        actualizarInterfaz();
-    }
+    if(posicionActual > 0) { posicionActual--; actualizarInterfaz(); }
 };
 
 cargarDatos();
