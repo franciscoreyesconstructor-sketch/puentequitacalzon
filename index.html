@@ -6,6 +6,7 @@
     <title>SISTEMA SERRA - VISOR V5</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script>
 </head>
 <body>
     <div class="app-movil">
@@ -16,36 +17,31 @@
         </div>
 
         <div class="visor-imagenes">
-            <div class="contenedor-img mapa">
+            <div class="contenedor-img">
                 <div class="etiqueta-flotante">PLANO UBICACIÓN</div>
-                <img id="img-mapa" src="" alt="Cargando Plano...">
+                <img id="img-mapa" class="zoom" src="" alt="Cargando Plano...">
             </div>
-            <div class="contenedor-img foto">
+            <div class="contenedor-img">
                 <div class="etiqueta-flotante">FOTO PIEZA</div>
-                <img id="img-visor" src="" alt="Cargando Foto...">
+                <img id="img-visor" class="zoom" src="" alt="Cargando Foto...">
             </div>
         </div>
 
         <div class="cuerpo-datos">
             <h2 id="pieza-titulo">PIEZA: --</h2>
-
             <div class="seccion-montaje">
                 <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">--</span></div>
                 <div class="dato"><strong>⚙️ Estándar:</strong> <span id="dato-acero-tuerca">--</span></div>
-                
                 <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">0</span> <small>N.m</small></div>
-                
                 <div class="dato-modulo-info">
                     <strong>📦 UBICACIÓN:</strong> <span id="dato-modulo-linea">MÓDULO --</span>
                 </div>
-            
                 <div class="grid-cantidades">
                     <div class="item-cantidad">Pernos: <b id="cant-pernos">0</b></div>
                     <div class="item-cantidad">Tuercas: <b id="cant-tuercas">0</b></div>
                     <div class="item-cantidad">Golillas: <b id="cant-golillas">0</b></div>
                 </div>
             </div>
-
             <div class="seccion-medidas">
                 <div class="caja-medida"><small>LARGO</small><span id="dato-largo">0</span></div>
                 <div class="caja-medida"><small>ANCHO</small><span id="dato-ancho">0</span></div>
@@ -62,3 +58,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
