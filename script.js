@@ -25,7 +25,20 @@ function poblarSelectModulo() {
 
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
-    datosFiltrados = (modVal === "todos") ? [...datosOriginales] : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
+    
+    // 1. Filtramos por módulo
+    let filtrados = (modVal === "todos") 
+        ? [...datosOriginales] 
+        : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
+    
+    // 2. ORDENAMOS POR SECUENCIA (Clave para el montaje)
+    // Usamos el nombre de tu columna: "Secuencia"
+    datosFiltrados = filtrados.sort((a, b) => {
+        const secA = parseInt(a["Secuencia"]) || 0;
+        const secB = parseInt(b["Secuencia"]) || 0;
+        return secA - secB;
+    });
+    
     posicionActual = 0;
     actualizarInterfaz();
 }
