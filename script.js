@@ -48,36 +48,43 @@ function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
 
-    // --- CORRECCIÓN DE NOMBRES DE COLUMNA ---
-    // Buscamos el perno de varias formas para no fallar
-    const textoPerno = p["Tipo Perno"] || p.perno || p.Perno || p.PERNO || "--";
-    const textoEstandar = p.stdtuerca || p["Acero Tuerca"] || p.estandar || "--";
-    const textoTorque = p["Par apriete (N.m) (Torque)"] || p.torque || p.Torque || "0";
-
-    // Textos en HTML
-    document.getElementById("pieza-titulo").innerText = "PIEZA: " + (p["Pieza individual"] || "--");
-    document.getElementById("dato-perno").innerText = textoPerno;
-    document.getElementById("dato-acero-tuerca").innerText = textoEstandar;
-    document.getElementById("dato-torque").innerText = textoTorque;
+    // --- MAPEO EXACTO DE TUS COLUMNAS ---
+    // Usamos el nombre exacto que tienes en el JSON: "Tipo Perno"
+    const valorPerno = p["Tipo Perno"] || p.perno || p.Perno || "--";
     
-    // Cantidades
+    // Ajustamos también el Torque por si acaso
+    const valorTorque = p["Par apriete (N.m) (Torque)"] || p.Torque || p.torque || "0";
+
+    // 1. Título de la Pieza
+    document.getElementById("pieza-titulo").innerText = "PIEZA: " + (p["Pieza individual"] || "--");
+
+    // 2. Insertar los datos en el HTML
+    document.getElementById("dato-perno").innerText = valorPerno;
+    document.getElementById("dato-torque").innerText = valorTorque;
+    
+    // 3. Estándar / Acero (Ajusta este nombre si tampoco se ve)
+    document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || p["Acero Tuerca"] || "--";
+    
+    // 4. Cantidades (Nombres largos del Excel)
     document.getElementById("cant-pernos").innerText = p["Cantidad Pernos por pieza"] || 0;
     document.getElementById("cant-tuercas").innerText = p["Cantidad Tuercas por pieza"] || 0;
     document.getElementById("cant-golillas").innerText = p["Cantidad Golillas por pieza"] || 0;
     
-    // Medidas
+    // 5. Medidas
     document.getElementById("dato-largo").innerText = p["Largo (mm)"] || 0;
     document.getElementById("dato-ancho").innerText = p["Ancho (mm)"] || 0;
     document.getElementById("dato-alto").innerText = p["Alto (mm)"] || 0;
 
-    // Imágenes (Lógica V5)
-    const idPieza = String(p["Pieza individual"]).trim();
-    const idMod = String(p.Modulo || p.modulo).trim();
+    // --- IMÁGENES (Lógica V5 estable) ---
+    const idPieza = String(p["Pieza individual"] || "").trim();
+    const idMod = String(p.Modulo || p.modulo || "").trim();
 
-    document.getElementById("img-mapa").src = `fotos/mod0${idMod}${idPieza}.jpg`;
-    document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
+    if (idPieza) {
+        document.getElementById("img-mapa").src = `fotos/mod0${idMod}${idPieza}.jpg`;
+        document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
+    }
 
-    // Contador
+    // 6. Contador
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
 }
 
@@ -97,4 +104,5 @@ document.getElementById("btn-atras").onclick = () => {
 };
 
 cargarDatos();
+
 
