@@ -32,10 +32,10 @@ function aplicarFiltros() {
         : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
     
     // 2. ORDENAMOS POR SECUENCIA (Clave para el montaje)
-    // Usamos el nombre de tu columna: "Secuencia"
+    // Usamos el nombre de tu columna: "Paso"
     datosFiltrados = filtrados.sort((a, b) => {
-        const secA = parseInt(a["Secuencia"]) || 0;
-        const secB = parseInt(b["Secuencia"]) || 0;
+        const secA = parseInt(a["Paso"]) || 0;
+        const secB = parseInt(b["Paso"]) || 0;
         return secA - secB;
     });
     
