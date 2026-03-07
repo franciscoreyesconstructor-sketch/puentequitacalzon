@@ -1,4 +1,4 @@
-let datosOriginales = [];
+9let datosOriginales = [];
 let datosFiltrados = [];
 let posicionActual = 0;
 
@@ -57,7 +57,7 @@ function actualizarInterfaz() {
     document.getElementById("dato-perno").innerText = p["Tipo Perno"] || p.perno || "--";
     document.getElementById("dato-torque").innerText = p["Par apriete (N.m) (Torque)"] || p.torque || "0";
 
-document.getElementById('dato-ubicacion-pieza').textContent = piezaActual['ubicación pieza'];
+document.getElementById('dato-ubicacion-pieza').textContent = ubicación pieza['posición pieza'];
     
     // 3. CANTIDADES Y MEDIDAS
     document.getElementById("dato-acero-tuerca").innerText = p.stdtuerca || p["Acero Tuerca"] || "--";
