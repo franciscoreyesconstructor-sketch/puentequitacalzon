@@ -39,3 +39,8 @@ body { background-color: #121212; color: white; display: flex; justify-content: 
 /* Modal Zoom Layer */
 .medium-zoom-overlay { z-index: 5000; background: #000 !important; }
 .medium-zoom-image--opened { z-index: 5001; }
+
+.controles-unificados { padding: 10px 15px; background: #222; position: sticky; bottom: 0; z-index: 100; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #333; }
+.fila-navegacion { display: flex; justify-content: space-between; align-items: center; }
+.btn-mapa { width: 100%; background: #333; color: #ffcc00; border: 2px solid #ffcc00; padding: 12px; font-weight: bold; border-radius: 8px; cursor: pointer; }
+
