@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SISTEMA SERRA - VISOR V6</title>
+    <title>SISTEMA SERRA - VISOR V7 FINAL</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script>
 </head>
 <body>
-    <div id="pantalla-mapa-general" style="display:none; background:#000; height:100vh; width:100%; position:fixed; z-index:2000; flex-direction:column;">
+    <div id="modal-mapa-general" style="display:none; background:rgba(0,0,0,0.95); height:100vh; width:100%; position:fixed; z-index:2000; flex-direction:column; top:0; left:0;">
         <div style="padding:15px; background:#222; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ffcc00;">
-            <h3 id="titulo-mapa-general" style="color:#ffcc00; font-size:16px;">PLANO GENERAL MÓDULO</h3>
-            <button onclick="cerrarMapaGeneral()" style="background:#ffcc00; border:none; padding:10px 15px; font-weight:bold; border-radius:5px; color:#000;">EMPEZAR MONTAJE</button>
+            <h3 style="color:#ffcc00; font-size:16px;">PLANO GENERAL DEL PUENTE</h3>
+            <button onclick="cerrarMapaGeneral()" style="background:#ffcc00; border:none; padding:10px 15px; font-weight:bold; border-radius:5px; color:#000; cursor:pointer;">CERRAR</button>
         </div>
         <div style="flex-grow:1; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:10px;">
-            <img id="img-ubimod" class="zoom" src="" style="max-width:100%; max-height:95%; object-fit:contain;">
+            <img id="img-ubimod" class="zoom" src="" alt="Cargando Plano General..." style="max-width:100%; max-height:95%; object-fit:contain; cursor:zoom-in;">
         </div>
     </div>
 
@@ -64,10 +64,13 @@
             </div>
         </div>
 
-        <div class="controles">
-            <button id="btn-atras" class="btn-nav">ANTERIOR</button>
-            <span id="indicador-indice">0 / 0</span>
-            <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
+        <div class="controles-unificados">
+            <div class="fila-navegacion">
+                <button id="btn-atras" class="btn-nav">ANTERIOR</button>
+                <span id="indicador-indice">0 / 0</span>
+                <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
+            </div>
+            <button id="btn-mapa-general" class="btn-mapa" onclick="mostrarMapaGeneral()">🗺️ VER PLANO GENERAL PUENTE</button>
         </div>
     </div>
     <script src="script.js"></script>
