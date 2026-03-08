@@ -8,13 +8,13 @@
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script>
 </head>
 <body>
-    <div id="modal-mapa-general" style="display:none; background:rgba(0,0,0,0.95); height:100vh; width:100%; position:fixed; z-index:2000; flex-direction:column; top:0; left:0;">
+    <div id="modal-mapa-general" style="display:none; background:rgba(0,0,0,0.98); height:100vh; width:100%; position:fixed; z-index:2000; flex-direction:column; top:0; left:0;">
         <div style="padding:15px; background:#222; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ffcc00;">
             <h3 style="color:#ffcc00; font-size:16px;">PLANO GENERAL DEL PUENTE</h3>
-            <button onclick="cerrarMapaGeneral()" style="background:#ffcc00; border:none; padding:10px 15px; font-weight:bold; border-radius:5px; color:#000; cursor:pointer;">CERRAR</button>
+            <button onclick="cerrarMapaGeneral()" style="background:#ffcc00; border:none; padding:10px 15px; font-weight:bold; border-radius:5px; color:#000; cursor:pointer;">VOLVER AL MONTAJE</button>
         </div>
         <div style="flex-grow:1; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:10px;">
-            <img id="img-ubimod" class="zoom" src="" alt="Cargando Plano General..." style="max-width:100%; max-height:95%; object-fit:contain; cursor:zoom-in;">
+            <img id="img-ubimod" class="zoom" src="" alt="Plano General" style="max-width:100%; max-height:90%; object-fit:contain; cursor:zoom-in;">
         </div>
     </div>
 
