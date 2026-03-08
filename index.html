@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SISTEMA SERRA - VISOR V5 FINAL</title>
+    <title>SISTEMA SERRA - VISOR V6</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script>
 </head>
 <body>
-
     <div id="pantalla-mapa-general" style="display:none; background:#000; height:100vh; width:100%; position:fixed; z-index:2000; flex-direction:column;">
-    <div style="padding:15px; background:#222; display:flex; justify-content:space-between; align-items:center;">
-        <h3 id="titulo-mapa-general" style="color:#ffcc00;">PLANO GENERAL</h3>
-        <button onclick="cerrarMapaGeneral()" style="background:#ffcc00; border:none; padding:10px 20px; font-weight:bold; border-radius:5px;">EMPEZAR MONTAJE</button>
+        <div style="padding:15px; background:#222; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ffcc00;">
+            <h3 id="titulo-mapa-general" style="color:#ffcc00; font-size:16px;">PLANO GENERAL MÓDULO</h3>
+            <button onclick="cerrarMapaGeneral()" style="background:#ffcc00; border:none; padding:10px 15px; font-weight:bold; border-radius:5px; color:#000;">EMPEZAR MONTAJE</button>
+        </div>
+        <div style="flex-grow:1; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:10px;">
+            <img id="img-ubimod" class="zoom" src="" style="max-width:100%; max-height:95%; object-fit:contain;">
+        </div>
     </div>
-    <div style="flex-grow:1; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-        <img id="img-ubimod" class="zoom" src="" style="max-width:100%; max-height:90%; object-fit:contain;">
-    </div>
-</div>
-
 
     <div class="app-movil">
         <div class="contenedor-herramientas">
@@ -43,13 +41,13 @@
 
             <div class="seccion-montaje">
                 <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">--</span></div>
-                <div class="dato"><strong>⚙️ Estándar tuerca:</strong> <span id="dato-acero-tuerca">--</span></div>
+                <div class="dato"><strong>⚙️ Estándar:</strong> <span id="dato-acero-tuerca">--</span></div>
                 
                 <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">0</span> <small>N.m</small></div>
                 
                 <div class="dato-modulo-info">
                     <strong>📦 UBICACIÓN:</strong> <span id="dato-modulo-linea">MÓDULO --</span><br>
-                    <strong>📍 POSICIÓN:</strong> <span id="dato-posicion-pieza">--</span>
+                    <strong>📍 POSICIÓN PIEZA:</strong> <span id="dato-posicion-pieza">--</span>
                 </div>
             
                 <div class="grid-cantidades">
@@ -60,9 +58,9 @@
             </div>
 
             <div class="seccion-medidas">
-                <div class="caja-medida"><small>LARGO (mm)</small><span id="dato-largo">0</span></div>
-                <div class="caja-medida"><small>ANCHO (mm)</small><span id="dato-ancho">0</span></div>
-                <div class="caja-medida"><small>ALTO (mm)</small><span id="dato-alto">0</span></div>
+                <div class="caja-medida"><small>LARGO</small><span id="dato-largo">0</span></div>
+                <div class="caja-medida"><small>ANCHO</small><span id="dato-ancho">0</span></div>
+                <div class="caja-medida"><small>ALTO</small><span id="dato-alto">0</span></div>
             </div>
         </div>
 
