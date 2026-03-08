@@ -26,19 +26,23 @@ function poblarSelectModulo() {
 function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     let filtrados = (modVal === "todos") ? [...datosOriginales] : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
-    
-    // ORDENAR POR PASO
     datosFiltrados = filtrados.sort((a, b) => (parseInt(a["Paso"]) || 0) - (parseInt(b["Paso"]) || 0));
     posicionActual = 0;
     actualizarInterfaz();
 }
 
-// FUNCIONES PARA PLANO GENERAL ÚNICO
 function mostrarMapaGeneral() {
     const modal = document.getElementById("modal-mapa-general");
     const imgUbimod = document.getElementById("img-ubimod");
     imgUbimod.src = `fotos/ubimod.jpg?v=${Date.now()}`; 
     modal.style.display = "flex";
+
+    // Activar Zoom para el Mapa General
+    setTimeout(() => {
+        if (typeof mediumZoom !== 'undefined') {
+            mediumZoom('#img-ubimod', { margin: 0, background: '#000' });
+        }
+    }, 100);
 }
 
 function cerrarMapaGeneral() {
@@ -48,18 +52,13 @@ function cerrarMapaGeneral() {
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
-
     const idPieza = String(p["Pieza individual"] || "").trim();
-    const numModRaw = String(p.Modulo || p.modulo || "").trim();
-    const modFormateado = numModRaw.padStart(2, '0');
+    const modFormateado = String(p.Modulo || p.modulo || "").trim().padStart(2, '0');
     const pasoActual = p["Paso"] || "--";
 
     document.getElementById("pieza-titulo").innerText = `PIEZA: ${idPieza} (PASO ${pasoActual})`;
     document.getElementById("dato-modulo-linea").innerText = "MÓDULO " + modFormateado;
-    
-    // Mapeo Ubicación pieza -> Posición pieza
     document.getElementById("dato-posicion-pieza").innerText = p["Ubicación pieza"] || p.posicion || "--";
-
     document.getElementById("dato-perno").innerText = p["Tipo Perno"] || p.perno || "--";
     document.getElementById("dato-torque").innerText = p["Par apriete (N.m) (Torque)"] || p.torque || "0";
     document.getElementById("dato-acero-tuerca").innerText = p["Acero Tuerca"] || p.stdtuerca || "--";
@@ -77,17 +76,12 @@ function actualizarInterfaz() {
     }
 
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
-    
     if (typeof mediumZoom !== 'undefined') {
         mediumZoom('.zoom', { margin: 20, background: '#000' });
     }
 }
 
-document.getElementById("btn-siguiente").onclick = () => {
-    if(posicionActual < datosFiltrados.length - 1) { posicionActual++; actualizarInterfaz(); }
-};
-document.getElementById("btn-atras").onclick = () => {
-    if(posicionActual > 0) { posicionActual--; actualizarInterfaz(); }
-};
+document.getElementById("btn-siguiente").onclick = () => { if(posicionActual < datosFiltrados.length - 1) { posicionActual++; actualizarInterfaz(); } };
+document.getElementById("btn-atras").onclick = () => { if(posicionActual > 0) { posicionActual--; actualizarInterfaz(); } };
 
 cargarDatos();
