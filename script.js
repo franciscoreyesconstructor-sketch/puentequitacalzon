@@ -100,5 +100,43 @@ document.getElementById("btn-atras").onclick = () => {
     if(posicionActual > 0) { posicionActual--; actualizarInterfaz(); }
 };
 
+// Función para mostrar el plano extendido al cambiar de módulo
+function aplicarFiltros() {
+    const modVal = document.getElementById("filtro-modulo").value;
+    
+    let filtrados = (modVal === "todos") 
+        ? [...datosOriginales] 
+        : datosOriginales.filter(p => String(p.Modulo || p.modulo).trim() === modVal);
+    
+    datosFiltrados = filtrados.sort((a, b) => (parseInt(a["Paso"]) || 0) - (parseInt(b["Paso"]) || 0));
+    posicionActual = 0;
+
+    // SI SELECCIONA UN MÓDULO ESPECÍFICO, MOSTRAR UBIMOD.JPG
+    if (modVal !== "todos") {
+        mostrarMapaGeneral(modVal);
+    } else {
+        actualizarInterfaz();
+    }
+}
+
+function mostrarMapaGeneral(nMod) {
+    const modFormateado = nMod.padStart(2, '0');
+    const pantalla = document.getElementById("pantalla-mapa-general");
+    const imgUbimod = document.getElementById("img-ubimod");
+    
+    document.getElementById("titulo-mapa-general").innerText = `MAPA GENERAL MÓDULO ${modFormateado}`;
+    
+    // Ruta: fotos/ubimod01.jpg, ubimod02.jpg, etc.
+    imgUbimod.src = `fotos/ubimod${modFormateado}.jpg`;
+    
+    pantalla.style.display = "flex";
+}
+
+function cerrarMapaGeneral() {
+    document.getElementById("pantalla-mapa-general").style.display = "none";
+    actualizarInterfaz();
+}
+
+
 // Iniciar aplicación
 cargarDatos();
