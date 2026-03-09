@@ -76,4 +76,9 @@ function cerrarZoomDetalle() { document.getElementById("modal-zoom-detallado").s
 document.getElementById("btn-siguiente").onclick = () => { if(posicionActual < datosFiltrados.length - 1) { posicionActual++; actualizarInterfaz(); } };
 document.getElementById("btn-atras").onclick = () => { if(posicionActual > 0) { posicionActual--; actualizarInterfaz(); } };
 
+function abrirManual() {
+    // Abre el PDF en una pestaña nueva
+    window.open('mtmi.pdf', '_blank');
+}
+
 cargarDatos();
