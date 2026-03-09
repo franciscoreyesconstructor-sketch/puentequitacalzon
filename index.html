@@ -64,15 +64,19 @@
         </main>
 
         <footer class="controles-unificados">
-            <div class="fila-navegacion">
-                <button id="btn-atras" class="btn-nav">ANTERIOR</button>
-                <div id="indicador-indice">0 / 0</div>
-                <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
+                    <div class="fila-navegacion">
+                        <button id="btn-atras" class="btn-nav">ANTERIOR</button>
+                        <div id="indicador-indice">0 / 0</div>
+                        <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
+                    </div>
+                    
+                    <button class="btn-mapa" onclick="abrirZoomDetalle('img-ubimod-hidden', 'PLANO GENERAL')">🗺️ PLANO GENERAL</button>
+                    
+                    <button class="btn-manual" onclick="abrirManual()">📕 MANUAL DE MONTAJE (PDF)</button>
+                    
+                    <img id="img-ubimod-hidden" src="fotos/ubimod.jpg" style="display:none;">
+                </footer>
             </div>
-            <button class="btn-mapa" onclick="abrirZoomDetalle('img-ubimod-hidden', 'PLANO GENERAL')">🗺️ PLANO GENERAL</button>
-            <img id="img-ubimod-hidden" src="fotos/ubimod.jpg" style="display:none;">
-        </footer>
-    </div>
-    <script src="script.js"></script>
+            <script src="script.js"></script>
 </body>
 </html>
