@@ -1,4 +1,4 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; -webkit-tap-highlight-color: transparent; }
 body { background-color: #121212; color: white; display: flex; justify-content: center; }
 
 .app-movil { width: 100%; max-width: 480px; background-color: #000; min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 160px; }
@@ -15,7 +15,9 @@ body { background-color: #121212; color: white; display: flex; justify-content: 
 .cuerpo-datos { padding: 15px; flex-grow: 1; }
 #pieza-titulo { color: #ffcc00; font-size: 18px; margin-bottom: 12px; text-align: center; border-bottom: 2px solid #ffcc00; padding-bottom: 8px; }
 .seccion-montaje { background: #1a1a1a; padding: 15px; border-radius: 10px; border: 1px solid #333; }
+.dato { margin-bottom: 6px; font-size: 14px; border-bottom: 1px solid #222; padding-bottom: 4px; }
 .dato-torque { font-size: 26px; color: #ffcc00; font-weight: bold; text-align: center; padding: 10px; border: 2px dashed #ffcc00; border-radius: 8px; margin: 12px 0; background: rgba(255, 204, 0, 0.05); }
+.dato-modulo-info { background: #333; padding: 10px; text-align: center; border-radius: 8px; border: 1px solid #444; font-size: 13px; }
 
 .seccion-medidas { display: flex; justify-content: space-between; gap: 5px; margin-top: 15px; }
 .caja-medida { flex: 1; background: #222; padding: 10px; text-align: center; border-radius: 6px; font-size: 12px; }
