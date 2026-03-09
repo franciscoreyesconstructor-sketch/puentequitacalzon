@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>VISOR SERRA V7.5</title>
+    <title>VISOR SERRA V8.0</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.min.js"></script>
 </head>
 <body>
     <div id="modal-zoom-detallado" style="display:none; background:#000; height:100vh; width:100%; position:fixed; z-index:3000; flex-direction:column; top:0; left:0;">
         <div style="padding:15px; background:#111; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ffcc00;">
-            <h3 id="titulo-zoom-modal" style="color:#ffcc00; font-size:14px; text-transform:uppercase;">INSPECCIÓN</h3>
-            <button onclick="cerrarZoomDetalle()" style="background:#ffcc00; border:none; padding:12px 25px; font-weight:bold; border-radius:8px; color:#000;">VOLVER</button>
+            <h3 id="titulo-zoom-modal" style="color:#ffcc00; font-size:14px;">INSPECCIÓN</h3>
+            <button onclick="cerrarZoomDetalle()" style="background:#ffcc00; border:none; padding:12px 25px; font-weight:bold; border-radius:8px;">VOLVER</button>
         </div>
         <div id="wrapper-zoom-detalle" style="flex-grow:1; overflow:hidden; position:relative; touch-action:none;">
             <img id="img-zoom-full" src="" style="width:100%; height:100%; object-fit:contain;">
@@ -20,19 +20,21 @@
 
     <div class="app-movil">
         <header class="contenedor-herramientas">
-            <select id="filtro-modulo">
-                <option value="todos">📦 CARGANDO MÓDULOS...</option>
-            </select>
+            <select id="filtro-modulo"><option value="todos">📦 CARGANDO...</option></select>
         </header>
 
         <section class="visor-imagenes">
-            <div class="contenedor-img" onclick="abrirZoomDetalle('img-mapa', 'UBICACIÓN PIEZA')">
+            <div class="contenedor-img">
                 <div class="etiqueta-flotante">UBICACIÓN</div>
-                <img id="img-mapa" src="" alt="Mapa">
+                <div id="pz-ubica" style="width:100%; height:100%;" onclick="abrirZoomDetalle('img-mapa', 'UBICACIÓN')">
+                    <img id="img-mapa" src="" alt="Mapa">
+                </div>
             </div>
-            <div class="contenedor-img" onclick="abrirZoomDetalle('img-visor', 'FOTO TÉCNICA')">
-                <div class="etiqueta-flotante">FOTO PIEZA</div>
-                <img id="img-visor" src="" alt="Pieza">
+            <div class="contenedor-img">
+                <div class="etiqueta-flotante">PIEZA</div>
+                <div id="pz-pieza" style="width:100%; height:100%;" onclick="abrirZoomDetalle('img-visor', 'PIEZA')">
+                    <img id="img-visor" src="" alt="Pieza">
+                </div>
             </div>
         </section>
 
@@ -42,12 +44,17 @@
                 <div class="fila-dato"><span>🔩 Perno:</span> <strong id="dato-perno">--</strong></div>
                 <div class="fila-dato"><span>⚙️ Estándar:</span> <strong id="dato-estandar">--</strong></div>
                 <div class="caja-torque">
-                    <small>PAR DE APRIETE REQUERIDO</small>
+                    <small>TORQUE</small>
                     <div><span id="dato-torque">0</span> <small>N.m</small></div>
                 </div>
+                <div class="seccion-medidas">
+                    <div class="caja-medida"><small>LARGO</small><span id="dato-largo">0</span></div>
+                    <div class="caja-medida"><small>ANCHO</small><span id="dato-ancho">0</span></div>
+                    <div class="caja-medida"><small>ALTO</small><span id="dato-alto">0</span></div>
+                </div>
                 <div class="posicion-detallada">
-                    <strong>UBICACIÓN:</strong> <span id="dato-modulo-linea">MÓDULO --</span><br>
-                    <strong>POSICIÓN PIEZA:</strong> <span id="dato-posicion-pieza">--</span>
+                    <strong>UBICACIÓN:</strong> <span id="dato-modulo-linea">--</span><br>
+                    <strong>POSICIÓN:</strong> <span id="dato-posicion-pieza">--</span>
                 </div>
             </div>
         </main>
