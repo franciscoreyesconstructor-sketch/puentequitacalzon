@@ -3,62 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>VISOR SERRA V8.0</title>
+    <title>SERRA V9 - CONSOLIDADO</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.min.js"></script>
 </head>
 <body>
-    <div id="modal-zoom-detallado" style="display:none; background:#000; height:100vh; width:100%; position:fixed; z-index:3000; flex-direction:column; top:0; left:0;">
-        <div style="padding:15px; background:#111; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ffcc00;">
-            <h3 id="titulo-zoom-modal" style="color:#ffcc00; font-size:14px;">INSPECCIÓN</h3>
-            <button onclick="cerrarZoomDetalle()" style="background:#ffcc00; border:none; padding:12px 25px; font-weight:bold; border-radius:8px;">VOLVER</button>
+    <div id="modal-zoom-detallado" class="modal-zoom">
+        <div class="header-modal">
+            <h3 id="titulo-zoom-modal">INSPECCIÓN</h3>
+            <button onclick="cerrarZoomDetalle()" class="btn-cerrar">VOLVER</button>
         </div>
-        <div id="wrapper-zoom-detalle" style="flex-grow:1; overflow:hidden; position:relative; touch-action:none;">
-            <img id="img-zoom-full" src="" style="width:100%; height:100%; object-fit:contain;">
+        <div id="wrapper-zoom-detalle" class="wrapper-zoom">
+            <img id="img-zoom-full" src="" alt="Zoom">
         </div>
     </div>
 
     <div class="app-movil">
         <header class="contenedor-herramientas">
-            <select id="filtro-modulo"><option value="todos">📦 CARGANDO...</option></select>
+            <select id="filtro-modulo">
+                <option value="todos">📦 CARGANDO...</option>
+            </select>
         </header>
 
         <section class="visor-imagenes">
-            <div class="contenedor-img">
+            <div id="indicador-paso-flotante">PASO<br><span id="num-paso">1</span></div>
+            
+            <div class="contenedor-img" onclick="abrirZoomDetalle('img-mapa', 'UBICACIÓN')">
                 <div class="etiqueta-flotante">UBICACIÓN</div>
-                <div id="pz-ubica" style="width:100%; height:100%;" onclick="abrirZoomDetalle('img-mapa', 'UBICACIÓN')">
-                    <img id="img-mapa" src="" alt="Mapa">
-                </div>
+                <img id="img-mapa" src="" alt="Mapa">
             </div>
-            <div class="contenedor-img">
+            <div class="contenedor-img" onclick="abrirZoomDetalle('img-visor', 'PIEZA')">
                 <div class="etiqueta-flotante">PIEZA</div>
-                <div id="pz-pieza" style="width:100%; height:100%;" onclick="abrirZoomDetalle('img-visor', 'PIEZA')">
-                    <img id="img-visor" src="" alt="Pieza">
-                </div>
+                <img id="img-visor" src="" alt="Pieza">
             </div>
-        </section>
-
-        <section class="visor-imagenes">
-    <div id="indicador-paso-flotante">PASO<br><span id="num-paso">1</span></div>
         </section>
 
         <main class="cuerpo-datos">
             <h2 id="pieza-titulo">PIEZA: --</h2>
+            
             <div class="tarjeta-info">
                 <div class="fila-dato"><span>🔩 Perno:</span> <strong id="dato-perno">--</strong></div>
-                <div class="fila-dato"><span>⚙️ Estándar tuerca:</span> <strong id="dato-estandar">--</strong></div>
+                <div class="fila-dato"><span>⚙️ Estándar:</span> <strong id="dato-estandar">--</strong></div>
+                
                 <div class="caja-torque">
-                    <small>TORQUE</small>
+                    <small>TORQUE REQUERIDO</small>
                     <div><span id="dato-torque">0</span> <small>N.m</small></div>
                 </div>
+
                 <div class="seccion-medidas">
                     <div class="caja-medida"><small>LARGO</small><span id="dato-largo">0</span></div>
                     <div class="caja-medida"><small>ANCHO</small><span id="dato-ancho">0</span></div>
                     <div class="caja-medida"><small>ALTO</small><span id="dato-alto">0</span></div>
                 </div>
+                
                 <div class="posicion-detallada">
-                    <strong>UBICACIÓN:</strong> <span id="dato-modulo-linea">--</span><br>
-                    <strong>POSICIÓN:</strong> <span id="dato-posicion-pieza">--</span>
+                    <strong>MÓDULO:</strong> <span id="dato-modulo-linea">--</span><br>
+                    <strong>POSICIÓN PIEZA:</strong> <span id="dato-posicion-pieza">--</span>
                 </div>
             </div>
         </main>
