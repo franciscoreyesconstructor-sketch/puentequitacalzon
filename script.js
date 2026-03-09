@@ -1,8 +1,7 @@
 let datosOriginales = [];
 let datosFiltrados = [];
 let posicionActual = 0;
-let zoomInstanciaFull = null;
-let zoomInstanciaGeneral = null;
+let zoomInstancia = null;
 
 async function cargarDatos() {
     try {
@@ -10,13 +9,13 @@ async function cargarDatos() {
         datosOriginales = await respuesta.json();
         poblarSelectModulo();
         aplicarFiltros();
-    } catch (error) { console.error("Error:", error); }
+    } catch (error) { console.error("Error cargando JSON:", error); }
 }
 
 function poblarSelectModulo() {
     const selectMod = document.getElementById("filtro-modulo");
     const modulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo || "").trim()))]
-        .filter(m => m !== "").sort((a, b) => a - b);
+        .filter(m => m !== "" && m !== "undefined").sort((a, b) => a - b);
     selectMod.innerHTML = '<option value="todos">📦 TODOS LOS MÓDULOS</option>';
     modulos.forEach(m => { selectMod.innerHTML += `<option value="${m}">MÓDULO ${m}</option>`; });
     selectMod.onchange = aplicarFiltros;
@@ -36,7 +35,7 @@ function actualizarInterfaz() {
     const idPieza = String(p["Pieza individual"] || "").trim();
     const modFormateado = String(p.Modulo || p.modulo || "").trim().padStart(2, '0');
 
-    document.getElementById("pieza-titulo").innerText = `PIEZA ${idPieza}`;
+    document.getElementById("pieza-titulo").innerText = `PIEZA: ${idPieza}`;
     document.getElementById("dato-modulo-linea").innerText = "MÓDULO " + modFormateado;
     document.getElementById("dato-posicion-pieza").innerText = p["Ubicación pieza"] || p.posicion || "--";
     document.getElementById("dato-perno").innerText = p["Tipo Perno"] || "--";
@@ -48,40 +47,28 @@ function actualizarInterfaz() {
     document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
 }
 
-// FUNCIONES DE ZOOM PANTALLA COMPLETA
 function abrirZoomDetalle(idImgOrigen, titulo) {
     const src = document.getElementById(idImgOrigen).src;
     document.getElementById("img-zoom-full").src = src;
     document.getElementById("titulo-zoom-modal").innerText = titulo;
     document.getElementById("modal-zoom-detallado").style.display = "flex";
 
-    // Crear instancia de zoom si no existe o resetearla
     setTimeout(() => {
-        if (!zoomInstanciaFull) {
-            zoomInstanciaFull = new PinchZoom.default(document.getElementById('wrapper-zoom-detalle'), { minZoom: 1, maxZoom: 5 });
+        if (!zoomInstancia) {
+            zoomInstancia = new PinchZoom.default(document.getElementById('wrapper-zoom-detalle'), { 
+                minZoom: 1, 
+                maxZoom: 6,
+                draggableUnzoomed: false
+            });
         } else {
-            zoomInstanciaFull.setZoom(1);
+            zoomInstancia.setZoom(1);
         }
-    }, 100);
+    }, 150);
 }
 
 function cerrarZoomDetalle() {
     document.getElementById("modal-zoom-detallado").style.display = "none";
 }
-
-function mostrarMapaGeneral() {
-    document.getElementById("img-ubimod").src = `fotos/ubimod.jpg?v=${Date.now()}`; 
-    document.getElementById("modal-mapa-general").style.display = "flex";
-    setTimeout(() => {
-        if (!zoomInstanciaGeneral) {
-            zoomInstanciaGeneral = new PinchZoom.default(document.getElementById('wrapper-general'), { minZoom: 1, maxZoom: 6 });
-        } else {
-            zoomInstanciaGeneral.setZoom(1);
-        }
-    }, 100);
-}
-
-function cerrarMapaGeneral() { document.getElementById("modal-mapa-general").style.display = "none"; }
 
 document.getElementById("btn-siguiente").onclick = () => { if(posicionActual < datosFiltrados.length - 1) { posicionActual++; actualizarInterfaz(); } };
 document.getElementById("btn-atras").onclick = () => { if(posicionActual > 0) { posicionActual--; actualizarInterfaz(); } };
