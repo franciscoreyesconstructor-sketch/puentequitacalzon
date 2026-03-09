@@ -1,7 +1,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
 body { background-color: #121212; color: white; display: flex; justify-content: center; }
 
-.app-movil { width: 100%; max-width: 480px; background-color: #000; min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 150px; }
+.app-movil { width: 100%; max-width: 480px; background-color: #000; min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 160px; }
 
 .contenedor-herramientas { padding: 15px; background: #222; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid #ffcc00; }
 #filtro-modulo { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #ffcc00; background: #333; color: white; font-size: 16px; font-weight: bold; }
@@ -18,10 +18,10 @@ body { background-color: #121212; color: white; display: flex; justify-content: 
 .dato-torque { font-size: 26px; color: #ffcc00; font-weight: bold; text-align: center; padding: 10px; border: 2px dashed #ffcc00; border-radius: 8px; margin: 12px 0; background: rgba(255, 204, 0, 0.05); }
 
 .seccion-medidas { display: flex; justify-content: space-between; gap: 5px; margin-top: 15px; }
-.caja-medida { flex: 1; background: #222; padding: 10px; text-align: center; border-radius: 6px; font-size: 14px; }
+.caja-medida { flex: 1; background: #222; padding: 10px; text-align: center; border-radius: 6px; font-size: 12px; }
 .caja-medida small { display: block; color: #888; font-size: 10px; }
 
 .controles-unificados { padding: 12px 15px; background: #222; position: fixed; bottom: 0; width: 100%; max-width: 480px; border-top: 2px solid #ffcc00; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
 .fila-navegacion { display: flex; justify-content: space-between; align-items: center; }
-.btn-nav { background: #ffcc00; color: #000; border: none; padding: 15px 20px; font-weight: bold; border-radius: 8px; cursor: pointer; min-width: 100px; }
+.btn-nav { background: #ffcc00; color: #000; border: none; padding: 15px 20px; font-weight: bold; border-radius: 8px; cursor: pointer; min-width: 110px; }
 .btn-mapa { width: 100%; background: #333; color: #ffcc00; border: 2px solid #ffcc00; padding: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; }
