@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SISTEMA SERRA - VISOR V7 FINAL</title>
+    <title>SISTEMA SERRA - VISOR V7 TOTAL ZOOM</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script>
+    <script src="https://unpkg.com/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.min.js"></script>
 </head>
 <body>
-    <div id="modal-mapa-general" style="display:none; background:rgba(0,0,0,0.98); height:100vh; width:100%; position:fixed; z-index:2000; flex-direction:column; top:0; left:0;">
+    <div id="modal-mapa-general" style="display:none; background:#000; height:100vh; width:100%; position:fixed; z-index:2000; flex-direction:column; top:0; left:0;">
         <div style="padding:15px; background:#222; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ffcc00;">
-            <h3 style="color:#ffcc00; font-size:16px;">PLANO GENERAL DEL PUENTE</h3>
-            <button onclick="cerrarMapaGeneral()" style="background:#ffcc00; border:none; padding:10px 15px; font-weight:bold; border-radius:5px; color:#000; cursor:pointer;">VOLVER AL MONTAJE</button>
+            <h3 style="color:#ffcc00; font-size:14px;">PLANO GENERAL (PELLIZCAR)</h3>
+            <button onclick="cerrarMapaGeneral()" style="background:#ffcc00; border:none; padding:10px 15px; font-weight:bold; border-radius:5px; color:#000;">CERRAR</button>
         </div>
-        <div style="flex-grow:1; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:10px;">
-            <img id="img-ubimod" class="zoom" src="" alt="Plano General" style="max-width:100%; max-height:90%; object-fit:contain; cursor:zoom-in;">
+        <div id="zoom-general" style="flex-grow:1; overflow:hidden; position:relative;">
+            <img id="img-ubimod" src="" style="width:100%; height:100%; object-fit:contain;">
         </div>
     </div>
 
@@ -28,38 +28,27 @@
         <div class="visor-imagenes">
             <div class="contenedor-img">
                 <div class="etiqueta-flotante">PLANO UBICACIÓN</div>
-                <img id="img-mapa" class="zoom" src="" alt="Cargando Plano...">
+                <div id="zoom-plano" style="width:100%; height:100%; overflow:hidden;">
+                    <img id="img-mapa" src="" style="width:100%; height:100%; object-fit:contain;">
+                </div>
             </div>
             <div class="contenedor-img">
                 <div class="etiqueta-flotante">FOTO PIEZA</div>
-                <img id="img-visor" class="zoom" src="" alt="Cargando Foto...">
+                <div id="zoom-foto" style="width:100%; height:100%; overflow:hidden;">
+                    <img id="img-visor" src="" style="width:100%; height:100%; object-fit:contain;">
+                </div>
             </div>
         </div>
 
         <div class="cuerpo-datos">
             <h2 id="pieza-titulo">PIEZA: --</h2>
-
             <div class="seccion-montaje">
                 <div class="dato"><strong>🔩 Perno:</strong> <span id="dato-perno">--</span></div>
-                <div class="dato"><strong>⚙️ Estándar tuerca:</strong> <span id="dato-acero-tuerca">--</span></div>
                 <div class="dato-torque"><strong>🔧 Torque:</strong> <span id="dato-torque">0</span> <small>N.m</small></div>
-                
                 <div class="dato-modulo-info">
                     <strong>📦 UBICACIÓN:</strong> <span id="dato-modulo-linea">MÓDULO --</span><br>
                     <strong>📍 POSICIÓN PIEZA:</strong> <span id="dato-posicion-pieza">--</span>
                 </div>
-            
-                <div class="grid-cantidades">
-                    <div class="item-cantidad">Pernos: <b id="cant-pernos">0</b></div>
-                    <div class="item-cantidad">Tuercas: <b id="cant-tuercas">0</b></div>
-                    <div class="item-cantidad">Golillas: <b id="cant-golillas">0</b></div>
-                </div>
-            </div>
-
-            <div class="seccion-medidas">
-                <div class="caja-medida"><small>LARGO</small><span id="dato-largo">0</span></div>
-                <div class="caja-medida"><small>ANCHO</small><span id="dato-ancho">0</span></div>
-                <div class="caja-medida"><small>ALTO</small><span id="dato-alto">0</span></div>
             </div>
         </div>
 
