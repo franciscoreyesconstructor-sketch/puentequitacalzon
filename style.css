@@ -1,48 +1,221 @@
+/* --- CONFIGURACIÓN BASE --- */
 :root {
     --amarillo: #ffcc00;
     --fondo: #000000;
-    --gris-oscuro: #1a1a1a;
+    --gris-oscuro: #111111;
     --gris-borde: #333333;
+    --texto-tenue: #aaaaaa;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Elimina el recuadro azul al tocar en móviles */
+}
 
-body { background-color: var(--fondo); color: white; -webkit-font-smoothing: antialiased; }
+body { 
+    background-color: var(--fondo); 
+    color: white; 
+    overflow-x: hidden; 
+    overscroll-behavior-y: contain; /* Evita que la página se recargue al deslizar hacia abajo */
+}
 
-.app-movil { width: 100%; max-width: 480px; margin: auto; display: flex; flex-direction: column; padding-bottom: 180px; }
+/* --- CONTENEDOR PRINCIPAL --- */
+.app-movil { 
+    width: 100%; 
+    max-width: 480px; 
+    margin: auto; 
+    display: flex; 
+    flex-direction: column; 
+    padding-bottom: 180px; /* Espacio para los controles fijos */
+}
 
-/* Header Fijo */
-.contenedor-herramientas { padding: 12px; background: #111; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--amarillo); }
-#filtro-modulo { width: 100%; height: 50px; border-radius: 10px; border: 2px solid var(--amarillo); background: #222; color: white; font-size: 16px; font-weight: bold; padding: 0 15px; }
+/* --- HEADER (SELECTOR DE MÓDULO) --- */
+.contenedor-herramientas { 
+    padding: 12px; 
+    background: #111; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    border-bottom: 2px solid var(--amarillo); 
+}
 
-/* Visor de Imágenes */
-.visor-imagenes { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px; background: var(--gris-oscuro); }
-.contenedor-img { position: relative; height: 160px; background: #000; border: 1px solid var(--gris-borde); border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.contenedor-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+#filtro-modulo { 
+    width: 100%; 
+    height: 50px; 
+    border-radius: 10px; 
+    border: 2px solid var(--amarillo); 
+    background: #222; 
+    color: white; 
+    font-size: 16px; 
+    font-weight: bold; 
+    padding: 0 15px; 
+}
 
-.etiqueta-flotante { position: absolute; top: 4px; left: 4px; background: var(--amarillo); color: #000; font-size: 9px; font-weight: 1000; padding: 2px 5px; border-radius: 4px; z-index: 5; text-transform: uppercase; }
+/* --- VISOR DE IMÁGENES (CON SOPORTE PARA PELLIZCO) --- */
+.visor-imagenes { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 6px; 
+    padding: 6px; 
+    background: var(--gris-oscuro); 
+}
 
-/* Cuerpo de Datos */
+.contenedor-img { 
+    position: relative; 
+    height: 180px; 
+    background: #000; 
+    border: 1px solid var(--gris-borde); 
+    border-radius: 8px; 
+    overflow: hidden; 
+}
+
+/* REGLA CRÍTICA PARA PINCH-ZOOM: Bloquea gestos nativos para que la librería tome el control */
+#wrapper-plano, #wrapper-foto, #wrapper-general {
+    touch-action: none; 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#wrapper-plano img, #wrapper-foto img, #wrapper-general img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.etiqueta-flotante { 
+    position: absolute; 
+    top: 4px; 
+    left: 4px; 
+    background: var(--amarillo); 
+    color: #000; 
+    font-size: 9px; 
+    font-weight: 900; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    z-index: 10; 
+    text-transform: uppercase;
+}
+
+/* --- CUERPO DE DATOS --- */
 .cuerpo-datos { padding: 15px; }
-#pieza-titulo { color: var(--amarillo); font-size: 20px; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-weight: 800; letter-spacing: -0.5px; }
 
-.tarjeta-info { background: var(--gris-oscuro); padding: 15px; border-radius: 12px; border: 1px solid var(--gris-borde); }
-.fila-dato { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #252525; font-size: 15px; }
-.fila-dato span { color: #aaa; }
+#pieza-titulo { 
+    color: var(--amarillo); 
+    font-size: 19px; 
+    text-align: center; 
+    margin-bottom: 12px; 
+    font-weight: 800; 
+    text-transform: uppercase;
+}
+
+.tarjeta-info { 
+    background: var(--gris-oscuro); 
+    padding: 15px; 
+    border-radius: 12px; 
+    border: 1px solid var(--gris-borde); 
+}
+
+.fila-dato { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 10px 0; 
+    border-bottom: 1px solid #222; 
+    font-size: 14px; 
+}
+
+.fila-dato span { color: var(--texto-tenue); }
 .fila-dato strong { color: var(--amarillo); }
 
-.caja-torque { margin: 15px 0; padding: 15px; background: rgba(255, 204, 0, 0.07); border: 2px dashed var(--amarillo); border-radius: 12px; text-align: center; }
-.caja-torque small { color: var(--amarillo); font-weight: bold; font-size: 11px; letter-spacing: 1px; }
-.caja-torque div { font-size: 38px; font-weight: 900; color: var(--amarillo); }
+.caja-torque { 
+    margin: 15px 0; 
+    padding: 12px; 
+    border: 2px dashed var(--amarillo); 
+    border-radius: 12px; 
+    text-align: center; 
+    background: rgba(255, 204, 0, 0.05);
+}
 
-.posicion-detallada { background: #222; padding: 12px; border-radius: 8px; font-size: 13px; line-height: 1.6; text-align: center; color: #ccc; }
+.caja-torque small { 
+    color: var(--amarillo); 
+    font-weight: bold; 
+    font-size: 11px; 
+    letter-spacing: 1px; 
+}
 
-/* Controles Inferiores Gigantes */
-.controles-unificados { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: #111; padding: 12px; border-top: 2px solid var(--amarillo); z-index: 1000; }
-.fila-navegacion { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.caja-torque div { 
+    font-size: 34px; 
+    font-weight: 900; 
+    color: var(--amarillo); 
+}
 
-.btn-nav { flex: 1; height: 60px; background: var(--amarillo); color: #000; border: none; font-weight: 900; font-size: 14px; border-radius: 12px; margin: 0 5px; box-shadow: 0 4px 0 #b38f00; active { transform: translateY(2px); box-shadow: 0 2px 0 #b38f00; } }
+.posicion-detallada { 
+    background: #1a1a1a; 
+    padding: 10px; 
+    border-radius: 8px; 
+    font-size: 13px; 
+    text-align: center; 
+    color: #ccc; 
+    line-height: 1.4;
+}
 
-#indicador-indice { min-width: 80px; text-align: center; font-weight: bold; color: var(--amarillo); font-size: 14px; }
+/* --- CONTROLES INFERIORES (ZONA DE TOQUE GIGANTE) --- */
+.controles-unificados { 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    max-width: 480px; 
+    background: #111; 
+    padding: 12px; 
+    border-top: 2px solid var(--amarillo); 
+    z-index: 1000; 
+}
 
-.btn-mapa { width: 100%; height: 55px; background: #000; color: var(--amarillo); border: 2px solid var(--amarillo); border-radius: 12px; font-weight: bold; font-size: 14px; }
+.fila-navegacion { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 10px; 
+}
+
+.btn-nav { 
+    flex: 1; 
+    height: 60px; 
+    background: var(--amarillo); 
+    color: #000; 
+    border: none; 
+    font-weight: 900; 
+    font-size: 15px; 
+    border-radius: 12px; 
+    margin: 0 5px; 
+    box-shadow: 0 4px 0 #b38f00; 
+}
+
+.btn-nav:active { 
+    transform: translateY(2px); 
+    box-shadow: 0 2px 0 #b38f00; 
+}
+
+#indicador-indice { 
+    min-width: 80px; 
+    text-align: center; 
+    font-weight: bold; 
+    color: var(--amarillo); 
+    font-size: 14px; 
+}
+
+.btn-mapa { 
+    width: 100%; 
+    height: 55px; 
+    background: #000; 
+    color: var(--amarillo); 
+    border: 2px solid var(--amarillo); 
+    border-radius: 12px; 
+    font-weight: bold; 
+    font-size: 14px; 
+}
