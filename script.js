@@ -30,8 +30,8 @@ function aplicarFiltros() {
     const modVal = document.getElementById("filtro-modulo").value;
     let filtrados = (modVal === "todos") ? [...datosOriginales] : datosOriginales.filter(p => String(p.Modulo || p.modulo || "").trim() === modVal);
     
-    // Ordenar por Paso
-    datosFiltrados = filtrados.sort((a, b) => (parseInt(a.Paso) || 0) - (parseInt(b.Paso) || 0));
+    // Ordenar estrictamente por la columna "Paso"
+    datosFiltrados = filtrados.sort((a, b) => (parseInt(a.Paso || a.paso) || 0) - (parseInt(b.Paso || b.paso) || 0));
     posicionActual = 0;
     actualizarInterfaz();
 }
@@ -40,9 +40,10 @@ function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     const p = datosFiltrados[posicionActual];
     const idPieza = String(p["Pieza individual"] || "").trim();
-    const modFormateado = String(p.Modulo || p.modulo || "").trim().padStart(2, '0');
+    const modRaw = String(p.Modulo || p.modulo || "").trim();
+    const modFormateado = modRaw.padStart(2, '0');
 
-    document.getElementById("pieza-titulo").innerText = `PIEZA: ${idPieza} (PASO ${p.Paso || '--'})`;
+    document.getElementById("pieza-titulo").innerText = `PIEZA: ${idPieza} (PASO ${p.Paso || p.paso || '--'})`;
     document.getElementById("dato-modulo-linea").innerText = "MÓDULO " + modFormateado;
     document.getElementById("dato-posicion-pieza").innerText = p["Ubicación pieza"] || p.posicion || "--";
     document.getElementById("dato-perno").innerText = p["Tipo Perno"] || "--";
@@ -59,7 +60,7 @@ function actualizarInterfaz() {
 
     document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
     
-    // Reiniciar Zoom
+    // Reiniciar Zoom para las nuevas imágenes
     if (typeof mediumZoom !== 'undefined') {
         mediumZoom('.zoom', { margin: 20, background: '#000' });
     }
