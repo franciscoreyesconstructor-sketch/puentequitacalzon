@@ -2,7 +2,7 @@
    SISTEMA DE MONITOREO Y AUDITORÍA
    PUENTE QUITACALZÓN
    DESARROLLADO POR: ANTONIO SERRA
-   VERSIÓN: 14.0 FINAL - PRECARGA AUTOMÁTICA
+   VERSIÓN: 15.0 FINAL - PRECARGA CORREGIDA
    ============================================ */
 
 var datosOriginales = [];
@@ -256,7 +256,7 @@ function configurarBotones() {
 }
 
 // =============================================
-// PRECARGA MANUAL DE ARCHIVOS (MEJORADA)
+// PRECARGA MANUAL DE ARCHIVOS (CORREGIDA)
 // =============================================
 function precargarArchivos() {
     var btn = document.getElementById('btn-precargar');
@@ -313,6 +313,7 @@ function precargarArchivos() {
         btn.style.opacity = '1';
     }
 }
+
 // =============================================
 // VERIFICAR ESTADO DE CACHÉ
 // =============================================
@@ -449,7 +450,6 @@ window.addEventListener('load', function() {
     cargarDatos();
     configurarBotones();
     
-    // Verificar caché después de 3 segundos
     setTimeout(function() {
         verificarCacheAlIniciar();
     }, 3000);
@@ -457,7 +457,6 @@ window.addEventListener('load', function() {
     console.log("✅ SISTEMA LISTO");
 });
 
-// Segunda verificación de botones por si acaso
 setTimeout(function() {
     configurarBotones();
 }, 1000);
