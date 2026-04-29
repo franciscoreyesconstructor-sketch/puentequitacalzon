@@ -1,70 +1,136 @@
 /* SISTEMA DE MONITOREO Y AUDITORÍA - DESARROLLADO POR: ANTONIO SERRA
-   VERSIÓN: 11.0 (PRODUCCIÓN OFFLINE)
-   ESTE SCRIPT NO REQUIERE FETCH NI SERVIDOR. CARGA LOS DATOS DESDE LA VARIABLE LOCAL.
+   VERSIÓN: 13.0 (FINAL - CON PRECARGA COMPLETA SIN CONEXIÓN)
 */
 
-let datosOriginales = [];
-let datosFiltrados = [];
-let posicionActual = 0;
-let zFull = null;
-let zUbi = null;
-let zPieza = null;
+var datosOriginales = [];
+var datosFiltrados = [];
+var posicionActual = 0;
+var zFull = null;
+var zUbi = null;
+var zPieza = null;
 
-// CARGA DE DATOS: Utiliza la variable 'datosTecnicos' definida en datos_visor.js
+// =========================================
+// CORRECCIÓN AUTOMÁTICA DE COMAS DECIMALES
+// =========================================
+function corregirComasDecimales(datos) {
+    if (!Array.isArray(datos)) return datos;
+    
+    return datos.map(function(item) {
+        var nuevo = {};
+        for (var key in item) {
+            if (item.hasOwnProperty(key)) {
+                var valor = item[key];
+                if (typeof valor === 'string') {
+                    nuevo[key] = valor.replace(/(\d),(\d)/g, '$1.$2');
+                } else {
+                    nuevo[key] = valor;
+                }
+            }
+        }
+        return nuevo;
+    });
+}
+
+// =========================================
+// CARGA DE DATOS
+// =========================================
 function cargarDatos() {
     try {
-        // Verificamos si la variable global existe (se carga desde datos_visor.js)
-        if (typeof datosTecnicos !== 'undefined') {
-            datosOriginales = datosTecnicos;
-            console.log("Sistema cargado localmente con " + datosOriginales.length + " registros.");
-            
-            poblarSelectModulo();
-            aplicarFiltros();
-            inicializarZoomsMiniaturas();
-        } else {
-            throw new Error("No se encontró la variable 'datosTecnicos'. Revisa datos_visor.js");
+        if (typeof datosTecnicos === 'undefined') {
+            throw new Error("Variable 'datosTecnicos' no encontrada");
         }
+        
+        if (!Array.isArray(datosTecnicos)) {
+            throw new Error("'datosTecnicos' no es un array válido");
+        }
+        
+        if (datosTecnicos.length === 0) {
+            throw new Error("El array de datos técnicos está vacío");
+        }
+        
+        datosOriginales = corregirComasDecimales(datosTecnicos);
+        
+        console.log("✅ Sistema cargado: " + datosOriginales.length + " registros");
+        console.log("🔧 Comas decimales corregidas automáticamente");
+        
+        poblarSelectModulo();
+        aplicarFiltros();
+        inicializarZoomsMiniaturas();
+        
     } catch (error) {
-        console.error("ERROR CRÍTICO:", error);
-        alert("ERROR: Los datos técnicos no están disponibles. Asegúrese de que datos_visor.js esté en la carpeta raíz.");
+        console.error("❌ ERROR:", error.message);
+        mostrarError(error.message);
     }
 }
 
+// =========================================
+// MOSTRAR ERROR EN PANTALLA
+// =========================================
+function mostrarError(mensaje) {
+    document.body.innerHTML = 
+        '<div style="background:#b30000;color:white;padding:30px;margin:20px;border-radius:15px;text-align:center;font-family:sans-serif;">' +
+        '<h2 style="margin-bottom:15px;">⚠️ Error de Carga</h2>' +
+        '<p style="margin-bottom:10px;">' + mensaje + '</p>' +
+        '<p style="font-size:14px;opacity:0.9;">Verifique que el archivo <strong>datos_visor.js</strong> esté en la misma carpeta que index.html</p>' +
+        '<p style="font-size:12px;opacity:0.7;">Error: ' + mensaje + '</p>' +
+        '<button onclick="location.reload()" style="margin-top:20px;padding:12px 30px;background:#ffcc00;border:none;border-radius:8px;font-weight:bold;font-size:16px;color:#000;">REINTENTAR</button>' +
+        '</div>';
+}
+
+// =========================================
 // GESTIÓN DEL SELECTOR DE MÓDULOS
+// =========================================
 function poblarSelectModulo() {
-    const selector = document.getElementById("filtro-modulo");
+    var selector = document.getElementById("filtro-modulo");
+    if (!selector) return;
     
-    // Extraer módulos únicos, limpiar espacios y ordenar de forma ascendente
-    const listaModulos = [...new Set(datosOriginales.map(p => String(p.Modulo || p.modulo || "").trim()))]
-        .filter(m => m !== "" && m !== "undefined")
-        .sort((a, b) => parseInt(a) - parseInt(b));
-        
+    var modulosUnicos = [];
+    for (var i = 0; i < datosOriginales.length; i++) {
+        var mod = String(datosOriginales[i].Modulo || datosOriginales[i].modulo || "").trim();
+        if (mod !== "" && mod !== "undefined" && modulosUnicos.indexOf(mod) === -1) {
+            modulosUnicos.push(mod);
+        }
+    }
+    
+    modulosUnicos.sort(function(a, b) {
+        return parseInt(a) - parseInt(b);
+    });
+    
     selector.innerHTML = '<option value="todos">📦 TODOS LOS MÓDULOS</option>';
     
-    listaModulos.forEach(mod => {
-        const opcion = document.createElement("option");
-        opcion.value = mod;
-        opcion.textContent = `MÓDULO ${mod}`;
+    for (var j = 0; j < modulosUnicos.length; j++) {
+        var opcion = document.createElement("option");
+        opcion.value = modulosUnicos[j];
+        opcion.textContent = 'MÓDULO ' + modulosUnicos[j];
         selector.appendChild(opcion);
-    });
+    }
     
     selector.onchange = aplicarFiltros;
 }
 
-// FILTRADO Y ORDEN LOGÍCO POR PASO
+// =========================================
+// FILTRADO Y ORDEN LÓGICO POR PASO
+// =========================================
 function aplicarFiltros() {
-    const valorSeleccionado = document.getElementById("filtro-modulo").value;
+    var selector = document.getElementById("filtro-modulo");
+    if (!selector) return;
+    
+    var valorSeleccionado = selector.value;
     
     if (valorSeleccionado === "todos") {
-        datosFiltrados = [...datosOriginales];
+        datosFiltrados = datosOriginales.slice();
     } else {
-        datosFiltrados = datosOriginales.filter(p => String(p.Modulo || p.modulo || "").trim() === valorSeleccionado);
+        datosFiltrados = [];
+        for (var i = 0; i < datosOriginales.length; i++) {
+            if (String(datosOriginales[i].Modulo || datosOriginales[i].modulo || "").trim() === valorSeleccionado) {
+                datosFiltrados.push(datosOriginales[i]);
+            }
+        }
     }
     
-    // ORDENACIÓN ESTRICTA POR PASO (Para auditoría de armado)
-    datosFiltrados.sort((a, b) => {
-        const pasoA = parseInt(a.Paso || a.paso) || 0;
-        const pasoB = parseInt(b.Paso || b.paso) || 0;
+    datosFiltrados.sort(function(a, b) {
+        var pasoA = parseInt(a.Paso || a.paso || 0);
+        var pasoB = parseInt(b.Paso || b.paso || 0);
         return pasoA - pasoB;
     });
     
@@ -72,77 +138,80 @@ function aplicarFiltros() {
     actualizarInterfaz();
 }
 
+// =========================================
 // ACTUALIZACIÓN DE PANTALLA PRINCIPAL
+// =========================================
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     
-    const registro = datosFiltrados[posicionActual];
+    var registro = datosFiltrados[posicionActual];
+    if (!registro) return;
     
-    // Gestión de Identificadores
-    const idPieza = String(registro["Pieza individual"] || "").trim();
-    const numeroModulo = String(registro.Modulo || registro.modulo || "").trim();
-    const moduloFmt = numeroModulo.padStart(2, '0');
+    var idPieza = String(registro["Pieza individual"] || "").trim();
+    var numeroModulo = String(registro.Modulo || registro.modulo || "").trim();
+    var moduloFmt = numeroModulo.length === 1 ? "0" + numeroModulo : numeroModulo;
 
-    // Inserción de Textos (Auditoría Técnica)
-    document.getElementById("pieza-titulo").innerText = `PIEZA: ${idPieza}`;
+    document.getElementById("pieza-titulo").innerText = "PIEZA: " + idPieza;
     document.getElementById("num-paso").innerText = registro.Paso || registro.paso || "0";
     document.getElementById("dato-modulo-linea").innerText = numeroModulo;
-    document.getElementById("dato-posicion-pieza").innerText = registro["Ubicación pieza"] || registro.posicion || "--";
-    
-    // Datos de Pernos y Torque
+    document.getElementById("dato-posicion-pieza").innerText = registro["Ubicación pieza"] || "--";
     document.getElementById("dato-perno").innerText = registro["Tipo Perno"] || "--";
     document.getElementById("dato-estandar").innerText = registro["stdtuerca"] || "--";
     document.getElementById("dato-torque").innerText = registro["Par apriete (N.m) (Torque)"] || "0";
-    
-    // Medidas de la Pieza
-    document.getElementById("dato-largo").innerText = registro["Largo (mm)"] || 0;
-    document.getElementById("dato-ancho").innerText = registro["Ancho (mm)"] || 0;
-    document.getElementById("dato-alto").innerText = registro["Alto (mm)"] || 0;
+    document.getElementById("dato-largo").innerText = registro["Largo (mm)"] || "0";
+    document.getElementById("dato-ancho").innerText = registro["Ancho (mm)"] || "0";
+    document.getElementById("dato-alto").innerText = registro["Alto (mm)"] || "0";
+    document.getElementById("indicador-indice").innerText = (posicionActual + 1) + " / " + datosFiltrados.length;
 
-    // Contador de Progreso
-    document.getElementById("indicador-indice").innerText = `${posicionActual + 1} / ${datosFiltrados.length}`;
-
-    // Carga de Imágenes (Rutas locales para APK)
-    document.getElementById("img-mapa").src = `fotos/mod${moduloFmt}${idPieza}.jpg`;
-    document.getElementById("img-visor").src = `fotos/${idPieza}.jpg`;
+    var imgMapa = document.getElementById("img-mapa");
+    var imgVisor = document.getElementById("img-visor");
+    if (imgMapa) imgMapa.src = "fotos/mod" + moduloFmt + idPieza + ".jpg";
+    if (imgVisor) imgVisor.src = "fotos/" + idPieza + ".jpg";
     
-    // Reset de Zoom para que la nueva imagen no herede el desplazamiento de la anterior
     resetearZoomMiniaturas();
 }
 
+// =========================================
 // SISTEMA DE ZOOM (PINCH ZOOM)
+// =========================================
 function inicializarZoomsMiniaturas() {
     try {
-        const contUbi = document.querySelector(".contenedor-img:first-child");
-        const contPieza = document.querySelector(".contenedor-img:last-child");
-        
-        if (contUbi && contPieza) {
-            zUbi = new PinchZoom.default(contUbi, { minZoom: 1, maxZoom: 4 });
-            zPieza = new PinchZoom.default(contPieza, { minZoom: 1, maxZoom: 4 });
+        var contenedores = document.querySelectorAll(".contenedor-img");
+        if (contenedores.length >= 2 && typeof PinchZoom !== 'undefined' && PinchZoom.default) {
+            zUbi = new PinchZoom.default(contenedores[0], { minZoom: 1, maxZoom: 4 });
+            zPieza = new PinchZoom.default(contenedores[1], { minZoom: 1, maxZoom: 4 });
         }
     } catch (e) {
-        console.warn("Librería de zoom en espera...");
+        console.warn("⚠️ Error al inicializar zoom:", e.message);
     }
 }
 
 function resetearZoomMiniaturas() {
-    if (zUbi && typeof zUbi.setZoom === "function") zUbi.setZoom(1);
-    if (zPieza && typeof zPieza.setZoom === "function") zPieza.setZoom(1);
+    try {
+        if (zUbi && typeof zUbi.setZoom === "function") zUbi.setZoom(1);
+        if (zPieza && typeof zPieza.setZoom === "function") zPieza.setZoom(1);
+    } catch (e) {}
 }
 
 function abrirZoomDetalle(idElemento, titulo) {
-    const origen = document.getElementById(idElemento).src;
-    document.getElementById("img-zoom-full").src = origen;
+    var origen = document.getElementById(idElemento);
+    if (!origen || !origen.src) return;
+    
+    document.getElementById("img-zoom-full").src = origen.src;
     document.getElementById("titulo-zoom-modal").innerText = titulo;
     document.getElementById("modal-zoom-detallado").style.display = "flex";
     
-    setTimeout(() => {
-        const wrapper = document.getElementById('wrapper-zoom-detalle');
-        if (!zFull) {
-            zFull = new PinchZoom.default(wrapper, { maxZoom: 6 });
-        } else {
-            zFull.setZoom(1);
-        }
+    setTimeout(function() {
+        try {
+            var wrapper = document.getElementById('wrapper-zoom-detalle');
+            if (wrapper && typeof PinchZoom !== 'undefined' && PinchZoom.default) {
+                if (!zFull) {
+                    zFull = new PinchZoom.default(wrapper, { maxZoom: 6 });
+                } else if (typeof zFull.setZoom === "function") {
+                    zFull.setZoom(1);
+                }
+            }
+        } catch (e) {}
     }, 100);
 }
 
@@ -150,74 +219,104 @@ function cerrarZoomDetalle() {
     document.getElementById("modal-zoom-detallado").style.display = "none";
 }
 
+// =========================================
 // MANUAL PDF
+// =========================================
 function abrirManual() {
     window.open('mtmi.pdf', '_blank');
 }
 
+// =========================================
 // BOTONES DE NAVEGACIÓN
-document.getElementById("btn-siguiente").onclick = () => {
-    if (posicionActual < datosFiltrados.length - 1) {
-        posicionActual++;
-        actualizarInterfaz();
+// =========================================
+function configurarBotones() {
+    var btnSig = document.getElementById("btn-siguiente");
+    var btnAnt = document.getElementById("btn-atras");
+    
+    if (btnSig) {
+        btnSig.onclick = function() {
+            if (posicionActual < datosFiltrados.length - 1) {
+                posicionActual++;
+                actualizarInterfaz();
+            }
+        };
+        console.log("✅ Botón SIGUIENTE configurado");
     }
-};
-
-document.getElementById("btn-atras").onclick = () => {
-    if (posicionActual > 0) {
-        posicionActual--;
-        actualizarInterfaz();
+    
+    if (btnAnt) {
+        btnAnt.onclick = function() {
+            if (posicionActual > 0) {
+                posicionActual--;
+                actualizarInterfaz();
+            }
+        };
+        console.log("✅ Botón ANTERIOR configurado");
     }
-};
+}
 
-// FUNCIÓN DE PRECARGA MANUAL
+// =========================================
+// PRECARGA DE ARCHIVOS SIN CONEXIÓN
+// =========================================
 function precargarArchivos() {
-    const btn = document.getElementById('btn-precargar');
-    const estado = document.getElementById('estado-precarga');
+    var btn = document.getElementById('btn-precargar');
+    var estado = document.getElementById('estado-precarga');
     
     if (!btn || !estado) return;
     
     btn.disabled = true;
     btn.style.opacity = '0.7';
-    estado.innerText = '⏳ Descargando archivos...';
+    btn.innerText = '⏳ DESCARGANDO...';
+    estado.innerText = 'Esto puede tardar unos minutos. No cierres la página.';
     
-    // Comunicarse con el Service Worker
     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
             action: 'precacheAll'
         });
         
-        // Verificar el estado después de 3 segundos
-        setTimeout(function() {
+        var intentos = 0;
+        var intervalo = setInterval(function() {
             verificarCache();
-        }, 3000);
+            intentos++;
+            if (intentos > 36) {
+                clearInterval(intervalo);
+                btn.classList.add('completado');
+                btn.innerText = '✅ COMPLETADO';
+                estado.innerText = '🎉 ¡App lista para usar sin conexión!';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        }, 5000);
     } else {
-        // Si no hay SW, forzar recarga de caché del navegador
-        setTimeout(function() {
-            btn.classList.add('completado');
-            btn.innerText = '✅ ARCHIVOS DESCARGADOS';
-            estado.innerText = '🎉 ¡Ya puedes usar la app sin conexión!';
-            btn.disabled = false;
-            btn.style.opacity = '1';
-        }, 2000);
+        estado.innerText = '⚠️ Service Worker no disponible. Recarga la página e intenta de nuevo.';
+        btn.disabled = false;
+        btn.style.opacity = '1';
     }
 }
 
-// VERIFICAR ESTADO DE LA CACHÉ
 function verificarCache() {
-    const btn = document.getElementById('btn-precargar');
-    const estado = document.getElementById('estado-precarga');
+    var btn = document.getElementById('btn-precargar');
+    var estado = document.getElementById('estado-precarga');
+    
+    if (!btn || !estado) return;
     
     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        const channel = new MessageChannel();
+        var channel = new MessageChannel();
         
         channel.port1.onmessage = function(event) {
             if (event.data.status === 'ready') {
-                btn.classList.add('completado');
-                btn.innerText = '✅ ' + event.data.cachedFiles + ' ARCHIVOS DESCARGADOS';
-                estado.innerText = '🎉 ¡Listo para usar sin conexión!';
-                btn.disabled = false;
-                btn.style.opacity = '1';
+                var cached = event.data.cachedFiles;
+                var total = event.data.totalFiles;
+                var porcentaje = Math.round((cached / total) * 100);
+                
+                estado.innerText = '📦 ' + cached + ' de ' + total + ' archivos descargados (' + porcentaje + '%)';
+                
+                if (cached >= total * 0.9) {
+                    btn.classList.add('completado');
+                    btn.innerText = '✅ ' + cached + ' ARCHIVOS DESCARGADOS';
+                    estado.innerText = '🎉 ¡App lista para usar sin conexión!';
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                }
             }
         };
         
@@ -228,10 +327,21 @@ function verificarCache() {
     }
 }
 
-// VERIFICAR ESTADO AL CARGAR LA PÁGINA
+// =========================================
+// INICIO AUTOMÁTICO
+// =========================================
 window.addEventListener('load', function() {
+    console.log("🚀 INICIANDO SISTEMA PUENTE QUITACALZÓN...");
+    cargarDatos();
+    configurarBotones();
+    
+    // Verificar estado de caché después de cargar
     setTimeout(verificarCache, 2000);
+    
+    console.log("✅ SISTEMA LISTO");
 });
 
-// INICIO AUTOMÁTICO AL CARGAR LA VENTANA
-window.onload = cargarDatos;
+// Segunda verificación de botones por si acaso
+setTimeout(function() {
+    configurarBotones();
+}, 1000);
