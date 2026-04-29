@@ -1,6 +1,9 @@
-/* SISTEMA DE MONITOREO Y AUDITORÍA - DESARROLLADO POR: ANTONIO SERRA
-   VERSIÓN: 13.0 (FINAL - CON PRECARGA COMPLETA SIN CONEXIÓN)
-*/
+/* ============================================
+   SISTEMA DE MONITOREO Y AUDITORÍA
+   PUENTE QUITACALZÓN
+   DESARROLLADO POR: ANTONIO SERRA
+   VERSIÓN: 14.0 FINAL - PRECARGA AUTOMÁTICA
+   ============================================ */
 
 var datosOriginales = [];
 var datosFiltrados = [];
@@ -9,9 +12,9 @@ var zFull = null;
 var zUbi = null;
 var zPieza = null;
 
-// =========================================
+// =============================================
 // CORRECCIÓN AUTOMÁTICA DE COMAS DECIMALES
-// =========================================
+// =============================================
 function corregirComasDecimales(datos) {
     if (!Array.isArray(datos)) return datos;
     
@@ -31,55 +34,49 @@ function corregirComasDecimales(datos) {
     });
 }
 
-// =========================================
+// =============================================
 // CARGA DE DATOS
-// =========================================
+// =============================================
 function cargarDatos() {
     try {
         if (typeof datosTecnicos === 'undefined') {
             throw new Error("Variable 'datosTecnicos' no encontrada");
         }
-        
         if (!Array.isArray(datosTecnicos)) {
             throw new Error("'datosTecnicos' no es un array válido");
         }
-        
         if (datosTecnicos.length === 0) {
             throw new Error("El array de datos técnicos está vacío");
         }
         
         datosOriginales = corregirComasDecimales(datosTecnicos);
-        
         console.log("✅ Sistema cargado: " + datosOriginales.length + " registros");
-        console.log("🔧 Comas decimales corregidas automáticamente");
         
         poblarSelectModulo();
         aplicarFiltros();
         inicializarZoomsMiniaturas();
-        
     } catch (error) {
         console.error("❌ ERROR:", error.message);
         mostrarError(error.message);
     }
 }
 
-// =========================================
+// =============================================
 // MOSTRAR ERROR EN PANTALLA
-// =========================================
+// =============================================
 function mostrarError(mensaje) {
     document.body.innerHTML = 
         '<div style="background:#b30000;color:white;padding:30px;margin:20px;border-radius:15px;text-align:center;font-family:sans-serif;">' +
         '<h2 style="margin-bottom:15px;">⚠️ Error de Carga</h2>' +
         '<p style="margin-bottom:10px;">' + mensaje + '</p>' +
         '<p style="font-size:14px;opacity:0.9;">Verifique que el archivo <strong>datos_visor.js</strong> esté en la misma carpeta que index.html</p>' +
-        '<p style="font-size:12px;opacity:0.7;">Error: ' + mensaje + '</p>' +
         '<button onclick="location.reload()" style="margin-top:20px;padding:12px 30px;background:#ffcc00;border:none;border-radius:8px;font-weight:bold;font-size:16px;color:#000;">REINTENTAR</button>' +
         '</div>';
 }
 
-// =========================================
+// =============================================
 // GESTIÓN DEL SELECTOR DE MÓDULOS
-// =========================================
+// =============================================
 function poblarSelectModulo() {
     var selector = document.getElementById("filtro-modulo");
     if (!selector) return;
@@ -108,9 +105,9 @@ function poblarSelectModulo() {
     selector.onchange = aplicarFiltros;
 }
 
-// =========================================
+// =============================================
 // FILTRADO Y ORDEN LÓGICO POR PASO
-// =========================================
+// =============================================
 function aplicarFiltros() {
     var selector = document.getElementById("filtro-modulo");
     if (!selector) return;
@@ -138,9 +135,9 @@ function aplicarFiltros() {
     actualizarInterfaz();
 }
 
-// =========================================
+// =============================================
 // ACTUALIZACIÓN DE PANTALLA PRINCIPAL
-// =========================================
+// =============================================
 function actualizarInterfaz() {
     if (datosFiltrados.length === 0) return;
     
@@ -171,9 +168,9 @@ function actualizarInterfaz() {
     resetearZoomMiniaturas();
 }
 
-// =========================================
+// =============================================
 // SISTEMA DE ZOOM (PINCH ZOOM)
-// =========================================
+// =============================================
 function inicializarZoomsMiniaturas() {
     try {
         var contenedores = document.querySelectorAll(".contenedor-img");
@@ -219,16 +216,16 @@ function cerrarZoomDetalle() {
     document.getElementById("modal-zoom-detallado").style.display = "none";
 }
 
-// =========================================
+// =============================================
 // MANUAL PDF
-// =========================================
+// =============================================
 function abrirManual() {
     window.open('mtmi.pdf', '_blank');
 }
 
-// =========================================
-// BOTONES DE NAVEGACIÓN
-// =========================================
+// =============================================
+// CONFIGURACIÓN DE BOTONES
+// =============================================
 function configurarBotones() {
     var btnSig = document.getElementById("btn-siguiente");
     var btnAnt = document.getElementById("btn-atras");
@@ -241,6 +238,8 @@ function configurarBotones() {
             }
         };
         console.log("✅ Botón SIGUIENTE configurado");
+    } else {
+        console.error("❌ No se encontró btn-siguiente");
     }
     
     if (btnAnt) {
@@ -251,12 +250,14 @@ function configurarBotones() {
             }
         };
         console.log("✅ Botón ANTERIOR configurado");
+    } else {
+        console.error("❌ No se encontró btn-atras");
     }
 }
 
-// =========================================
-// PRECARGA DE ARCHIVOS SIN CONEXIÓN
-// =========================================
+// =============================================
+// PRECARGA MANUAL DE ARCHIVOS
+// =============================================
 function precargarArchivos() {
     var btn = document.getElementById('btn-precargar');
     var estado = document.getElementById('estado-precarga');
@@ -275,7 +276,7 @@ function precargarArchivos() {
         
         var intentos = 0;
         var intervalo = setInterval(function() {
-            verificarCache();
+            verificarCacheEstado();
             intentos++;
             if (intentos > 36) {
                 clearInterval(intervalo);
@@ -287,13 +288,16 @@ function precargarArchivos() {
             }
         }, 5000);
     } else {
-        estado.innerText = '⚠️ Service Worker no disponible. Recarga la página e intenta de nuevo.';
+        estado.innerText = '⚠️ Service Worker no disponible. Recarga e intenta de nuevo.';
         btn.disabled = false;
         btn.style.opacity = '1';
     }
 }
 
-function verificarCache() {
+// =============================================
+// VERIFICAR ESTADO DE CACHÉ
+// =============================================
+function verificarCacheEstado() {
     var btn = document.getElementById('btn-precargar');
     var estado = document.getElementById('estado-precarga');
     
@@ -308,7 +312,7 @@ function verificarCache() {
                 var total = event.data.totalFiles;
                 var porcentaje = Math.round((cached / total) * 100);
                 
-                estado.innerText = '📦 ' + cached + ' de ' + total + ' archivos descargados (' + porcentaje + '%)';
+                estado.innerText = '📦 ' + cached + ' de ' + total + ' archivos (' + porcentaje + '%)';
                 
                 if (cached >= total * 0.9) {
                     btn.classList.add('completado');
@@ -327,16 +331,109 @@ function verificarCache() {
     }
 }
 
-// =========================================
+// =============================================
+// VERIFICAR CACHÉ AL INICIAR
+// =============================================
+function verificarCacheAlIniciar() {
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        var channel = new MessageChannel();
+        
+        channel.port1.onmessage = function(event) {
+            if (event.data.status === 'ready') {
+                var cached = event.data.cachedFiles;
+                var total = event.data.totalFiles;
+                
+                if (cached < total * 0.5) {
+                    console.log('📦 Iniciando precarga automática...');
+                    navigator.serviceWorker.controller.postMessage({
+                        action: 'precacheAll'
+                    });
+                } else {
+                    console.log('✅ ' + cached + ' archivos en caché');
+                }
+            }
+        };
+        
+        navigator.serviceWorker.controller.postMessage(
+            { action: 'checkCache' },
+            [channel.port2]
+        );
+    }
+}
+
+// =============================================
+// ESCUCHAR MENSAJES DEL SERVICE WORKER
+// =============================================
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'progress') {
+            var porcentaje = event.data.porcentaje;
+            var completados = event.data.completados;
+            var total = event.data.total;
+            
+            actualizarIndicadorDescarga(porcentaje, completados, total, false);
+        }
+        
+        if (event.data && event.data.type === 'complete') {
+            var completados = event.data.completados;
+            var total = event.data.total;
+            
+            actualizarIndicadorDescarga(100, completados, total, true);
+            
+            setTimeout(function() {
+                var indicador = document.getElementById('indicador-descarga');
+                if (indicador) {
+                    indicador.style.display = 'none';
+                }
+            }, 5000);
+        }
+    });
+}
+
+// =============================================
+// ACTUALIZAR INDICADOR VISUAL DE DESCARGA
+// =============================================
+function actualizarIndicadorDescarga(porcentaje, completados, total, terminado) {
+    var barra = document.getElementById('barra-progreso-descarga');
+    var texto = document.getElementById('texto-progreso-descarga');
+    var indicador = document.getElementById('indicador-descarga');
+    
+    if (!indicador) return;
+    
+    indicador.style.display = 'block';
+    
+    if (terminado) {
+        if (barra) {
+            barra.style.width = '100%';
+            barra.style.backgroundColor = '#4CAF50';
+        }
+        if (texto) {
+            texto.innerText = '✅ ' + completados + ' archivos descargados. ¡App lista sin conexión!';
+            texto.style.color = '#4CAF50';
+        }
+    } else {
+        if (barra) {
+            barra.style.width = porcentaje + '%';
+        }
+        if (texto) {
+            texto.innerText = '📥 Descargando: ' + completados + ' de ' + total + ' archivos (' + porcentaje + '%)';
+        }
+    }
+}
+
+// =============================================
 // INICIO AUTOMÁTICO
-// =========================================
+// =============================================
 window.addEventListener('load', function() {
     console.log("🚀 INICIANDO SISTEMA PUENTE QUITACALZÓN...");
+    
     cargarDatos();
     configurarBotones();
     
-    // Verificar estado de caché después de cargar
-    setTimeout(verificarCache, 2000);
+    // Verificar caché después de 3 segundos
+    setTimeout(function() {
+        verificarCacheAlIniciar();
+    }, 3000);
     
     console.log("✅ SISTEMA LISTO");
 });
