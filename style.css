@@ -1,99 +1,332 @@
-:root { --am: #ffcc00; --bg: #000; --gr: #111; --br: #333; }
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg); color: #fff; overflow: hidden; height: 100vh; }
+/* ============================================
+   ESTILOS - MONTAJE PUENTE QUITACALZÓN
+   VERSIÓN: FINAL COMPLETA
+   ============================================ */
 
-.app-movil { width: 100%; max-width: 480px; margin: auto; height: 100vh; display: flex; flex-direction: column; }
-
-/* Filtro Superior */
-.contenedor-herramientas { padding: 10px; background: var(--gr); border-bottom: 2px solid var(--am); }
-#filtro-modulo { width: 100%; height: 45px; border-radius: 8px; border: 2px solid var(--am); background: #222; color: #fff; font-weight: bold; font-size: 16px; }
-
-/* Visor e Indicador de Paso Gigante */
-.visor-imagenes { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px; }
-.contenedor-img { position: relative; height: 140px; background: #000; border: 1px solid var(--br); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.contenedor-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
-#indicador-paso-flotante {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 65px; height: 65px; background: var(--am); color: #000; border-radius: 50%;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 10px; z-index: 100; border: 3px solid #000; box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+:root { 
+    --am: #ffcc00; 
+    --bg: #000; 
+    --gr: #111; 
+    --br: #333; 
+    --verde: #4CAF50;
+    --rojo: #b30000;
 }
-#num-paso { font-size: 24px; line-height: 20px; }
-.etiqueta-flotante { position: absolute; top: 5px; left: 5px; background: var(--am); color: #000; font-size: 9px; font-weight: bold; padding: 2px 6px; border-radius: 4px; z-index: 10; }
 
-/* Datos Técnicos */
-.cuerpo-datos { padding: 10px; flex-grow: 1; overflow-y: auto; }
-#pieza-titulo { color: var(--am); text-align: center; margin-bottom: 10px; font-size: 18px; }
-.tarjeta-info { background: var(--gr); padding: 15px; border-radius: 12px; border: 1px solid var(--br); }
-.fila-dato { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; font-size: 14px; }
-.fila-dato strong { color: var(--am); }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: sans-serif; 
+    -webkit-tap-highlight-color: transparent; 
+}
 
-.caja-torque { margin: 12px 0; padding: 10px; border: 2px dashed var(--am); border-radius: 10px; text-align: center; }
-.caja-torque div { font-size: 34px; font-weight: 900; color: var(--am); }
+body { 
+    background: var(--bg); 
+    color: #fff; 
+    overflow: hidden; 
+    height: 100vh; 
+}
 
-/* Medidas */
-.seccion-medidas { display: flex; gap: 6px; margin: 12px 0; }
-.caja-medida { flex: 1; background: #1a1a1a; padding: 8px; text-align: center; border-radius: 8px; border: 1px solid var(--br); }
-.caja-medida small { display: block; color: #888; font-size: 9px; margin-bottom: 2px; }
-.caja-medida span { font-weight: bold; font-size: 14px; color: var(--am); }
+/* ============================================
+   CONTENEDOR PRINCIPAL
+   ============================================ */
+.app-movil { 
+    width: 100%; 
+    max-width: 480px; 
+    margin: auto; 
+    height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    padding-bottom: 250px;
+}
 
-.posicion-detallada { background: #080808; padding: 10px; border-radius: 8px; font-size: 12px; text-align: center; color: #aaa; }
+/* ============================================
+   INDICADOR DE DESCARGA (PRECARGA)
+   ============================================ */
+#indicador-descarga {
+    font-family: sans-serif;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
 
-/* Botones Inferiores */
-.controles-unificados { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: var(--gr); padding: 12px; border-top: 2px solid var(--am); }
-.fila-navegacion { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.btn-nav { flex: 1; height: 50px; background: var(--am); border: none; font-weight: 900; border-radius: 10px; margin: 0 5px; }
-#indicador-indice { min-width: 80px; text-align: center; font-weight: bold; color: var(--am); }
-.btn-mapa { width: 100%; height: 45px; background: #000; color: var(--am); border: 2px solid var(--am); border-radius: 10px; font-weight: bold; }
+#barra-progreso-descarga {
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+}
 
-/* Modal de Zoom */
-.modal-zoom { display:none; background:#000; height:100vh; width:100%; position:fixed; z-index:3000; flex-direction:column; top:0; left:0; }
-.header-modal { padding:15px; background:#111; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--am); }
-.wrapper-zoom { flex-grow:1; overflow:hidden; position:relative; touch-action:none; }
-.btn-cerrar { background: var(--am); border:none; padding:10px 20px; font-weight:bold; border-radius:8px; }
+/* Animación de pulso cuando está descargando */
+@keyframes pulso {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
 
+#indicador-descarga.activo {
+    animation: pulso 1.5s infinite;
+}
+
+/* ============================================
+   HEADER - FILTRO SUPERIOR
+   ============================================ */
+.contenedor-herramientas { 
+    padding: 10px; 
+    background: var(--gr); 
+    border-bottom: 2px solid var(--am); 
+}
+
+#filtro-modulo { 
+    width: 100%; 
+    height: 45px; 
+    border-radius: 8px; 
+    border: 2px solid var(--am); 
+    background: #222; 
+    color: #fff; 
+    font-weight: bold; 
+    font-size: 16px; 
+    margin-bottom: 8px;
+}
+
+.posicion-detallada { 
+    background: #080808; 
+    padding: 10px; 
+    border-radius: 8px; 
+    font-size: 12px; 
+    text-align: center; 
+    color: #aaa; 
+}
+
+/* ============================================
+   VISOR DE IMÁGENES
+   ============================================ */
+.visor-imagenes { 
+    position: relative; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 8px; 
+    padding: 10px; 
+}
+
+.contenedor-img { 
+    position: relative; 
+    height: 140px; 
+    background: #000; 
+    border: 1px solid var(--br); 
+    border-radius: 10px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden; 
+}
+
+.contenedor-img img { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+}
+
+/* Indicador de paso flotante */
+#indicador-paso-flotante {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 65px; 
+    height: 65px; 
+    background: var(--am); 
+    color: #000; 
+    border-radius: 50%;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    font-weight: 900; 
+    font-size: 10px; 
+    z-index: 100; 
+    border: 3px solid #000; 
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+}
+
+#num-paso { 
+    font-size: 24px; 
+    line-height: 20px; 
+}
+
+.etiqueta-flotante { 
+    position: absolute; 
+    top: 5px; 
+    left: 5px; 
+    background: var(--am); 
+    color: #000; 
+    font-size: 9px; 
+    font-weight: bold; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    z-index: 10; 
+}
+
+/* ============================================
+   CUERPO DE DATOS TÉCNICOS
+   ============================================ */
+.cuerpo-datos { 
+    padding: 10px; 
+    flex-grow: 1; 
+    overflow-y: auto; 
+}
+
+#pieza-titulo { 
+    color: var(--am); 
+    text-align: center; 
+    margin-bottom: 10px; 
+    font-size: 18px; 
+}
+
+.tarjeta-info { 
+    background: var(--gr); 
+    padding: 15px; 
+    border-radius: 12px; 
+    border: 1px solid var(--br); 
+}
+
+.fila-dato { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 8px 0; 
+    border-bottom: 1px solid #222; 
+    font-size: 14px; 
+}
+
+.fila-dato strong { 
+    color: var(--am); 
+}
+
+/* Caja de torque */
+.caja-torque { 
+    margin: 12px 0; 
+    padding: 10px; 
+    border: 2px dashed var(--am); 
+    border-radius: 10px; 
+    text-align: center; 
+}
+
+.caja-torque div { 
+    font-size: 34px; 
+    font-weight: 900; 
+    color: var(--am); 
+}
+
+.caja-torque small {
+    color: #aaa;
+    font-size: 10px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Sección de medidas */
+.seccion-medidas { 
+    display: flex; 
+    gap: 6px; 
+    margin: 12px 0; 
+}
+
+.caja-medida { 
+    flex: 1; 
+    background: #1a1a1a; 
+    padding: 8px; 
+    text-align: center; 
+    border-radius: 8px; 
+    border: 1px solid var(--br); 
+}
+
+.caja-medida small { 
+    display: block; 
+    color: #888; 
+    font-size: 9px; 
+    margin-bottom: 2px; 
+}
+
+.caja-medida span { 
+    font-weight: bold; 
+    font-size: 14px; 
+    color: var(--am); 
+}
+
+/* ============================================
+   BOTONES INFERIORES
+   ============================================ */
+.controles-unificados { 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    max-width: 480px; 
+    background: var(--gr); 
+    padding: 12px; 
+    border-top: 2px solid var(--am); 
+    padding-bottom: 20px;
+    z-index: 1000;
+}
+
+.fila-navegacion { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 10px; 
+}
+
+.btn-nav { 
+    flex: 1; 
+    height: 50px; 
+    background: var(--am); 
+    border: none; 
+    font-weight: 900; 
+    font-size: 16px;
+    border-radius: 10px; 
+    margin: 0 5px; 
+    color: #000;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.btn-nav:active {
+    transform: scale(0.95);
+}
+
+#indicador-indice { 
+    min-width: 80px; 
+    text-align: center; 
+    font-weight: bold; 
+    color: var(--am); 
+    font-size: 14px;
+}
+
+/* Botón de plano general */
+.btn-mapa { 
+    width: 100%; 
+    height: 45px; 
+    background: #000; 
+    color: var(--am); 
+    border: 2px solid var(--am); 
+    border-radius: 10px; 
+    font-weight: bold; 
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.btn-mapa:active {
+    background: #1a1a1a;
+}
+
+/* Botón de manual PDF */
 .btn-manual {
     width: 100%;
     height: 45px;
-    background: #b30000; /* Rojo para identificar manuales */
+    background: var(--rojo);
     color: white;
     border: none;
     border-radius: 10px;
     font-weight: bold;
-    margin-top: 8px; /* Separación del botón de arriba */
+    margin-bottom: 8px;
     font-size: 13px;
     box-shadow: 0 3px 0 #660000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: uppercase;
-}
-
-.btn-manual:active {
-    transform: translateY(2px);
-    box-shadow: none;
-}
-
-/* Ajuste del padding inferior para que el contenido no quede tapado por los 3 botones */
-.app-movil {
-    padding-bottom: 220px; 
-}
-
-.controles-unificados {
-    padding-bottom: 20px; /* Espacio extra para seguridad táctil */
-}
-.btn-precarga {
-    width: 100%;
-    height: 45px;
-    background: #008000;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    margin-top: 8px;
-    font-size: 13px;
-    box-shadow: 0 3px 0 #004d00;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,12 +334,220 @@ body { background: var(--bg); color: #fff; overflow: hidden; height: 100vh; }
     cursor: pointer;
 }
 
+.btn-manual:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* Botón de precarga sin conexión */
+.btn-precarga {
+    width: 100%;
+    height: 50px;
+    background: #008000;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 3px 0 #004d00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
 .btn-precarga:active {
     transform: translateY(2px);
     box-shadow: none;
 }
 
+.btn-precarga:disabled {
+    background: #555;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
 .btn-precarga.completado {
-    background: #4CAF50;
+    background: var(--verde);
     box-shadow: 0 3px 0 #2E7D32;
+}
+
+/* ============================================
+   MODAL DE ZOOM DETALLADO
+   ============================================ */
+.modal-zoom { 
+    display: none; 
+    background: #000; 
+    height: 100vh; 
+    width: 100%; 
+    position: fixed; 
+    z-index: 3000; 
+    flex-direction: column; 
+    top: 0; 
+    left: 0; 
+}
+
+.header-modal { 
+    padding: 15px; 
+    background: #111; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 2px solid var(--am); 
+}
+
+.header-modal h3 {
+    color: var(--am);
+    font-size: 16px;
+}
+
+.wrapper-zoom { 
+    flex-grow: 1; 
+    overflow: hidden; 
+    position: relative; 
+    touch-action: none; 
+}
+
+.wrapper-zoom img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.btn-cerrar { 
+    background: var(--am); 
+    border: none; 
+    padding: 10px 20px; 
+    font-weight: bold; 
+    border-radius: 8px; 
+    color: #000;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-cerrar:active {
+    background: #e6b800;
+}
+
+/* ============================================
+   MENSAJE OFFLINE
+   ============================================ */
+#offline-message {
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+}
+
+/* ============================================
+   ESTADO DE PRECARGA
+   ============================================ */
+#estado-precarga {
+    font-family: sans-serif;
+    min-height: 20px;
+}
+
+/* ============================================
+   SCROLLBAR PERSONALIZADA
+   ============================================ */
+.cuerpo-datos::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cuerpo-datos::-webkit-scrollbar-track {
+    background: #111;
+}
+
+.cuerpo-datos::-webkit-scrollbar-thumb {
+    background: var(--am);
+    border-radius: 4px;
+}
+
+/* ============================================
+   RESPONSIVE - PANTALLAS PEQUEÑAS
+   ============================================ */
+@media (max-width: 360px) {
+    .visor-imagenes {
+        gap: 4px;
+        padding: 6px;
+    }
+    
+    .contenedor-img {
+        height: 120px;
+    }
+    
+    #indicador-paso-flotante {
+        width: 50px;
+        height: 50px;
+        font-size: 8px;
+    }
+    
+    #num-paso {
+        font-size: 18px;
+        line-height: 16px;
+    }
+    
+    .btn-nav {
+        height: 40px;
+        font-size: 14px;
+    }
+    
+    .btn-precarga,
+    .btn-manual,
+    .btn-mapa {
+        height: 40px;
+        font-size: 12px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - PANTALLAS GRANDES
+   ============================================ */
+@media (min-width: 768px) {
+    .app-movil {
+        max-width: 600px;
+    }
+    
+    .contenedor-img {
+        height: 200px;
+    }
+    
+    #indicador-paso-flotante {
+        width: 80px;
+        height: 80px;
+        font-size: 12px;
+    }
+    
+    #num-paso {
+        font-size: 30px;
+        line-height: 26px;
+    }
+    
+    .controles-unificados {
+        max-width: 600px;
+    }
+}
+
+/* ============================================
+   UTILIDADES
+   ============================================ */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-amarillo {
+    color: var(--am);
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
 }
