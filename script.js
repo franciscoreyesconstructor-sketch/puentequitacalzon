@@ -170,5 +170,68 @@ document.getElementById("btn-atras").onclick = () => {
     }
 };
 
+// FUNCIÓN DE PRECARGA MANUAL
+function precargarArchivos() {
+    const btn = document.getElementById('btn-precargar');
+    const estado = document.getElementById('estado-precarga');
+    
+    if (!btn || !estado) return;
+    
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    estado.innerText = '⏳ Descargando archivos...';
+    
+    // Comunicarse con el Service Worker
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+            action: 'precacheAll'
+        });
+        
+        // Verificar el estado después de 3 segundos
+        setTimeout(function() {
+            verificarCache();
+        }, 3000);
+    } else {
+        // Si no hay SW, forzar recarga de caché del navegador
+        setTimeout(function() {
+            btn.classList.add('completado');
+            btn.innerText = '✅ ARCHIVOS DESCARGADOS';
+            estado.innerText = '🎉 ¡Ya puedes usar la app sin conexión!';
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        }, 2000);
+    }
+}
+
+// VERIFICAR ESTADO DE LA CACHÉ
+function verificarCache() {
+    const btn = document.getElementById('btn-precargar');
+    const estado = document.getElementById('estado-precarga');
+    
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        const channel = new MessageChannel();
+        
+        channel.port1.onmessage = function(event) {
+            if (event.data.status === 'ready') {
+                btn.classList.add('completado');
+                btn.innerText = '✅ ' + event.data.cachedFiles + ' ARCHIVOS DESCARGADOS';
+                estado.innerText = '🎉 ¡Listo para usar sin conexión!';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        };
+        
+        navigator.serviceWorker.controller.postMessage(
+            { action: 'checkCache' },
+            [channel.port2]
+        );
+    }
+}
+
+// VERIFICAR ESTADO AL CARGAR LA PÁGINA
+window.addEventListener('load', function() {
+    setTimeout(verificarCache, 2000);
+});
+
 // INICIO AUTOMÁTICO AL CARGAR LA VENTANA
 window.onload = cargarDatos;
