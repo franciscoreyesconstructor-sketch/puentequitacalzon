@@ -1,7 +1,7 @@
 {
   "name": "Montaje Puente Quitacalzón",
   "short_name": "Puente QC",
-  "description": "Sistema de monitoreo y auditoría técnica para el montaje del puente Quitacalzón. Visualización de piezas, pernos, torque y medidas.",
+  "description": "Sistema técnico de montaje y auditoría para puente Quitacalzón. Visualización de piezas, pernos, torque y secuencia de armado.",
   "start_url": "./index.html",
   "scope": "/",
   "display": "standalone",
@@ -10,7 +10,6 @@
   "orientation": "portrait",
   "lang": "es-CL",
   "categories": ["utilities", "productivity"],
-  "iarc_rating_id": "",
   "icons": [
     {
       "src": "icono-192.png",
@@ -25,20 +24,5 @@
       "purpose": "any maskable"
     }
   ],
-  "screenshots": [
-    {
-      "src": "screenshot1.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "label": "Vista principal de piezas"
-    },
-    {
-      "src": "screenshot2.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "label": "Detalles técnicos de montaje"
-    }
-  ],
-  "prefer_related_applications": false,
-  "related_applications": []
+  "prefer_related_applications": false
 }
