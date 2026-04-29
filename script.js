@@ -256,7 +256,7 @@ function configurarBotones() {
 }
 
 // =============================================
-// PRECARGA MANUAL DE ARCHIVOS
+// PRECARGA MANUAL DE ARCHIVOS (MEJORADA)
 // =============================================
 function precargarArchivos() {
     var btn = document.getElementById('btn-precargar');
@@ -266,34 +266,53 @@ function precargarArchivos() {
     
     btn.disabled = true;
     btn.style.opacity = '0.7';
-    btn.innerText = '⏳ DESCARGANDO...';
-    estado.innerText = 'Esto puede tardar unos minutos. No cierres la página.';
+    btn.innerText = '⏳ VERIFICANDO...';
+    estado.innerText = 'Comprobando conexión con el sistema...';
     
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-            action: 'precacheAll'
+    // Función para iniciar la precarga
+    function iniciarPrecarga() {
+        if (navigator.serviceWorker.controller) {
+            btn.innerText = '⏳ DESCARGANDO...';
+            estado.innerText = 'Esto puede tardar unos minutos. No cierres la página.';
+            
+            navigator.serviceWorker.controller.postMessage({
+                action: 'precacheAll'
+            });
+            
+            var intentos = 0;
+            var intervalo = setInterval(function() {
+                verificarCacheEstado();
+                intentos++;
+                if (intentos > 36) {
+                    clearInterval(intervalo);
+                    btn.classList.add('completado');
+                    btn.innerText = '✅ COMPLETADO';
+                    estado.innerText = '🎉 ¡App lista para usar sin conexión!';
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                }
+            }, 5000);
+        } else {
+            estado.innerText = '⚠️ Esperando activación del sistema...';
+            setTimeout(iniciarPrecarga, 1000);
+        }
+    }
+    
+    // Esperar a que el SW esté listo
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(function(registration) {
+            console.log('✅ SW listo para precarga');
+            iniciarPrecarga();
+        }).catch(function() {
+            // Si falla, intentar directamente
+            iniciarPrecarga();
         });
-        
-        var intentos = 0;
-        var intervalo = setInterval(function() {
-            verificarCacheEstado();
-            intentos++;
-            if (intentos > 36) {
-                clearInterval(intervalo);
-                btn.classList.add('completado');
-                btn.innerText = '✅ COMPLETADO';
-                estado.innerText = '🎉 ¡App lista para usar sin conexión!';
-                btn.disabled = false;
-                btn.style.opacity = '1';
-            }
-        }, 5000);
     } else {
-        estado.innerText = '⚠️ Service Worker no disponible. Recarga e intenta de nuevo.';
+        estado.innerText = '⚠️ Service Worker no soportado en este navegador.';
         btn.disabled = false;
         btn.style.opacity = '1';
     }
 }
-
 // =============================================
 // VERIFICAR ESTADO DE CACHÉ
 // =============================================
