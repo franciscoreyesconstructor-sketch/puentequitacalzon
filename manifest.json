@@ -1,13 +1,22 @@
 {
-  "background_color": "#890505",
-  "dir": "ltr",
+  "name": "Control Quitacalzón",
+  "short_name": "Control QC",
+  "description": "Sistema de monitoreo y auditoría técnica para el montaje del puente Quitacalzón.",
+  "start_url": "./index.html",
+  "scope": "/puentequitacalzon/",
   "display": "standalone",
-  "name": "Control Quitacalzon",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "Control Quitacalzon",
-  "start_url": "/",
-  "theme_color": "#ffffff",
-  "id": "Control puente quitacalzon",
-  "description": "Montaje de Puente"
+  "background_color": "#000000",
+  "theme_color": "#ffcc00",
+  "orientation": "portrait",
+  "lang": "es-CL",
+  "categories": ["utilities", "productivity"],
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "icono-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
