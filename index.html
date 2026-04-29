@@ -15,11 +15,25 @@ if ('serviceWorker' in navigator) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- META TAGS PARA PWA Y APK -->
     <title>MONTAJE PUENTE QUITACALZON</title>
+    <meta name="description" content="Sistema técnico de montaje para puente Quitacalzón. Monitoreo de piezas, pernos, torque y secuencia de armado.">
+    <meta name="theme-color" content="#ffcc00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Puente QC">
+    <link rel="apple-touch-icon" href="icono-192.png">
+    
+    <!-- GOOGLE PLAY / APK METADATA -->
+    <meta name="google-play-app" content="app-id=TU_APP_ID">
+    
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
     
     <script src="pinch-zoom.js"></script>
-    <script src="datos_visor.js"></script> </head>
+    <script src="datos_visor.js"></script>
+</head>
 <body>
     <div id="modal-zoom-detallado" class="modal-zoom">
         <div class="header-modal">
