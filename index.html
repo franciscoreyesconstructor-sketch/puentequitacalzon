@@ -82,6 +82,11 @@ if ('serviceWorker' in navigator) {
             </div>
             <button class="btn-mapa" onclick="abrirZoomDetalle('img-ubimod-hidden', 'PLANO GENERAL')">??? PLANO GENERAL</button>
             <button class="btn-manual" onclick="abrirManual()">?? MANUAL DE MONTAJE (PDF)</button>
+            <!-- Botón de Precarga Sin Conexión -->
+            <button id="btn-precargar" class="btn-precarga" onclick="precargarArchivos()">
+            📥 DESCARGAR PARA USO SIN CONEXIÓN
+            </button>
+            <div id="estado-precarga" style="text-align:center; margin-top:5px; font-size:12px; color:#ffcc00;"></div>
             <img id="img-ubimod-hidden" src="fotos/ubimod.jpg" style="display:none;">
         </footer>
     </div>
