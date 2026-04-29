@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<!-- REGISTRAR SERVICE WORKER (DEBE SER LO PRIMERO) -->
-<script>
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('SW registrado:', reg.scope))
-            .catch(err => console.log('Error SW:', err));
-    });
-}
-</script>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- META TAGS PARA PWA Y APK -->
     <title>MONTAJE PUENTE QUITACALZON</title>
-    <meta name="description" content="Sistema técnico de montaje para puente Quitacalzón. Monitoreo de piezas, pernos, torque y secuencia de armado.">
+    
+    <!-- Meta tags corregidos para PWA -->
+    <meta name="description" content="Sistema técnico de montaje y auditoría para puente Quitacalzón. Visualización de piezas, pernos, torque y secuencia de armado.">
     <meta name="theme-color" content="#ffcc00">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="mobile-web-app-title" content="Puente QC">
+    <meta name="apple-mobile-web-app-title" content="Puente QC">
+    
+    <!-- Favicon y iconos -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icono-192.png">
+    <link rel="shortcut icon" href="icono-192.png">
     <link rel="apple-touch-icon" href="icono-192.png">
     
-    <!-- GOOGLE PLAY / APK METADATA -->
-    <meta name="google-play-app" content="app-id=TU_APP_ID">
-    
-    <link rel="stylesheet" href="style.css">
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     
+    <!-- Estilos y scripts -->
+    <link rel="stylesheet" href="style.css">
     <script src="pinch-zoom.js"></script>
     <script src="datos_visor.js"></script>
+    
+    <!-- Registrar Service Worker -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('SW registrado:', reg.scope))
+                .catch(err => console.log('Error SW:', err));
+        });
+    }
+    </script>
 </head>
 <body>
     <div id="modal-zoom-detallado" class="modal-zoom">
@@ -44,22 +45,23 @@ if ('serviceWorker' in navigator) {
             <img id="img-zoom-full" src="" alt="Zoom">
         </div>
     </div>
+    
     <div class="app-movil">
         <header class="contenedor-herramientas">
             <select id="filtro-modulo">
-                <option value="todos">?? CARGANDO...</option>
+                <option value="todos">📦 CARGANDO...</option>
             </select>
-                 <div class="posicion-detallada">
-                    <strong>M�DULO:</strong> <span id="dato-modulo-linea">--</span><br>
-                    <strong>POSICI�N DE LA PIEZA:</strong> <span id="dato-posicion-pieza">--</span>
-                </div>
+            <div class="posicion-detallada">
+                <strong>MÓDULO:</strong> <span id="dato-modulo-linea">--</span><br>
+                <strong>POSICIÓN DE LA PIEZA:</strong> <span id="dato-posicion-pieza">--</span>
+            </div>
         </header>
 
         <section class="visor-imagenes">
             <div id="indicador-paso-flotante">PASO<br><span id="num-paso">1</span></div>
             
-            <div class="contenedor-img" onclick="abrirZoomDetalle('img-mapa', 'UBICACI�N')">
-                <div class="etiqueta-flotante">UBICACI�N</div>
+            <div class="contenedor-img" onclick="abrirZoomDetalle('img-mapa', 'UBICACIÓN')">
+                <div class="etiqueta-flotante">UBICACIÓN</div>
                 <img id="img-mapa" src="" alt="Mapa">
             </div>
             <div class="contenedor-img" onclick="abrirZoomDetalle('img-visor', 'PIEZA')">
@@ -73,7 +75,7 @@ if ('serviceWorker' in navigator) {
             
             <div class="tarjeta-info">
                 <div class="fila-dato"><span>Perno:</span> <strong id="dato-perno">--</strong></div>
-                <div class="fila-dato"><span>Est�ndar tuerca:</span> <strong id="dato-estandar">--</strong></div>
+                <div class="fila-dato"><span>Estándar tuerca:</span> <strong id="dato-estandar">--</strong></div>
                 <div class="caja-torque">
                     <small>TORQUE REQUERIDO</small>
                     <div><span id="dato-torque">0</span> <small>N.m</small></div>
@@ -84,7 +86,6 @@ if ('serviceWorker' in navigator) {
                     <div class="caja-medida"><small>ANCHO</small><span id="dato-ancho">0</span></div>
                     <div class="caja-medida"><small>ALTO</small><span id="dato-alto">0</span></div>
                 </div>
-                
             </div>
         </main>
 
@@ -94,11 +95,29 @@ if ('serviceWorker' in navigator) {
                 <div id="indicador-indice">0 / 0</div>
                 <button id="btn-siguiente" class="btn-nav">SIGUIENTE</button>
             </div>
-            <button class="btn-mapa" onclick="abrirZoomDetalle('img-ubimod-hidden', 'PLANO GENERAL')">??? PLANO GENERAL</button>
-            <button class="btn-manual" onclick="abrirManual()">?? MANUAL DE MONTAJE (PDF)</button>
+            <button class="btn-mapa" onclick="abrirZoomDetalle('img-ubimod-hidden', 'PLANO GENERAL')">🗺️ PLANO GENERAL</button>
+            <button class="btn-manual" onclick="abrirManual()">📖 MANUAL DE MONTAJE (PDF)</button>
             <img id="img-ubimod-hidden" src="fotos/ubimod.jpg" style="display:none;">
         </footer>
     </div>
+    
+    <!-- Mensaje de estado offline -->
+    <div id="offline-message" style="display:none; position:fixed; top:0; width:100%; background:#b30000; color:white; text-align:center; padding:8px; z-index:9999; font-weight:bold;">
+        📴 MODO SIN CONEXIÓN
+    </div>
+    
+    <script>
+    // Detectar estado de conexión
+    window.addEventListener('online', () => {
+        document.getElementById('offline-message').style.display = 'none';
+    });
+    window.addEventListener('offline', () => {
+        document.getElementById('offline-message').style.display = 'block';
+    });
+    if (!navigator.onLine) {
+        document.getElementById('offline-message').style.display = 'block';
+    }
+    </script>
     
     <script src="script.js"></script>
 </body>
