@@ -2,7 +2,7 @@
    SISTEMA DE MONITOREO Y AUDITORÍA
    PUENTE QUITACALZÓN
    DESARROLLADO POR: ANTONIO SERRA
-   VERSIÓN: 16.0 FINAL - ZOOM CORREGIDO
+   VERSIÓN: 17.0 FINAL - VISOR FIJO GARANTIZADO
    ============================================ */
 
 var datosOriginales = [];
@@ -55,9 +55,23 @@ function cargarDatos() {
         poblarSelectModulo();
         aplicarFiltros();
         inicializarZoomsMiniaturas();
+        forzarAlturaVisor();
     } catch (error) {
         console.error("❌ ERROR:", error.message);
         mostrarError(error.message);
+    }
+}
+
+// =============================================
+// FORZAR ALTURA FIJA DEL VISOR
+// =============================================
+function forzarAlturaVisor() {
+    var visor = document.querySelector('.visor-imagenes');
+    if (visor) {
+        visor.style.height = '160px';
+        visor.style.minHeight = '160px';
+        visor.style.maxHeight = '160px';
+        visor.style.overflow = 'hidden';
     }
 }
 
@@ -102,7 +116,10 @@ function poblarSelectModulo() {
         selector.appendChild(opcion);
     }
     
-    selector.onchange = aplicarFiltros;
+    selector.onchange = function() {
+        aplicarFiltros();
+        forzarAlturaVisor();
+    };
 }
 
 // =============================================
@@ -139,6 +156,9 @@ function aplicarFiltros() {
 // ACTUALIZACIÓN DE PANTALLA PRINCIPAL
 // =============================================
 function actualizarInterfaz() {
+    // Forzar altura fija del visor antes de actualizar
+    forzarAlturaVisor();
+    
     if (datosFiltrados.length === 0) return;
     
     var registro = datosFiltrados[posicionActual];
@@ -166,6 +186,9 @@ function actualizarInterfaz() {
     if (imgVisor) imgVisor.src = "fotos/" + idPieza + ".jpg";
     
     resetearZoomMiniaturas();
+    
+    // Reforzar altura después de cargar imágenes
+    setTimeout(forzarAlturaVisor, 100);
 }
 
 // =============================================
@@ -177,7 +200,7 @@ function inicializarZoomsMiniaturas() {
         
         if (contenedores.length >= 2) {
             if (typeof PinchZoom === 'undefined') {
-                console.warn("⚠️ PinchZoom no disponible - usando zoom nativo del navegador");
+                console.warn("⚠️ PinchZoom no disponible");
                 return;
             }
             
@@ -194,7 +217,7 @@ function inicializarZoomsMiniaturas() {
                     minZoom: 1,
                     use2d: true 
                 });
-                console.log("🔍 Zoom inicializado correctamente");
+                console.log("🔍 Zoom inicializado");
             } else if (typeof PinchZoom === 'function') {
                 zUbi = new PinchZoom(contenedores[0], { 
                     tapZoomFactor: 2, 
@@ -218,55 +241,36 @@ function resetearZoomMiniaturas() {
     try {
         if (zUbi && typeof zUbi.setZoom === "function") zUbi.setZoom(1);
         if (zPieza && typeof zPieza.setZoom === "function") zPieza.setZoom(1);
-    } catch (e) {
-        console.warn("Error al resetear zoom:", e.message);
-    }
+    } catch (e) {}
 }
 
 function abrirZoomDetalle(idElemento, titulo) {
-    console.log("🔍 Abriendo zoom: " + idElemento + " - " + titulo);
+    console.log("🔍 Abriendo zoom: " + idElemento);
     
     var origen = document.getElementById(idElemento);
-    if (!origen) {
-        console.error("❌ No se encontró el elemento: " + idElemento);
-        return;
-    }
-    
-    if (!origen.src) {
-        console.error("❌ El elemento no tiene src: " + idElemento);
-        return;
-    }
+    if (!origen || !origen.src) return;
     
     var imgZoom = document.getElementById("img-zoom-full");
     var tituloZoom = document.getElementById("titulo-zoom-modal");
     var modal = document.getElementById("modal-zoom-detallado");
     
-    if (!imgZoom || !modal) {
-        console.error("❌ No se encontró el modal de zoom");
-        return;
-    }
+    if (!imgZoom || !modal) return;
     
     imgZoom.src = origen.src;
     if (tituloZoom) tituloZoom.innerText = titulo;
     modal.style.display = "flex";
     
-    // Inicializar zoom después de que la imagen cargue
     imgZoom.onload = function() {
         setTimeout(function() {
             try {
                 var wrapper = document.getElementById('wrapper-zoom-detalle');
-                if (!wrapper) {
-                    console.error("❌ No se encontró wrapper-zoom-detalle");
-                    return;
-                }
+                if (!wrapper) return;
                 
-                // Destruir zoom anterior si existe
                 if (zFull && typeof zFull.destroy === "function") {
                     zFull.destroy();
                 }
                 zFull = null;
                 
-                // Crear nuevo zoom
                 if (typeof PinchZoom !== 'undefined') {
                     if (typeof PinchZoom.default === 'function') {
                         zFull = new PinchZoom.default(wrapper, { 
@@ -282,32 +286,19 @@ function abrirZoomDetalle(idElemento, titulo) {
                             minZoom: 1 
                         });
                     }
-                    console.log("🔍 Zoom del modal inicializado");
                 }
-            } catch (e) {
-                console.warn("⚠️ Error al abrir zoom:", e.message);
-            }
+            } catch (e) {}
         }, 200);
     };
     
-    // Si la imagen ya estaba cargada
-    if (imgZoom.complete) {
-        imgZoom.onload();
-    }
+    if (imgZoom.complete) imgZoom.onload();
 }
 
 function cerrarZoomDetalle() {
-    console.log("🔍 Cerrando zoom");
-    
-    if (zFull && typeof zFull.destroy === "function") {
-        zFull.destroy();
-    }
+    if (zFull && typeof zFull.destroy === "function") zFull.destroy();
     zFull = null;
-    
     var modal = document.getElementById("modal-zoom-detallado");
-    if (modal) {
-        modal.style.display = "none";
-    }
+    if (modal) modal.style.display = "none";
 }
 
 // =============================================
@@ -329,11 +320,10 @@ function configurarBotones() {
             if (posicionActual < datosFiltrados.length - 1) {
                 posicionActual++;
                 actualizarInterfaz();
+                forzarAlturaVisor();
             }
         };
         console.log("✅ Botón SIGUIENTE configurado");
-    } else {
-        console.error("❌ No se encontró btn-siguiente");
     }
     
     if (btnAnt) {
@@ -341,16 +331,15 @@ function configurarBotones() {
             if (posicionActual > 0) {
                 posicionActual--;
                 actualizarInterfaz();
+                forzarAlturaVisor();
             }
         };
         console.log("✅ Botón ANTERIOR configurado");
-    } else {
-        console.error("❌ No se encontró btn-atras");
     }
 }
 
 // =============================================
-// PRECARGA MANUAL DE ARCHIVOS (CORREGIDA)
+// PRECARGA MANUAL DE ARCHIVOS
 // =============================================
 function precargarArchivos() {
     var btn = document.getElementById('btn-precargar');
@@ -392,14 +381,13 @@ function precargarArchivos() {
     }
     
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then(function(registration) {
-            console.log('✅ SW listo para precarga');
+        navigator.serviceWorker.ready.then(function() {
             iniciarPrecarga();
         }).catch(function() {
             iniciarPrecarga();
         });
     } else {
-        estado.innerText = '⚠️ Service Worker no soportado en este navegador.';
+        estado.innerText = '⚠️ Service Worker no soportado.';
         btn.disabled = false;
         btn.style.opacity = '1';
     }
@@ -478,24 +466,15 @@ function verificarCacheAlIniciar() {
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.addEventListener('message', function(event) {
         if (event.data && event.data.type === 'progress') {
-            var porcentaje = event.data.porcentaje;
-            var completados = event.data.completados;
-            var total = event.data.total;
-            
-            actualizarIndicadorDescarga(porcentaje, completados, total, false);
+            actualizarIndicadorDescarga(event.data.porcentaje, event.data.completados, event.data.total, false);
         }
         
         if (event.data && event.data.type === 'complete') {
-            var completados = event.data.completados;
-            var total = event.data.total;
-            
-            actualizarIndicadorDescarga(100, completados, total, true);
+            actualizarIndicadorDescarga(100, event.data.completados, event.data.total, true);
             
             setTimeout(function() {
                 var indicador = document.getElementById('indicador-descarga');
-                if (indicador) {
-                    indicador.style.display = 'none';
-                }
+                if (indicador) indicador.style.display = 'none';
             }, 5000);
         }
     });
@@ -514,21 +493,11 @@ function actualizarIndicadorDescarga(porcentaje, completados, total, terminado) 
     indicador.style.display = 'block';
     
     if (terminado) {
-        if (barra) {
-            barra.style.width = '100%';
-            barra.style.backgroundColor = '#4CAF50';
-        }
-        if (texto) {
-            texto.innerText = '✅ ' + completados + ' archivos descargados. ¡App lista sin conexión!';
-            texto.style.color = '#4CAF50';
-        }
+        if (barra) { barra.style.width = '100%'; barra.style.backgroundColor = '#4CAF50'; }
+        if (texto) { texto.innerText = '✅ ' + completados + ' archivos descargados. ¡App lista sin conexión!'; texto.style.color = '#4CAF50'; }
     } else {
-        if (barra) {
-            barra.style.width = porcentaje + '%';
-        }
-        if (texto) {
-            texto.innerText = '📥 Descargando: ' + completados + ' de ' + total + ' archivos (' + porcentaje + '%)';
-        }
+        if (barra) barra.style.width = porcentaje + '%';
+        if (texto) texto.innerText = '📥 Descargando: ' + completados + ' de ' + total + ' archivos (' + porcentaje + '%)';
     }
 }
 
@@ -540,10 +509,16 @@ window.addEventListener('load', function() {
     
     cargarDatos();
     configurarBotones();
+    forzarAlturaVisor();
     
     setTimeout(function() {
         verificarCacheAlIniciar();
     }, 3000);
+    
+    // Reforzar altura del visor cada segundo durante 5 segundos
+    for (var i = 1; i <= 5; i++) {
+        setTimeout(forzarAlturaVisor, i * 1000);
+    }
     
     console.log("✅ SISTEMA LISTO");
 });
@@ -551,3 +526,6 @@ window.addEventListener('load', function() {
 setTimeout(function() {
     configurarBotones();
 }, 1000);
+
+// Reforzar altura al cambiar tamaño de ventana
+window.addEventListener('resize', forzarAlturaVisor);
