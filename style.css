@@ -1,6 +1,6 @@
 /* ============================================
    ESTILOS - MONTAJE PUENTE QUITACALZÓN
-   VERSIÓN: FINAL - INDICADOR FIJO CORREGIDO
+   VERSIÓN: FINAL - INDICADOR FIJO GARANTIZADO
    ============================================ */
 
 :root { 
@@ -27,6 +27,9 @@ body {
     height: 100vh; 
 }
 
+/* ============================================
+   CONTENEDOR PRINCIPAL
+   ============================================ */
 .app-movil { 
     width: 100%; 
     max-width: 480px; 
@@ -38,7 +41,7 @@ body {
 }
 
 /* ============================================
-   INDICADOR DE DESCARGA
+   INDICADOR DE DESCARGA (PRECARGA)
    ============================================ */
 #indicador-descarga {
     font-family: sans-serif;
@@ -92,7 +95,7 @@ body {
 }
 
 /* ============================================
-   VISOR DE IMÁGENES (CORREGIDO)
+   VISOR DE IMÁGENES (ALTURA FIJA GARANTIZADA)
    ============================================ */
 .visor-imagenes { 
     position: relative; 
@@ -100,32 +103,40 @@ body {
     grid-template-columns: 1fr 1fr; 
     gap: 8px; 
     padding: 10px;
-    min-height: 170px;
+    height: 160px !important;
+    min-height: 160px !important;
+    max-height: 160px !important;
+    overflow: hidden !important;
     flex-shrink: 0;
 }
 
 .contenedor-img { 
     position: relative; 
-    height: 150px;
-    min-height: 150px;
-    max-height: 150px;
+    width: 100%;
+    height: 140px;
+    min-height: 140px;
+    max-height: 140px;
     background: #000; 
     border: 1px solid var(--br); 
     border-radius: 10px; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .contenedor-img img { 
-    max-width: 100%; 
-    max-height: 100%; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 95%;
+    max-height: 95%;
     object-fit: contain;
     display: block;
 }
 
-/* Indicador de paso flotante (CORREGIDO) */
+/* Indicador de paso flotante - FIJO */
 #indicador-paso-flotante {
     position: absolute; 
     top: 50%; 
@@ -146,11 +157,14 @@ body {
     border: 3px solid #000; 
     box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
     pointer-events: none;
+    margin: 0;
+    padding: 0;
 }
 
 #num-paso { 
     font-size: 24px; 
     line-height: 22px;
+    display: block;
 }
 
 .etiqueta-flotante { 
@@ -405,8 +419,12 @@ body {
 }
 
 .wrapper-zoom img {
-    max-width: 100%;
-    max-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 95%;
+    max-height: 95%;
     object-fit: contain;
 }
 
@@ -456,9 +474,11 @@ body {
    ============================================ */
 @media (max-width: 360px) {
     .visor-imagenes {
+        height: 140px !important;
+        min-height: 140px !important;
+        max-height: 140px !important;
         gap: 4px;
         padding: 6px;
-        min-height: 140px;
     }
     
     .contenedor-img {
@@ -496,10 +516,16 @@ body {
         max-width: 600px;
     }
     
+    .visor-imagenes {
+        height: 200px !important;
+        min-height: 200px !important;
+        max-height: 200px !important;
+    }
+    
     .contenedor-img {
-        height: 200px;
-        min-height: 200px;
-        max-height: 200px;
+        height: 180px;
+        min-height: 180px;
+        max-height: 180px;
     }
     
     #indicador-paso-flotante {
