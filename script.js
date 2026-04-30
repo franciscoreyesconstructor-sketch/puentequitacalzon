@@ -2,7 +2,7 @@
    SISTEMA DE MONITOREO Y AUDITORÍA
    PUENTE QUITACALZÓN
    DESARROLLADO POR: ANTONIO SERRA
-   VERSIÓN: 15.0 FINAL - PRECARGA CORREGIDA
+   VERSIÓN: 16.0 FINAL - ZOOM CORREGIDO
    ============================================ */
 
 var datosOriginales = [];
@@ -169,14 +169,45 @@ function actualizarInterfaz() {
 }
 
 // =============================================
-// SISTEMA DE ZOOM (PINCH ZOOM)
+// SISTEMA DE ZOOM (PINCH ZOOM) - CORREGIDO
 // =============================================
 function inicializarZoomsMiniaturas() {
     try {
         var contenedores = document.querySelectorAll(".contenedor-img");
-        if (contenedores.length >= 2 && typeof PinchZoom !== 'undefined' && PinchZoom.default) {
-            zUbi = new PinchZoom.default(contenedores[0], { minZoom: 1, maxZoom: 4 });
-            zPieza = new PinchZoom.default(contenedores[1], { minZoom: 1, maxZoom: 4 });
+        
+        if (contenedores.length >= 2) {
+            if (typeof PinchZoom === 'undefined') {
+                console.warn("⚠️ PinchZoom no disponible - usando zoom nativo del navegador");
+                return;
+            }
+            
+            if (typeof PinchZoom.default === 'function') {
+                zUbi = new PinchZoom.default(contenedores[0], { 
+                    tapZoomFactor: 2, 
+                    maxZoom: 4, 
+                    minZoom: 1,
+                    use2d: true 
+                });
+                zPieza = new PinchZoom.default(contenedores[1], { 
+                    tapZoomFactor: 2, 
+                    maxZoom: 4, 
+                    minZoom: 1,
+                    use2d: true 
+                });
+                console.log("🔍 Zoom inicializado correctamente");
+            } else if (typeof PinchZoom === 'function') {
+                zUbi = new PinchZoom(contenedores[0], { 
+                    tapZoomFactor: 2, 
+                    maxZoom: 4, 
+                    minZoom: 1 
+                });
+                zPieza = new PinchZoom(contenedores[1], { 
+                    tapZoomFactor: 2, 
+                    maxZoom: 4, 
+                    minZoom: 1 
+                });
+                console.log("🔍 Zoom inicializado (modo alternativo)");
+            }
         }
     } catch (e) {
         console.warn("⚠️ Error al inicializar zoom:", e.message);
@@ -187,33 +218,96 @@ function resetearZoomMiniaturas() {
     try {
         if (zUbi && typeof zUbi.setZoom === "function") zUbi.setZoom(1);
         if (zPieza && typeof zPieza.setZoom === "function") zPieza.setZoom(1);
-    } catch (e) {}
+    } catch (e) {
+        console.warn("Error al resetear zoom:", e.message);
+    }
 }
 
 function abrirZoomDetalle(idElemento, titulo) {
+    console.log("🔍 Abriendo zoom: " + idElemento + " - " + titulo);
+    
     var origen = document.getElementById(idElemento);
-    if (!origen || !origen.src) return;
+    if (!origen) {
+        console.error("❌ No se encontró el elemento: " + idElemento);
+        return;
+    }
     
-    document.getElementById("img-zoom-full").src = origen.src;
-    document.getElementById("titulo-zoom-modal").innerText = titulo;
-    document.getElementById("modal-zoom-detallado").style.display = "flex";
+    if (!origen.src) {
+        console.error("❌ El elemento no tiene src: " + idElemento);
+        return;
+    }
     
-    setTimeout(function() {
-        try {
-            var wrapper = document.getElementById('wrapper-zoom-detalle');
-            if (wrapper && typeof PinchZoom !== 'undefined' && PinchZoom.default) {
-                if (!zFull) {
-                    zFull = new PinchZoom.default(wrapper, { maxZoom: 6 });
-                } else if (typeof zFull.setZoom === "function") {
-                    zFull.setZoom(1);
+    var imgZoom = document.getElementById("img-zoom-full");
+    var tituloZoom = document.getElementById("titulo-zoom-modal");
+    var modal = document.getElementById("modal-zoom-detallado");
+    
+    if (!imgZoom || !modal) {
+        console.error("❌ No se encontró el modal de zoom");
+        return;
+    }
+    
+    imgZoom.src = origen.src;
+    if (tituloZoom) tituloZoom.innerText = titulo;
+    modal.style.display = "flex";
+    
+    // Inicializar zoom después de que la imagen cargue
+    imgZoom.onload = function() {
+        setTimeout(function() {
+            try {
+                var wrapper = document.getElementById('wrapper-zoom-detalle');
+                if (!wrapper) {
+                    console.error("❌ No se encontró wrapper-zoom-detalle");
+                    return;
                 }
+                
+                // Destruir zoom anterior si existe
+                if (zFull && typeof zFull.destroy === "function") {
+                    zFull.destroy();
+                }
+                zFull = null;
+                
+                // Crear nuevo zoom
+                if (typeof PinchZoom !== 'undefined') {
+                    if (typeof PinchZoom.default === 'function') {
+                        zFull = new PinchZoom.default(wrapper, { 
+                            tapZoomFactor: 2, 
+                            maxZoom: 6, 
+                            minZoom: 1,
+                            use2d: true 
+                        });
+                    } else if (typeof PinchZoom === 'function') {
+                        zFull = new PinchZoom(wrapper, { 
+                            tapZoomFactor: 2, 
+                            maxZoom: 6, 
+                            minZoom: 1 
+                        });
+                    }
+                    console.log("🔍 Zoom del modal inicializado");
+                }
+            } catch (e) {
+                console.warn("⚠️ Error al abrir zoom:", e.message);
             }
-        } catch (e) {}
-    }, 100);
+        }, 200);
+    };
+    
+    // Si la imagen ya estaba cargada
+    if (imgZoom.complete) {
+        imgZoom.onload();
+    }
 }
 
 function cerrarZoomDetalle() {
-    document.getElementById("modal-zoom-detallado").style.display = "none";
+    console.log("🔍 Cerrando zoom");
+    
+    if (zFull && typeof zFull.destroy === "function") {
+        zFull.destroy();
+    }
+    zFull = null;
+    
+    var modal = document.getElementById("modal-zoom-detallado");
+    if (modal) {
+        modal.style.display = "none";
+    }
 }
 
 // =============================================
@@ -269,7 +363,6 @@ function precargarArchivos() {
     btn.innerText = '⏳ VERIFICANDO...';
     estado.innerText = 'Comprobando conexión con el sistema...';
     
-    // Función para iniciar la precarga
     function iniciarPrecarga() {
         if (navigator.serviceWorker.controller) {
             btn.innerText = '⏳ DESCARGANDO...';
@@ -298,13 +391,11 @@ function precargarArchivos() {
         }
     }
     
-    // Esperar a que el SW esté listo
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.ready.then(function(registration) {
             console.log('✅ SW listo para precarga');
             iniciarPrecarga();
         }).catch(function() {
-            // Si falla, intentar directamente
             iniciarPrecarga();
         });
     } else {
